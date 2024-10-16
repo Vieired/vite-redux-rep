@@ -1,52 +1,24 @@
-
-import { connect } from "react-redux";
-import { Lesson, Module, Video } from "../../shared/models/Video";
+// import { useDispatch, useSelector } from 'react-redux';
+// import { RootState } from '../../store';
+// import { increment, decrement } from '../../store/Stock/Stock.actions';
 import { Container } from "./styles";
 
-// const SideBar = ({ modules }) => (
-//     <Container>
-//         <h3>Lista</h3>
-//         <aside>
-//             {modules?.map((module) => (
-//                 <div key={module.id}>
-//                     <strong>{module.title}</strong>
-//                     <ul>
-//                         {module?.lessons?.map((lesson) => (
-//                             <li key={lesson.id}>{lesson.title}</li>
-//                         ))}
-//                     </ul>
-//                 </div>
-//             ))}
-//         </aside>
-//     </Container>
-// );
-// export default connect((state) => ({ modules: state.modules }))(SideBar);
-
-
-// const SideBar = ({ modules }) => (
-//     <Container>
-//         <h3>Lista</h3>
-//         <aside>
-//             {modules?.map((module: Module) => (
-//                 <div key={module.id}>
-//                     <strong>{module.title}</strong>
-//                     <ul>
-//                         {module?.lessons?.map((lesson:Lesson) => (
-//                             <li key={lesson.id}>{lesson.title}</li>
-//                         ))}
-//                     </ul>
-//                 </div>
-//             ))}
-//         </aside>
-//     </Container>
-// );
-// export default connect((state: Video) => ({ modules: state.modules } as Video))(SideBar);
-
 const SideBar: React.FC = () => {
+
+    // const dispatch = useDispatch();
+    // const stock = useSelector((state: RootState) => state.stock);
+
     return (
         <Container>
             <h3>Lista</h3>
-            <aside>
+            {/* <p>{stock.counter}</p>
+            <button
+                type="button"
+                onClick={() => dispatch(increment())}>+</button>
+            <button
+                type="button"
+                onClick={() => dispatch(decrement())}>-</button> */}
+            {/* <aside>
                 {modules?.map((module: Module) => (
                     <div key={module.id}>
                         <strong>{module.title}</strong>
@@ -57,54 +29,9 @@ const SideBar: React.FC = () => {
                         </ul>
                     </div>
                 ))}
-            </aside>
+            </aside> */}
         </Container>
     );
 };
 
-export default connect((state: Video) => ({ modules: state.modules }))(SideBar);
-
-// const SideBar: React.FC<Video> = ({ modules }) => {
-//     return (
-//         <Container>
-//             <h3>Lista</h3>
-//             <aside>
-//                 {modules?.map((module: Module) => (
-//                     <div key={module.id}>
-//                         <strong>{module.title}</strong>
-//                         <ul>
-//                             {module?.lessons?.map((lesson:Lesson) => (
-//                                 <li key={lesson.id}>{lesson.title}</li>
-//                             ))}
-//                         </ul>
-//                     </div>
-//                 ))}
-//             </aside>
-//         </Container>
-//     );
-// };
-
-// export default connect((state: Video) => ({ modules: state.modules }))(SideBar);
-
-
-// export default connect((state: Video) => ({ modules: state.modules }))(
-//     ({ modules }) => {
-//         return (
-//             <Container>
-//                 <h3>Lista</h3>
-//                 <aside>
-//                     {modules.map((module: Module) => (
-//                         <div key={module.id}>
-//                             <strong>{module.title}</strong>
-//                             <ul>
-//                                 {module?.lessons?.map((lesson:Lesson) => (
-//                                     <li key={lesson.id}>{lesson.title}</li>
-//                                 ))}
-//                             </ul>
-//                         </div>
-//                     ))}
-//                 </aside>
-//             </Container>
-//         );
-//     };
-// );
+export default SideBar;
