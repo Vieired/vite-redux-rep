@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
-import { Provider, useDispatch, useSelector } from 'react-redux';
-import store, { RootState } from './store';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from './store';
 import { decrement, increment } from './store/Stock.store';
 // import Learn from './pages/Learn'
 // import videoRep from './store';
@@ -15,7 +15,7 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <Provider store={store}>
+    <>
       <div>
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
@@ -38,8 +38,8 @@ function App() {
           onClick={() => dispatch(increment())}>+</button>
       <button
           type="button"
-          onClick={() => dispatch(decrement())}>-</button>      
-    </Provider>
+          onClick={() => dispatch(decrement())}>-</button>
+    </>
   )
 }
 
