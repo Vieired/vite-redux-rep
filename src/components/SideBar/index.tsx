@@ -1,16 +1,22 @@
-// import { useDispatch, useSelector } from 'react-redux';
-// import { RootState } from '../../store';
-// import { increment, decrement } from '../../store/Stock/Stock.actions';
+import { useDispatch } from 'react-redux';
+import { decrement, increment } from '../../store/Stock.store';
 import { Container } from "./styles";
 
 const SideBar: React.FC = () => {
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     // const stock = useSelector((state: RootState) => state.stock);
 
     return (
         <Container>
             <h3>Lista</h3>
+            <button
+                type="button"
+                onClick={() => dispatch(decrement())}>-</button>
+            <button
+                type="button"
+                onClick={() => dispatch(increment())}>+</button>
+
             {/* <p>{stock.counter}</p>
             <button
                 type="button"

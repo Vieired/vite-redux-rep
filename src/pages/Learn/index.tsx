@@ -7,7 +7,7 @@ const Learn: React.FC = () => {
 
     return (
         <Container>    
-            <h2>Sala de Aprendizado</h2>
+            {/* <h2>Sala de Aprendizado</h2> */}
             <Video />
             <SideBar />
         </Container>
