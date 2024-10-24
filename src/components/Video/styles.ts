@@ -8,3 +8,9 @@ export const Container = styled.div`
     border: solid #ffc0cb66 2px;
     background: #f7e6e9;
 `;
+
+export const Buttons = styled.div`
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+`;
