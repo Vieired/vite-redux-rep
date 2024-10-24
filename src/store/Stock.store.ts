@@ -10,7 +10,7 @@ const stock = createSlice({
             state.counter += 1
         },
         decrement (state) {
-            state.counter =- 1
+            state.counter -= 1
         },
     }
 });
