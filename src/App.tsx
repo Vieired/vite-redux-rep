@@ -35,10 +35,10 @@ function App() {
       <p>{stock.counter}</p>
       <button
           type="button"
-          onClick={() => dispatch(increment())}>+</button>
+          onClick={() => dispatch(decrement())}>-</button>
       <button
           type="button"
-          onClick={() => dispatch(decrement())}>-</button>
+          onClick={() => dispatch(increment())}>+</button>
     </>
   )
 }
