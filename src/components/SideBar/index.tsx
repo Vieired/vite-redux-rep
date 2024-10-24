@@ -9,7 +9,7 @@ const SideBar: React.FC = () => {
 
     return (
         <Container>
-            <h3>Lista</h3>
+            <h2>Lista</h2>
             <button
                 type="button"
                 onClick={() => dispatch(decrement())}>-</button>
