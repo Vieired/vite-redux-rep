@@ -16,4 +16,8 @@ const stockSlice = createSlice({
 });
 
 export const { decrement, increment } = stockSlice.actions
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const selectStock = (state:any) => state.stock;
+
 export default stockSlice.reducer

@@ -1,16 +1,17 @@
 import reactLogo from './assets/react.svg'
 import './App.css'
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from './store/stock';
-import { decrement, increment } from './store/stockSlice';
-import Learn from './pages/Learn'
-// import videoRep from './store';
 // import { useDispatch, useSelector } from 'react-redux';
+// import { RootState } from './store/stock';
+import { decrement, increment, selectStock } from './store/stockSlice';
+import Learn from './pages/Learn'
+import Games from './pages/Games';
+// import videoRep from './store';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function App() {
   const dispatch = useDispatch();
-  const stock = useSelector((state: RootState) => state.stock);
+  const stock = useSelector(selectStock);
   // const [count, setCount] = useState(0)
 
   return (

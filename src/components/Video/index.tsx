@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "../../store/stockSlice";
-import { RootState } from "../../store/stock";
+import { selectStock } from "../../store/stockSlice";
 import { Buttons, Container } from "./styles";
 
 
 const Video: React.FC = () => {
 
     const dispatch = useDispatch();
-    const stock = useSelector((state: RootState) => state.stock);
+    const stock = useSelector(selectStock);
 
     return (
         <Container>
