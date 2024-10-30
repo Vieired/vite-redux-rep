@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { decrement, increment } from '../../store/Stock.store';
+import { decrement, increment } from '../../store/stockSlice';
 import { Container } from "./styles";
 
 const SideBar: React.FC = () => {

@@ -1,8 +1,8 @@
 import reactLogo from './assets/react.svg'
 import './App.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from './store';
-import { decrement, increment } from './store/Stock.store';
+import { RootState } from './store/stock';
+import { decrement, increment } from './store/stockSlice';
 import Learn from './pages/Learn'
 // import videoRep from './store';
 // import { useDispatch, useSelector } from 'react-redux';

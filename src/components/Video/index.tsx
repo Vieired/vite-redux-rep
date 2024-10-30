@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "../../store/Stock.store";
-import { RootState } from "../../store";
+import { decrement, increment } from "../../store/stockSlice";
+import { RootState } from "../../store/stock";
 import { Buttons, Container } from "./styles";
 
 
