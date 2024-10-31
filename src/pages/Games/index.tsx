@@ -70,7 +70,7 @@ const Games: React.FC = () => {
 
     return (
         <Container>    
-            <h2>Últimas Limpezas Nos Board Games</h2>
+            <h2>Coleção de Jogos - Últimas Limpezas</h2>
             <small>{subtitle}</small>
             <ul>
                 {(games as Game[])?.map((game: Game) => (
