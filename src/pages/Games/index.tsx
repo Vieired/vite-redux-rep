@@ -75,18 +75,18 @@ const Games: React.FC = () => {
             <ul>
                 {(games as Game[])?.map((game: Game) => (
                     <li key={game.id}>
-                        <p>{game?.name || "N/A"}</p>
+                        <p><strong>{game?.name || "N/A"}</strong></p>
+                        <p className={checkLimit(game.cleaning_date, today) ? "limit" : ""}>
+                            { getTimeSinceLastCleaning(game.cleaning_date, today) }
+                        </p>
                         <p>
-                            {game?.cleaning_date
+                            Última limpeza: {game?.cleaning_date
                                 ? new Date(game.cleaning_date).toLocaleDateString(
                                     'pt-BR',
                                     {timeZone:"UTC",dateStyle:'short'}
                                 )
                                 : "N/A"
                             }
-                        </p>
-                        <p className={checkLimit(game.cleaning_date, today) ? "limit" : ""}>
-                            { getTimeSinceLastCleaning(game.cleaning_date, today) }
                         </p>
                     </li>
                 ))}

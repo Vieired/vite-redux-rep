@@ -4,7 +4,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    padding: 2rem;
+    padding: 1rem;
     background: #fffae8;
 
     > ul {
@@ -14,11 +14,26 @@ export const Container = styled.div`
         gap: 1rem;
         
         > li {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             justify-content: space-between;
             box-shadow: 0 0 8px 0px #82828282;
+            border-radius: 16px;
             padding: 1rem;
             background: cornsilk;
+
+            > p:first-of-type, p:nth-child(3) {
+                justify-self: flex-start;
+            }
+
+            > p:nth-child(2) {
+                justify-self: flex-end;
+            }
+
+            > p:nth-child(3) {
+                font-size: .8rem;
+                color: #828282;
+            }
 
             > p:last-of-type.limit {
                 color: red;
