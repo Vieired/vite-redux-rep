@@ -3,4 +3,5 @@ export interface Game {
     name: string;
     cleaning_date: string;
     cleaning_method: number;
+    isActive: boolean;
 }
