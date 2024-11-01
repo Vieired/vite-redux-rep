@@ -28,15 +28,15 @@ export const Container = styled.div`
 
             > p:nth-child(2) {
                 justify-self: flex-end;
+
+                &.limit {
+                    color: red;
+                }
             }
 
             > p:nth-child(3) {
                 font-size: .8rem;
                 color: #828282;
-            }
-
-            > p:last-of-type.limit {
-                color: red;
             }
         }
     }
