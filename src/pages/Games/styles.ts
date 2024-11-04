@@ -15,28 +15,38 @@ export const Container = styled.div`
         
         > li {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            justify-content: space-between;
+            grid-template-columns: auto 100px;
             box-shadow: 0 0 8px 0px #82828282;
             border-radius: 16px;
             padding: 1rem;
             background: cornsilk;
+            gap: 1rem;
 
-            > p:first-of-type, p:nth-child(3) {
-                justify-self: flex-start;
-            }
-
-            > p:nth-child(2) {
-                justify-self: flex-end;
-
-                &.limit {
-                    color: red;
+            > span {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                justify-content: space-between;
+    
+                > p:first-of-type, p:nth-child(3) {
+                    justify-self: flex-start;
+                }
+    
+                > p:nth-child(2) {
+                    justify-self: flex-end;
+    
+                    &.limit {
+                        color: red;
+                    }
+                }
+    
+                > p:nth-child(3) {
+                    font-size: .8rem;
+                    color: #828282;
                 }
             }
 
-            > p:nth-child(3) {
-                font-size: .8rem;
-                color: #828282;
+            > button {
+                background-color: #f3e5ab;
             }
         }
     }

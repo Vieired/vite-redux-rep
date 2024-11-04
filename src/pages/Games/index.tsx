@@ -1,20 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+// import { FaHandsWash } from "react-icons/fa";
 // import { useSelector } from "react-redux";
 // import { selectGames } from "../../store/gamesSlice.js";
-import { collection, query, getDocs } from "firebase/firestore";
-import { db } from "../../firebase/config.js";
+// import { collection, query, getDocs, doc, setDoc } from "firebase/firestore";
+// import { db } from "../../firebase/config.js";
 import { Container } from "./styles.js";
 import { Game } from "../../shared/models/Games.js";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchGames, selectGames, updateCleaningDate } from "../../store/gamesSlice.js";
+import { UnknownAction } from "@reduxjs/toolkit";
 
 
 
 const Games: React.FC = () => {
 
+    const dispatch = useDispatch();
+    const games = useSelector(selectGames).games;
+
+    // const [ games, setGames ] = useState<Game[]|null>(null);
+
     const monthLimit: number = 6;
     const subtitle = `Frequência para Limpeza: ${monthLimit} meses`;
     const today = new Date().toISOString();
-    // const games = useSelector(selectGames);
-    const [ games, setGames ] = useState<Game[]|null>(null);
 
     const getDiffDays = (startDate: string, endDate: string): number => {
         const partidaViagem = new Date(startDate);
@@ -39,34 +46,22 @@ const Games: React.FC = () => {
         return Math.floor(diff / 30) >= monthLimit;
     }
 
+    const handleCleaningClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+        e.preventDefault();
+        console.log(id);
+        dispatch(updateCleaningDate({id}) as unknown as UnknownAction);
+        // dispatch(updateCleaningDate({id}) as unknown as UnknownAction).then(() => {
+        //     dispatch(fetchGames() as unknown as UnknownAction);
+        // });
+    }
+
+    const gamesStatus = useSelector(selectGames).status;
+
     useEffect(() => {
-        const fetchGames = async () => {
-            const q = query(collection(db, "jogos"));
-
-            const querySnapshot = await getDocs(q);
-            const gameList: Game[] = [];
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-                gameList.push({
-                    // id: doc.id,
-                    ...doc.data() as Game
-                });
-            });
-
-            const sortedGameList = gameList.sort(function (a,b) {
-                return new Date(a.cleaning_date)<new Date(b.cleaning_date)?-1:new Date(a.cleaning_date)>new Date(b.cleaning_date)?1:0;
-            })
-
-            setGames(sortedGameList);
-            // setGames(prevState => [
-            //     ...prevState || [],
-            //     ...doc.data() as Game[]
-            // ]);
+        if(gamesStatus === 'idle') {
+            dispatch(fetchGames() as unknown as UnknownAction);
         }
-
-        fetchGames();
-    }, []);
+    }, [dispatch, gamesStatus]);
 
     return (
         <Container>    
@@ -75,19 +70,29 @@ const Games: React.FC = () => {
             <ul>
                 {(games as Game[])?.map((game: Game) => (
                     <li key={game.id}>
-                        <p><strong>{game?.name || "N/A"}</strong></p>
-                        <p className={checkLimit(game.cleaning_date, today) ? "limit" : ""}>
-                            { getTimeSinceLastCleaning(game.cleaning_date, today) }
-                        </p>
-                        <p>
-                            Última limpeza: {game?.cleaning_date
-                                ? new Date(game.cleaning_date).toLocaleDateString(
-                                    'pt-BR',
-                                    {timeZone:"UTC",dateStyle:'short'}
-                                )
-                                : "N/A"
-                            }
-                        </p>
+                        <span>
+                            <p><strong>{game?.name || "N/A"}</strong></p>
+                            <p className={checkLimit(game.cleaning_date, today) ? "limit" : ""}>
+                                { getTimeSinceLastCleaning(game.cleaning_date, today) }
+                            </p>
+                            <p>
+                                Última limpeza: {game?.cleaning_date
+                                    ? new Date(game.cleaning_date).toLocaleDateString(
+                                        'pt-BR',
+                                        {timeZone:"UTC",dateStyle:'short'}
+                                    )
+                                    : "N/A"
+                                }
+                            </p>
+                        </span>
+                        <button
+                            type="button"
+                            onClick={(e) => handleCleaningClick(e, game.id)}
+                            title="Atualizar Limpeza"
+                        >
+                            Limpar
+                            {/* <FaHandsWash /> */}
+                        </button>
                     </li>
                 ))}
             </ul>
