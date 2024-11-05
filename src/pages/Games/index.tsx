@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-// import { FaHandsWash } from "react-icons/fa";
+import { MdCleaningServices } from "react-icons/md";
 // import { useSelector } from "react-redux";
 // import { selectGames } from "../../store/gamesSlice.js";
 // import { collection, query, getDocs, doc, setDoc } from "firebase/firestore";
@@ -20,7 +20,7 @@ const Games: React.FC = () => {
     // const [ games, setGames ] = useState<Game[]|null>(null);
 
     const monthLimit: number = 6;
-    const subtitle = `Frequência para Limpeza: ${monthLimit} meses`;
+    const subtitle = `Frequência de limpezas: ${monthLimit} meses`;
     const today = new Date().toISOString();
 
     const getDiffDays = (startDate: string, endDate: string): number => {
@@ -35,7 +35,7 @@ const Games: React.FC = () => {
     const getTimeSinceLastCleaning = (startDate: string, endDate: string) => {
         const diff = getDiffDays(startDate, endDate);
         if(diff < 30) {
-            return `${diff} dias`
+            return `${diff} dia${diff > 1 ? 's' : ''}`
         }
 
         return `${Math.floor(diff / 30)} meses e ${diff%30} dias`;
@@ -55,6 +55,12 @@ const Games: React.FC = () => {
         // });
     }
 
+    const getImage = () => {
+        // const seed = new Date().getMilliseconds();
+        return `https://picsum.photos/100`;
+        // return `https://picsum.photos/seed/{${seed}}/picsum/100`;
+    }
+
     const gamesStatus = useSelector(selectGames).status;
 
     useEffect(() => {
@@ -69,10 +75,16 @@ const Games: React.FC = () => {
             <small>{subtitle}</small>
             <ul>
                 {(games as Game[])?.map((game: Game) => (
-                    <li key={game.id}>
+                    <li
+                        key={game.id}
+                        className={checkLimit(game.cleaning_date, today) ? "pending-maintenance" : ""}
+                    >
                         <span>
-                            <p><strong>{game?.name || "N/A"}</strong></p>
-                            <p className={checkLimit(game.cleaning_date, today) ? "limit" : ""}>
+                            <img src={getImage()} />
+                        </span>
+                        <span>
+                            <h3>{game?.name || "N/A"}</h3>
+                            <p>
                                 { getTimeSinceLastCleaning(game.cleaning_date, today) }
                             </p>
                             <p>
@@ -90,8 +102,7 @@ const Games: React.FC = () => {
                             onClick={(e) => handleCleaningClick(e, game.id)}
                             title="Atualizar Limpeza"
                         >
-                            Limpar
-                            {/* <FaHandsWash /> */}
+                            <MdCleaningServices />
                         </button>
                     </li>
                 ))}

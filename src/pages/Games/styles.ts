@@ -6,6 +6,7 @@ export const Container = styled.div`
     gap: 2rem;
     padding: 1rem;
     background: #fffae8;
+    color: #D9753B;
 
     > ul {
         display: flex;
@@ -15,38 +16,53 @@ export const Container = styled.div`
         
         > li {
             display: grid;
-            grid-template-columns: auto 100px;
-            box-shadow: 0 0 8px 0px #82828282;
+            grid-template-columns: 100px auto min-content;
+            box-shadow: 3px 3px 4px 1px #0000009c;
             border-radius: 16px;
             padding: 1rem;
-            background: cornsilk;
+            background: #023F56;
+            color: #F5F5F5;
             gap: 1rem;
+
+            &.pending-maintenance {
+                background: #C30414;
+            }
 
             > span {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
                 justify-content: space-between;
-    
+
+                @media (min-width: 768px) {
+                    grid-template-columns: 4fr 1fr 1fr;
+                }
+                
+                > h3 {
+                    padding: 0;
+                    margin: 0;
+                    text-align: left;
+                }
+
                 > p:first-of-type, p:nth-child(3) {
                     justify-self: flex-start;
                 }
     
                 > p:nth-child(2) {
-                    justify-self: flex-end;
-    
-                    &.limit {
-                        color: red;
-                    }
+                    justify-self: flex-start;
+                    align-content: end;
+                    color: #ffffff63;
                 }
     
                 > p:nth-child(3) {
+                    align-content: end;
                     font-size: .8rem;
-                    color: #828282;
+                    color: #ffffff63;
                 }
             }
 
             > button {
-                background-color: #f3e5ab;
+                background-color: #ffffff4a;
+                padding: 0.6em 0.3em;
+                font-size: 2rem;
             }
         }
     }
