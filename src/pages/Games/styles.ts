@@ -33,7 +33,11 @@ export const Container = styled.div`
                 justify-content: space-between;
 
                 @media (min-width: 768px) {
-                    grid-template-columns: 4fr 1fr 1fr;
+                    grid-template-columns: 5fr 3fr 1fr;
+                }
+
+                @media (min-width: 1200px) {
+                    grid-template-columns: 4fr 2fr 1fr;
                 }
                 
                 > h3 {
@@ -42,8 +46,16 @@ export const Container = styled.div`
                     text-align: left;
 
                     > button {
+                        padding: 0;
+                        margin: 0;
+                        text-align: left;
                         background: transparent;
                         color: inherit;
+                        border: none;
+
+                        &:hover, &:active, &:focus, &:target {
+                            border: none;
+                        }
                     }
                 }
 

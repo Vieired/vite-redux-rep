@@ -16,6 +16,7 @@ export const Container = styled.div`
 
     > input {
         /* width: 100%; */
+        display: flow;
         font-family: 'Couplet', sans-serif;
         font-size: inherit;
         background: #fff;
