@@ -88,7 +88,7 @@ const Modal: React.FC<Props> = ({ gameEditing/*, refreshList*/, modalOpen, toggl
     <Container>
       <ReactModal
         isOpen={modalOpen}
-        contentLabel={gameEditing ? "Edit Game" : "Create Game"}
+        contentLabel={gameEditing ? "Editar Jogo" : "Criar Jogo"}
         appElement={element}
         onRequestClose={toggleModal}
         // onAfterClose={handleAfterClose}
@@ -107,7 +107,7 @@ const Modal: React.FC<Props> = ({ gameEditing/*, refreshList*/, modalOpen, toggl
       >
         <ModalContent>
           <ModalHeader>
-            <h1>{gameEditing ? "Edit Game" : "Create New Game"}</h1>
+            <h1>{gameEditing ? "Editar Jogo" : "Criar Jogo"}</h1>
             <button type="button" onClick={toggleModal}>
               <RiCloseFill />
             </button>
