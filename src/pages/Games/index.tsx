@@ -1,14 +1,19 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { MdCleaningServices } from "react-icons/md";
-// import { useSelector } from "react-redux";
 // import { selectGames } from "../../store/gamesSlice.js";
 // import { collection, query, getDocs, doc, setDoc } from "firebase/firestore";
 // import { db } from "../../firebase/config.js";
-import { Container } from "./styles.js";
-import { Game } from "../../shared/models/Games.js";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchGames, selectGames, updateCleaningDate } from "../../store/gamesSlice.js";
+import { Game } from "../../shared/models/Games.js";
+import {
+    fetchGames,
+    selectGames,
+    updateCleaningDate,
+} from "../../store/gamesSlice.js";
 import { UnknownAction } from "@reduxjs/toolkit";
+import { Container } from "./styles.js";
+import Modal from "./Modal/index.js";
+
 
 
 
@@ -22,6 +27,14 @@ const Games: React.FC = () => {
     const monthLimit: number = 6;
     const subtitle = `Frequência de limpezas: ${monthLimit} meses`;
     const today = new Date().toISOString();
+
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [gameEditing, setGameEditing] = useState<Game|null>(null);
+
+    const toggleModal = useCallback(() => {
+        setModalOpen(prevState => !prevState);
+        // setModalOpen(!modalOpen);
+    }, []);
 
     const getDiffDays = (startDate: string, endDate: string): number => {
         const partidaViagem = new Date(startDate);
@@ -61,8 +74,12 @@ const Games: React.FC = () => {
         // return `https://picsum.photos/seed/{${seed}}/picsum/100`;
     }
 
-    const gamesStatus = useSelector(selectGames).status;
+    const handleEditClick = (game: Game) => {
+        setGameEditing(game);
+        toggleModal();
+    }
 
+    const gamesStatus = useSelector(selectGames).status;
     useEffect(() => {
         if(gamesStatus === 'idle') {
             dispatch(fetchGames() as unknown as UnknownAction);
@@ -83,7 +100,11 @@ const Games: React.FC = () => {
                             <img src={getImage()} />
                         </span>
                         <span>
-                            <h3>{game?.name || "N/A"}</h3>
+                            <h3>
+                                <button type="button" onClick={() => handleEditClick(game)}>
+                                    {game?.name || "N/A"}
+                                </button>
+                            </h3>
                             <p>
                                 { getTimeSinceLastCleaning(game.cleaning_date, today) }
                             </p>
@@ -107,6 +128,8 @@ const Games: React.FC = () => {
                     </li>
                 ))}
             </ul>
+
+            <Modal gameEditing={gameEditing} modalOpen={modalOpen} toggleModal={toggleModal} />
         </Container>
     );
 };

@@ -40,6 +40,11 @@ export const Container = styled.div`
                     padding: 0;
                     margin: 0;
                     text-align: left;
+
+                    > button {
+                        background: transparent;
+                        color: inherit;
+                    }
                 }
 
                 > p:first-of-type, p:nth-child(3) {

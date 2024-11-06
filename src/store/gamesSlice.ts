@@ -41,7 +41,7 @@ const gamesSlice = createSlice({
     },
     extraReducers: builder => {
         builder
-        // #region - READ
+        // #region - READ fetchGames
         //   .addCase(fetchGames, state => {
         //     // Clear out the list of posts whenever the user logs out
         //     return initialState
@@ -55,7 +55,7 @@ const gamesSlice = createSlice({
             // Add any fetched posts to the array
             state.games = action.payload;
             // state.games = (action.payload) as never[];
-            console.log('success');
+            // console.log('success');
             // state.games.map(game => {
             //     if (game.id === action.payload) {
             //         dispatch(fetchGames() as unknown as UnknownAction);
@@ -67,20 +67,35 @@ const gamesSlice = createSlice({
             // state.error = action.error.message ?? 'Unknown Error'
             console.log(action.error.message ?? 'Unknown Error');
         })
-        // #endregion - READ
+        // #endregion - READ fetchGames
 
-        // #region - UPDATE
+        // #region - UPDATE updateCleaningDate
         .addCase(updateCleaningDate.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.games = action.payload;
-            console.log(action.payload);
-            // dispatch(fetchGames() as unknown as UnknownAction);
+            // console.log("extraReducers updateCleaningDate: ", action.payload);
         })
         .addCase(updateCleaningDate.rejected, (state, action) => {
             state.status = 'failed';
             console.log(action.error.message ?? 'Unknown Error');
         })
-        // #endregion - UPDATE
+        // #endregion - UPDATE updateCleaningDate
+
+        // #region - UPDATE updateGame
+        .addCase(updateGame.pending, (state/*, action*/) => {
+            console.log('loading');
+            state.status = 'pending';
+        })
+        .addCase(updateGame.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.games = action.payload;
+            // console.log("extraReducers updateGame: ", action.payload);
+        })
+        .addCase(updateGame.rejected, (state, action) => {
+            state.status = 'failed';
+            console.log(action.error.message ?? 'Unknown Error');
+        })
+        // #endregion - UPDATE updateGame
       },
 });
 
@@ -99,7 +114,7 @@ export const fetchGames = createAsyncThunk('jogos/fetchGames', async () => {
     const gameList: Game[] = [];
     querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
+        // console.log(doc.id, " => ", doc.data());
         gameList.push({
             // id: doc.id,
             ...doc.data() as Game
@@ -121,7 +136,7 @@ export const updateCleaningDate = createAsyncThunk(
     'jogos/updateCleaningDate',
     async (payload: {id:string}) => { // TODO: refatorar para usar a tipagem Game
         const gamesRef = doc(db, 'jogos', payload.id);
-        console.log(payload);
+        console.log("updateCleaningDate payload: ", payload);
         
         await updateDoc(gamesRef, {
             cleaning_date: new Date().toISOString()
@@ -132,7 +147,43 @@ export const updateCleaningDate = createAsyncThunk(
         const querySnapshot = await getDocs(q);
         const gameList: Game[] = [];
         querySnapshot.forEach((doc) => {
-            console.log(doc.id, " => ", doc.data());
+            gameList.push({
+                ...doc.data() as Game
+            });
+        });
+    
+        const sortedGameList = gameList.sort(function (a,b) {
+            return new Date(a.cleaning_date) < new Date(b.cleaning_date)
+                ? -1
+                : new Date(a.cleaning_date) > new Date(b.cleaning_date)
+                    ? 1
+                    : 0;
+        });
+    
+        return sortedGameList;
+        // #endregion - código fetchGames replicado
+    }
+);
+
+export const updateGame = createAsyncThunk(
+    'jogos/updateGame',
+    async (payload: Game) => { // TODO: refatorar para usar a tipagem Game
+        const gamesRef = doc(db, 'jogos', payload.id);
+        console.log("updateGame payload: ", payload);
+        
+        await updateDoc(gamesRef, {
+            ...payload,
+            cleaning_date: payload.cleaning_date,
+            cleaning_method: 1,
+            isActive: true,
+            name: payload.name,
+        });
+
+        // #region - código fetchGames replicado
+        const q = query(collection(db, "jogos"));
+        const querySnapshot = await getDocs(q);
+        const gameList: Game[] = [];
+        querySnapshot.forEach((doc) => {
             gameList.push({
                 ...doc.data() as Game
             });

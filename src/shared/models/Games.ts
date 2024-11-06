@@ -1,7 +1,7 @@
 export interface Game { // TODO: refatorar para deixar todas as props nullable, menos id
     id: string;
-    name: string;
+    name?: string;
     cleaning_date: string;
-    cleaning_method: number;
+    cleaning_method?: number;
     isActive: boolean;
 }
