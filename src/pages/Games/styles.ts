@@ -28,6 +28,16 @@ export const Container = styled.div`
                 background: #C30414;
             }
 
+            > button {
+                background-color: #ffffff4a;
+                padding: 0.6em 0.3em;
+                font-size: 2rem;
+
+                &:focus, &:focus-visible {
+                    outline: 4px auto #fff;
+                }
+            }
+
             > span {
                 display: grid;
                 justify-content: space-between;
@@ -52,6 +62,12 @@ export const Container = styled.div`
                         background: transparent;
                         color: inherit;
                         border: none;
+                        border-radius: 1px;
+
+                        &:focus, &:focus-visible {
+                            outline: 6px auto #fff;
+                            outline-offset: 4px;
+                        }
 
                         &:hover, &:active, &:focus, &:target {
                             border: none;
@@ -74,12 +90,6 @@ export const Container = styled.div`
                     font-size: .8rem;
                     color: #ffffff63;
                 }
-            }
-
-            > button {
-                background-color: #ffffff4a;
-                padding: 0.6em 0.3em;
-                font-size: 2rem;
             }
         }
     }
