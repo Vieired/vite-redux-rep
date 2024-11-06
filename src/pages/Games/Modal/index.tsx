@@ -12,6 +12,7 @@ import { updateGame } from "../../../store/gamesSlice";
 import Button from "../../../components/Inputs/Button";
 import Input from "../../../components/Inputs/Input";
 import InputDate from "../../../components/Inputs/InputDate";
+import schema from "./schema";
 import {
   Container,
   ModalContent,
@@ -54,6 +55,7 @@ const Modal: React.FC<Props> = ({ gameEditing/*, refreshList*/, modalOpen, toggl
 
   const formik = useFormik({
     onSubmit: handleSubmit,
+    validationSchema: schema,
     enableReinitialize: true,
     initialValues: gameEditing as Game,
     // initialValues: gameEditing?.id
@@ -66,7 +68,6 @@ const Modal: React.FC<Props> = ({ gameEditing/*, refreshList*/, modalOpen, toggl
     //   toast.error("Check required fields.", {
     //     toastId: "invalid-form-field",
     //   });
-      alert("Check required fields.")
     }
 
     return formik?.getFieldMeta(fieldName)?.touched &&
