@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { MdCleaningServices } from "react-icons/md";
 // import { selectGames } from "../../store/gamesSlice.js";
 // import { collection, query, getDocs, doc, setDoc } from "firebase/firestore";
@@ -95,11 +95,11 @@ const Games: React.FC = () => {
         // });
     }
 
-    const getImage = () => {
+    const randomImage = useMemo(() => {
         // const seed = new Date().getMilliseconds();
         return `https://picsum.photos/100`;
         // return `https://picsum.photos/seed/{${seed}}/picsum/100`;
-    }
+    }, []);
 
     const handleEditClick = (game: Game) => {
         setGameEditing(game);
@@ -124,7 +124,10 @@ const Games: React.FC = () => {
                         className={checkLimit(game.cleaning_date, today) ? "pending-maintenance" : ""}
                     >
                         <span>
-                            <img src={game?.photoUrl} onError={() => getImage()} alt={game?.name || "Imagem do jogo"} />
+                            <img
+                                src={game?.photoUrl || randomImage}
+                                alt={game?.name || "Imagem do jogo"}
+                            />
                         </span>
                         <span>
                             <h3>
