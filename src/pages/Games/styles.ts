@@ -33,7 +33,11 @@ export const Container = styled.div`
                 padding: 0.6em 0.3em;
                 font-size: 2rem;
 
-                &:focus, &:focus-visible {
+                &:focus {
+                    outline: none;
+                    outline-offset: none;
+                }
+                &:focus-visible {
                     outline: 4px auto #fff;
                 }
             }
@@ -64,7 +68,12 @@ export const Container = styled.div`
                         border: none;
                         border-radius: 1px;
 
-                        &:focus, &:focus-visible {
+                        &:focus {
+                            outline: none;
+                            outline-offset: none;
+                        }
+
+                        &:focus-visible {
                             outline: 6px auto #fff;
                             outline-offset: 4px;
                         }
