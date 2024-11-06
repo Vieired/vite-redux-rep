@@ -135,6 +135,14 @@ const Modal: React.FC<Props> = ({ gameEditing/*, refreshList*/, modalOpen, toggl
                     onChange={formik?.handleChange}
                     errorText={getErrorMessage("cleaning_date")}
                 />
+                <Input
+                    name="photoUrl"
+                    label="URL da foto"
+                    value={formik?.values?.photoUrl}
+                    onChange={formik?.handleChange}
+                    errorText={getErrorMessage("photoUrl")}
+                    autoFocus
+                />
             </form>
           </ModalBody>
           <ModalFooter>

@@ -16,7 +16,7 @@ export const Container = styled.div`
         
         > li {
             display: grid;
-            grid-template-columns: 100px auto min-content;
+            grid-template-columns: min-content auto min-content;
             box-shadow: 3px 3px 4px 1px #0000009c;
             border-radius: 16px;
             padding: 1rem;
@@ -98,6 +98,15 @@ export const Container = styled.div`
                     align-content: end;
                     font-size: .8rem;
                     color: #ffffff63;
+                }
+
+                &:first-of-type {
+                    align-self: center;
+                    width: 100px;
+
+                    > img {
+                        width: inherit;
+                    }
                 }
             }
         }

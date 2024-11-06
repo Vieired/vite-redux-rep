@@ -124,7 +124,7 @@ const Games: React.FC = () => {
                         className={checkLimit(game.cleaning_date, today) ? "pending-maintenance" : ""}
                     >
                         <span>
-                            <img src={getImage()} />
+                            <img src={game?.photoUrl} onError={() => getImage()} alt={game?.name || "Imagem do jogo"} />
                         </span>
                         <span>
                             <h3>

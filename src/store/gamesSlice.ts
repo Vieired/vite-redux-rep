@@ -177,6 +177,7 @@ export const updateGame = createAsyncThunk(
             cleaning_method: 1,
             isActive: true,
             name: payload.name,
+            photoUrl: payload.photoUrl,
         });
 
         // #region - código fetchGames replicado
