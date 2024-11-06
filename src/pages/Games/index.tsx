@@ -26,7 +26,7 @@ const Games: React.FC = () => {
 
     const monthLimit: number = 6;
     const subtitle = `Frequência de limpezas: ${monthLimit} meses`;
-    const today = new Date().toISOString();
+    const today = new Date().toISOString().split("T")[0];
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [gameEditing, setGameEditing] = useState<Game|null>(null);
@@ -37,21 +37,48 @@ const Games: React.FC = () => {
     }, []);
 
     const getDiffDays = (startDate: string, endDate: string): number => {
-        const partidaViagem = new Date(startDate);
-        const partidaPrimEtapa = new Date(endDate);
-        const timeDiff = Math.abs(partidaPrimEtapa.getTime() - partidaViagem.getTime());
-        const diffDays = Math.round(timeDiff / (1000 * 3600 * 24));
+        const a = new Date(startDate);
+        const b = new Date(endDate);
+        const timeDiff = Math.abs(b.getTime() - a.getTime());
+        const diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));
+        // const diffDays = Math.round(timeDiff / (1000 * 3600 * 24));
         // const diffMinutes = Math.ceil(timeDiff / (1000 * 60));
         return diffDays;
     }
 
+    const getDiffMonths = (startDate: string, endDate: string): number => {
+        const a = new Date(startDate);
+        const b = new Date(endDate);
+        let diff =(a.getTime() - b.getTime()) / 1000;
+        diff /= (60 * 60 * 24 * 7 * 4);
+        return Math.abs(Math.round(diff));
+    }
+
     const getTimeSinceLastCleaning = (startDate: string, endDate: string) => {
-        const diff = getDiffDays(startDate, endDate);
-        if(diff < 30) {
-            return `${diff} dia${diff > 1 ? 's' : ''}`
+        const diffDays = getDiffDays(startDate, endDate);
+        const diffMonths = getDiffMonths(startDate, endDate) -1;
+
+        const days = diffDays % 31;
+        const months = diffMonths % 12;
+        const years = Math.floor(diffDays / 365);
+
+        if(diffDays < 30) {
+            const descriptionOfDays = days > 0 ? `${Math.floor(diffDays)} dia${days > 1 ? "s" : ""}` : "";
+            return descriptionOfDays
         }
 
-        return `${Math.floor(diff / 30)} meses e ${diff%30} dias`;
+        if(diffDays < 365) {
+            const descriptionOfDays = days > 0 ? `${days} dia${days > 1 ? "s" : ""}` : "";
+            const descriptionOfMonths = months > 0 ? `${months} mes${months > 1 ? "es" : ""}` : "";
+            return months > 0
+                ? `${descriptionOfMonths} e ${descriptionOfDays}`
+                : descriptionOfDays
+        }
+
+        const descriptionOfYears = years > 0 ? `${years} ano${years > 1 ? "s" :""}` : "";
+        const descriptionOfMonths = months > 0 ? `${months} mes${months > 1 ? "es" : ""}` : "";
+        const descriptionOfDays = days > 0 ? ` e ${days} dia${days > 1 ? "s" : ""}` : "";
+        return `${descriptionOfYears} ${descriptionOfMonths} ${descriptionOfDays}`
     }
 
     const checkLimit = (startDate: string, endDate: string): boolean => {
