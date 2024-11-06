@@ -1,0 +1,104 @@
+import { Container } from "./styles";
+
+interface Props {
+    value?: string | number;
+    label?: string;
+    type?: "text" | "password" | "search" | "textarea";
+    id?: string;
+    name?: string;
+    className?: string;
+    placeholder?: string;
+    autoComplete?: boolean;
+    autoFocus?: boolean;
+    readOnly?: boolean;
+    disabled?: boolean;
+    hidden?: boolean;
+    maxLength?: number;
+    errorText?: string;
+    fit?: boolean;
+    onChange?(e: React.ChangeEvent<unknown>): void;
+    onBlur?(e: React.FocusEvent<unknown>): void;
+}
+
+const Input: React.FC<Props> = ({
+    value = '',
+    id,
+    name,
+    label,
+    type = 'text',
+    placeholder = '',
+    className = '',
+    autoComplete = false,
+    autoFocus = false,
+    readOnly = false,
+    disabled = false,
+    hidden = false,
+    maxLength = undefined,
+    errorText,
+    fit = false,
+    onChange,
+    onBlur
+}) => {
+
+    return (
+        <Container className={className}>
+            { label && (
+                <label
+                    htmlFor={id || name}
+                    className={errorText ? 'invalid' : ''}
+                >
+                    {label}
+                </label>
+            )}
+            {type !== "textarea" && (
+            <input
+                value={(type === "text" && value == null) ? "" : value}
+                id={id || name}
+                name={name}
+                type={type}
+                placeholder={placeholder}
+                autoComplete={autoComplete ? 'on' : 'off'}
+                autoFocus={autoFocus}
+                readOnly={readOnly}
+                onChange={onChange}
+                onBlur={onBlur}
+                disabled={disabled}
+                hidden={hidden}
+                maxLength={maxLength}
+                className={errorText ? 'has-error' : ''}
+                aria-label={label || placeholder || `Campo do tipo ${type}`}
+                aria-errormessage={errorText}
+                aria-invalid={errorText && errorText!=='' ? true : false}
+            />
+            )}
+
+            {type === "textarea" && (
+                <textarea
+                value={value}
+                id={id || name}
+                name={name}
+                placeholder={placeholder}
+                autoComplete={autoComplete ? 'on' : 'off'}
+                autoFocus={autoFocus}
+                readOnly={readOnly}
+                onChange={onChange}
+                onBlur={onBlur}
+                disabled={disabled}
+                hidden={hidden}
+                maxLength={maxLength}
+                className={errorText ? 'has-error' : ''}
+                aria-label={label || placeholder || `Field of type ${type}`}
+                aria-errormessage={errorText}
+                aria-invalid={errorText && errorText!=='' ? true : false}
+            />
+            )}
+            {!fit && (
+                <small role="alert">
+                    {`${errorText != null ? errorText : ""}`}
+                </small>
+            )}
+        </Container>
+    );
+}
+
+export default Input;
