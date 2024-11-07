@@ -130,7 +130,7 @@ export const Reset = css`
   table {
     border-collapse: collapse;
     border-spacing: 0;
-  }
+  }*/
   button {
     border: 0;
     outline: 0;
@@ -143,7 +143,7 @@ export const Reset = css`
       cursor: unset;
     }
   }
-  a {
+  /*a {
     text-decoration: none;
   } */
 `;

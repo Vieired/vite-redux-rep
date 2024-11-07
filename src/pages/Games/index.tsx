@@ -121,7 +121,7 @@ const Games: React.FC = () => {
             <small>{subtitle}</small>
             <Toolbar>
                 <Button
-                    btnTheme="secondary"
+                    btnTheme="primary"
                     onClick={handleAddClick}
                     title="Adicionar jogo"
                     disabled={gamesStatus === "pending"}

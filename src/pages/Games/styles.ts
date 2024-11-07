@@ -120,6 +120,24 @@ export const Container = styled.div`
 
 export const Toolbar = styled.div`
     display: flex;
+
+    @media (max-width: 768px) {
+        position: fixed;
+        bottom: 16px;
+        background: #0000006b;
+        /* box-shadow: 0 0 13px 4px #000000d4; */
+        padding: 8px;
+        border-radius: 50%;
+
+        > button {
+            border-radius: 50%;
+            height: 48px;
+            width: 48px;
+            background: #39ad00;
+            background: #ABC106;
+            padding: 0;
+        }
+    }
 `;
 
 export const Loading = styled.div`

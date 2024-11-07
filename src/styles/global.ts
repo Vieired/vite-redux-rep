@@ -19,6 +19,52 @@ export default createGlobalStyle`
     --space-large: 1.1rem;
     --space-x-large: 1.7rem;
 
+    /* Color Theme Swatches in Hex */
+    
+    --Catan-1-hex-dark5: #012432;
+    --Catan-1-hex-dark4: #02384E;
+    --Catan-1-hex-dark3: #024D6A;
+    --Catan-1-hex-dark2: #036186;
+    --Catan-1-hex-dark1: #0377A4;
+    --Catan-1-hex-ref: #0378A6;
+    --Catan-1-hex-light1: #048DC3;
+    --Catan-1-hex-light2: #04A1DF;
+
+    --Catan-2-hex-dark5: #2C3201;
+    --Catan-2-hex-dark4: #454E02;
+    --Catan-2-hex-dark3: #5E6A02;
+    --Catan-2-hex-dark2: #778603;
+    --Catan-2-hex-dark1: #95A803;
+    --Catan-2-hex-ref: #93A603;
+    --Catan-2-hex-light1: #ADC304;
+    --Catan-2-hex-light2: #C5DF04;
+
+    --Catan-3-hex-dark6: #2D2200;
+    --Catan-3-hex-dark5: #493701;
+    --Catan-3-hex-dark4: #674E02;
+    --Catan-3-hex-dark3: #846303;
+    --Catan-3-hex-dark2: #A17903;
+    --Catan-3-hex-dark1: #A17A03;
+    --Catan-3-hex-ref: #BF9004;
+    --Catan-3-hex-light1: #DCA604;
+
+    --Catan-4-hex-dark5: #322101;
+    --Catan-4-hex-dark4: #4E3302;
+    --Catan-4-hex-dark3: #6A4602;
+    --Catan-4-hex-dark2: #865803;
+    --Catan-4-hex-dark1: #BE7D04;
+    --Catan-4-hex-ref: #BF7E04;
+    --Catan-4-hex: #DC9104;
+
+    --Catan-5-hex-dark2: #200303;
+    --Catan-5-hex-dark1: #3C0505;
+    --Catan-5-hex-ref: #590707;
+    --Catan-5-hex-light1: #5B0808;
+    --Catan-5-hex-light2: #790B0B;
+    --Catan-5-hex-light3: #950D0D;
+    --Catan-5-hex-light4: #B11010;
+    --Catan-5-hex-light5: #CD1212;
+
     --gray0: #2B2B2B;
     --gray1: #313131;
     --gray2: #545456;

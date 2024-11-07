@@ -8,7 +8,7 @@ interface Props {
 export const Container = styled.button<Props>`
     padding: 8px 16px;
     line-height: 0;
-    min-height: 32px;
+    height: 40px;
     border-radius: 5px;
     font-family: 'Couplet', sans-serif;
     font-style: normal;
@@ -21,13 +21,16 @@ export const Container = styled.button<Props>`
             return css<Props>`
                 /* margin: 8px 0; */
                 background-color: var(--gray1);
-                border: none;
-                color: #FFF;            
+                /* background: #39ad00; */
+                background: #ABC106;
+                border: 2px solid #434E02;
+                color: #1E2400;
                 transition: opacity .3s;
 
                 &:not(:disabled):hover {
-                    opacity: .8;
-                    background-color: var(--gray2)
+                    background-color: var(--gray2);
+                    background-color: #C4DD07;
+                    border-color: #434E02;
                 }
 
                 &:disabled {
@@ -51,13 +54,11 @@ export const Container = styled.button<Props>`
                 border: 2px solid var(--gray0);
                 color: var(--gray1);            
                 transition: opacity .3s;
-                font-weight: 600;
+                /* font-weight: 600; */
 
                 &:not(:disabled):hover {
-                    opacity: .8;
-                    background-color: var(--gray2);
-                    color: #FFF;
-                    border-color: var(--gray2);
+                    background: var(--gray6);
+                    border-color: var(--gray0);
                 }
 
                 &:disabled {
@@ -83,7 +84,7 @@ export const Container = styled.button<Props>`
         if (prop?.btnTheme === 'tertiary') {
             return css<Props>`
                 background-color: var(--gray6);
-                border: 1px solid var(--gray3B);
+                border: 2px solid var(--gray3B);
                 color: var(--gray1);            
                 transition: opacity .3s;
 
