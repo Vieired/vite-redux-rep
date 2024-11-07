@@ -6,6 +6,7 @@ import {
     doc,
     getDocs,
     updateDoc,
+    addDoc,
 } from 'firebase/firestore';
 import { Game } from '../shared/models/Games';
 
@@ -96,6 +97,23 @@ const gamesSlice = createSlice({
             console.log(action.error.message ?? 'Unknown Error');
         })
         // #endregion - UPDATE updateGame
+
+        // #region - CREATE createGame
+        .addCase(createGame.pending, (state/*, action*/) => {
+            console.log('loading');
+            state.status = 'pending';
+        })
+        .addCase(createGame.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.games = action.payload;
+            // state.games.push(action.payload[0]);
+            // console.log("extraReducers createGame: ", action.payload);
+        })
+        .addCase(createGame.rejected, (state, action) => {
+            state.status = 'failed';
+            console.log(action.error.message ?? 'Unknown Error');
+        })
+        // #endregion - CREATE createGame
       },
 });
 
@@ -167,7 +185,7 @@ export const updateCleaningDate = createAsyncThunk(
 
 export const updateGame = createAsyncThunk(
     'jogos/updateGame',
-    async (payload: Game) => { // TODO: refatorar para usar a tipagem Game
+    async (payload: Game) => {
         const gamesRef = doc(db, 'jogos', payload.id);
         console.log("updateGame payload: ", payload);
         
@@ -198,6 +216,51 @@ export const updateGame = createAsyncThunk(
                     : 0;
         });
     
+        return sortedGameList;
+        // #endregion - código fetchGames replicado
+    }
+);
+
+export const createGame = createAsyncThunk(
+    'jogos/createGame',
+    async (payload: Game) => {
+        const docRef = await addDoc(collection(db, 'jogos'), {
+            ...payload,
+            // cleaning_date: payload.cleaning_date,
+            cleaning_method: 1,
+            isActive: true,
+            // name: payload.name,
+            // photoUrl: payload?.photoUrl,
+        });
+        // console.log("createGame docRef: ", docRef);
+        // console.log("createGame payload: ", payload);
+        
+        const gamesRef = doc(db, 'jogos', docRef.id);
+        await updateDoc(gamesRef, {
+            id: docRef.id,
+            cleaning_date: payload.cleaning_date,
+            cleaning_method: 1,
+            isActive: true,
+            name: payload.name,
+            photoUrl: payload?.photoUrl || "",
+        });
+
+        // #region - código fetchGames replicado
+        const q = query(collection(db, "jogos"));
+        const querySnapshot = await getDocs(q);
+        const gameList: Game[] = [];
+        querySnapshot.forEach((doc) => {
+            gameList.push({
+                ...doc.data() as Game
+            });
+        });
+        const sortedGameList = gameList.sort(function (a,b) {
+            return new Date(a.cleaning_date) < new Date(b.cleaning_date)
+                ? -1
+                : new Date(a.cleaning_date) > new Date(b.cleaning_date)
+                    ? 1
+                    : 0;
+        });
         return sortedGameList;
         // #endregion - código fetchGames replicado
     }

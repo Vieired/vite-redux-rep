@@ -1,28 +1,22 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { MdCleaningServices } from "react-icons/md";
-// import { selectGames } from "../../store/gamesSlice.js";
-// import { collection, query, getDocs, doc, setDoc } from "firebase/firestore";
-// import { db } from "../../firebase/config.js";
+import { FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { Game } from "../../shared/models/Games.js";
+import { UnknownAction } from "@reduxjs/toolkit";
+import { Game } from "../../shared/models/Games.ts";
 import {
     fetchGames,
     selectGames,
     updateCleaningDate,
 } from "../../store/gamesSlice.js";
-import { UnknownAction } from "@reduxjs/toolkit";
-import { Container } from "./styles.js";
-import Modal from "./Modal/index.js";
-
-
-
+import Modal from "./Modal/index";
+import Button from "../../components/Inputs/Button/index";
+import { Container } from "./styles";
 
 const Games: React.FC = () => {
 
     const dispatch = useDispatch();
     const games = useSelector(selectGames).games;
-
-    // const [ games, setGames ] = useState<Game[]|null>(null);
 
     const monthLimit: number = 6;
     const subtitle = `Frequência de limpezas: ${monthLimit} meses`;
@@ -106,6 +100,14 @@ const Games: React.FC = () => {
         toggleModal();
     }
 
+    const handleAddClick = () => {
+        toggleModal();
+    }
+
+    const clearGameEditing = () => {
+        setGameEditing(null);
+    }
+
     const gamesStatus = useSelector(selectGames).status;
     useEffect(() => {
         if(gamesStatus === 'idle') {
@@ -117,6 +119,15 @@ const Games: React.FC = () => {
         <Container>    
             <h2>Coleção de Jogos - Últimas Limpezas</h2>
             <small>{subtitle}</small>
+            <div>
+                <Button
+                    btnTheme="secondary"
+                    onClick={handleAddClick}
+                    title="Adicionar jogo"
+                >
+                    <FaPlus />
+                </Button>
+            </div>
             <ul>
                 {(games as Game[])?.map((game: Game) => (
                     <li
@@ -159,7 +170,12 @@ const Games: React.FC = () => {
                 ))}
             </ul>
 
-            <Modal gameEditing={gameEditing} modalOpen={modalOpen} toggleModal={toggleModal} />
+            <Modal
+                gameEditing={gameEditing}
+                modalOpen={modalOpen}
+                toggleModal={toggleModal}
+                clearGameEditing={clearGameEditing}
+            />
         </Container>
     );
 };

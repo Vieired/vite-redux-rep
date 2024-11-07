@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { RiCloseFill } from "react-icons/ri";
 // import { toast } from "react-toastify";
 import { Game } from "../../../shared/models/Games";
-import { updateGame } from "../../../store/gamesSlice";
+import { createGame, updateGame } from "../../../store/gamesSlice";
 import Button from "../../../components/Inputs/Button";
 import Input from "../../../components/Inputs/Input";
 import InputDate from "../../../components/Inputs/InputDate";
@@ -27,18 +27,21 @@ interface Props {
     // refreshList: () => void;
     modalOpen: boolean;
     toggleModal: () => void;
+    clearGameEditing: () => void;
 }
 
-const Modal: React.FC<Props> = ({ gameEditing/*, refreshList*/, modalOpen, toggleModal }) => {
+const Modal: React.FC<Props> = ({
+  gameEditing,
+  // refreshList,
+  modalOpen,
+  toggleModal,
+  clearGameEditing,
+}) => {
 
   const element = document.createElement("div");
   const dispatch = useDispatch();
-//   const gameCreating: Game = {
-//     cleaning_date: new Date().toISOString(),
-//     cleaning_method: 1,
-//     isActive: true,
-//     name: "Teste"
-//   } as Game;
+
+  const today = new Date().toISOString().split("T")[0];
 
 //   const done = () => {
 //     toggleModal();
@@ -47,20 +50,32 @@ const Modal: React.FC<Props> = ({ gameEditing/*, refreshList*/, modalOpen, toggl
 
   const handleSubmit = (data: Game) => {
     // gameEditing ? edit(data, done) : save(data, done);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dispatch(updateGame(data) as any).then(()=>{
+    if(gameEditing?.id) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      dispatch(updateGame(data) as any).then(() => {
         toggleModal()
-     })
+      })
+    }
+    else {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      dispatch(createGame(data) as any).then(() => {
+        toggleModal()
+      })
+    }
   };
 
   const formik = useFormik({
     onSubmit: handleSubmit,
     validationSchema: schema,
     enableReinitialize: true,
-    initialValues: gameEditing as Game,
-    // initialValues: gameEditing?.id
-    //   ? (gameEditing as Game)
-    //   : gameCreating,
+    initialValues: gameEditing?.id
+      ? (gameEditing as Game)
+      : {
+        cleaning_date: today,
+        cleaning_method: 1,
+        isActive: true,
+        name: ""
+      } as Game,
   });
 
   const getErrorMessage = (fieldName: string) => {
@@ -76,10 +91,10 @@ const Modal: React.FC<Props> = ({ gameEditing/*, refreshList*/, modalOpen, toggl
       : "";
   };
 
-//   const handleAfterClose = () => {
-//     formik.resetForm();
-//     clearCompanyEditing();
-//   };
+  const handleAfterClose = () => {
+    formik.resetForm();
+    clearGameEditing();
+  };
 
 //   useEffect(() => {
 //     if (formik?.values?.province) setCityOptions(formik?.values?.province.id);
@@ -92,7 +107,7 @@ const Modal: React.FC<Props> = ({ gameEditing/*, refreshList*/, modalOpen, toggl
         contentLabel={gameEditing ? "Editar Jogo" : "Criar Jogo"}
         appElement={element}
         onRequestClose={toggleModal}
-        // onAfterClose={handleAfterClose}
+        onAfterClose={handleAfterClose}
         style={{
           content: {
             top: "50%",
@@ -141,7 +156,6 @@ const Modal: React.FC<Props> = ({ gameEditing/*, refreshList*/, modalOpen, toggl
                     value={formik?.values?.photoUrl}
                     onChange={formik?.handleChange}
                     errorText={getErrorMessage("photoUrl")}
-                    autoFocus
                 />
             </form>
           </ModalBody>

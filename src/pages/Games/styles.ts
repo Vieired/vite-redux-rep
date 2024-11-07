@@ -8,6 +8,10 @@ export const Container = styled.div`
     background: #fffae8;
     color: #D9753B;
 
+    > div {
+        display: flex;
+    }
+
     > ul {
         display: flex;
         flex-direction: column;
