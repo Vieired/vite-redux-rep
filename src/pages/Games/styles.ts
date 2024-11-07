@@ -8,10 +8,6 @@ export const Container = styled.div`
     background: #fffae8;
     color: #D9753B;
 
-    > div {
-        display: flex;
-    }
-
     > ul {
         display: flex;
         flex-direction: column;
@@ -119,5 +115,21 @@ export const Container = styled.div`
 
     @media (max-width: 768px) {
         
+    }
+`;
+
+export const Toolbar = styled.div`
+    display: flex;
+`;
+
+export const Loading = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    > span {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 1px;
     }
 `;

@@ -3,15 +3,16 @@ import { MdCleaningServices } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { UnknownAction } from "@reduxjs/toolkit";
-import { Game } from "../../shared/models/Games.ts";
+import Skeleton from "react-loading-skeleton";
 import {
     fetchGames,
     selectGames,
     updateCleaningDate,
 } from "../../store/gamesSlice.js";
+import { Game } from "../../shared/models/Games.ts";
 import Modal from "./Modal/index";
 import Button from "../../components/Inputs/Button/index";
-import { Container } from "./styles";
+import { Container, Loading, Toolbar } from "./styles";
 
 const Games: React.FC = () => {
 
@@ -80,8 +81,7 @@ const Games: React.FC = () => {
         return Math.floor(diff / 30) >= monthLimit;
     }
 
-    const handleCleaningClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
-        e.preventDefault();
+    const handleCleaningClick = (id: string) => {
         console.log(id);
         dispatch(updateCleaningDate({id}) as unknown as UnknownAction);
         // dispatch(updateCleaningDate({id}) as unknown as UnknownAction).then(() => {
@@ -119,56 +119,68 @@ const Games: React.FC = () => {
         <Container>    
             <h2>BG Limpo</h2>
             <small>{subtitle}</small>
-            <div>
+            <Toolbar>
                 <Button
                     btnTheme="secondary"
                     onClick={handleAddClick}
                     title="Adicionar jogo"
+                    disabled={gamesStatus === "pending"}
                 >
                     <FaPlus />
                 </Button>
-            </div>
-            <ul>
-                {(games as Game[])?.map((game: Game) => (
-                    <li
-                        key={game.id}
-                        className={checkLimit(game.cleaning_date, today) ? "pending-maintenance" : ""}
-                    >
-                        <span>
-                            <img
-                                src={game?.photoUrl || randomImage}
-                                alt={game?.name || "Imagem do jogo"}
-                            />
-                        </span>
-                        <span>
-                            <h3>
-                                <button type="button" onClick={() => handleEditClick(game)}>
-                                    {game?.name || "N/A"}
-                                </button>
-                            </h3>
-                            <p>
-                                { getTimeSinceLastCleaning(game.cleaning_date, today) }
-                            </p>
-                            <p>
-                                Última limpeza: {game?.cleaning_date
-                                    ? new Date(game.cleaning_date).toLocaleDateString(
-                                        'pt-BR',
-                                        {timeZone:"UTC",dateStyle:'short'}
-                                    )
-                                    : "N/A"
-                                }
-                            </p>
-                        </span>
-                        <button
-                            type="button"
-                            onClick={(e) => handleCleaningClick(e, game.id)}
-                            title="Atualizar Limpeza"
+            </Toolbar>
+            {gamesStatus !== "pending" ? (
+                <ul>
+                    {(games as Game[])?.map((game: Game) => (
+                        <li
+                            key={game.id}
+                            className={checkLimit(game.cleaning_date, today) ? "pending-maintenance" : ""}
                         >
-                            <MdCleaningServices />
-                        </button>
-                    </li>
-                ))}
-            </ul>
+                            <span>
+                                <img
+                                    src={game?.photoUrl || randomImage}
+                                    alt={game?.name || "Imagem do jogo"}
+                                />
+                            </span>
+                            <span>
+                                <h3>
+                                    <button type="button" onClick={() => handleEditClick(game)}>
+                                        {game?.name || "N/A"}
+                                    </button>
+                                </h3>
+                                <p>
+                                    { getTimeSinceLastCleaning(game.cleaning_date, today) }
+                                </p>
+                                <p>
+                                    Última limpeza: {game?.cleaning_date
+                                        ? new Date(game.cleaning_date).toLocaleDateString(
+                                            'pt-BR',
+                                            {timeZone:"UTC",dateStyle:'short'}
+                                        )
+                                        : "N/A"
+                                    }
+                                </p>
+                            </span>
+                            <button
+                                type="button"
+                                onClick={() => handleCleaningClick(game.id)}
+                                title="Atualizar Limpeza"
+                            >
+                                <MdCleaningServices />
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <Loading>
+                    <Skeleton
+                        count={6}
+                        height={100}
+                        baseColor="#00000017"
+                        highlightColor="#00000047"
+                    />
+                </Loading>
+            )}
 
             <Modal
                 gameEditing={gameEditing}
