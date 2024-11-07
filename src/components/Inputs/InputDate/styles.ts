@@ -40,11 +40,11 @@ export const Container = styled.div`
         &::-webkit-calendar-picker-indicator {
             background: var(--gray0);
             width: 25px;
-            height: 27px;
+            height: 38px;
             margin-top: -16px;
             margin-bottom: -16px;
             background: url(${icon}) center no-repeat, var(--gray0);
-            border-radius: 0 3px 3px 0;
+            border-radius: 0 5px 5px 0;
             cursor: pointer;
         }
     }

@@ -138,6 +138,7 @@ const Modal: React.FC<Props> = ({
                 <Input
                     name="name"
                     label="Name *"
+                    placeholder="Nome do jogo"
                     value={formik?.values?.name}
                     onChange={formik?.handleChange}
                     errorText={getErrorMessage("name")}
@@ -153,6 +154,7 @@ const Modal: React.FC<Props> = ({
                 <Input
                     name="photoUrl"
                     label="URL da foto"
+                    placeholder="Ex. https://google/storage/imagem.jpg"
                     value={formik?.values?.photoUrl}
                     onChange={formik?.handleChange}
                     errorText={getErrorMessage("photoUrl")}

@@ -117,7 +117,7 @@ const Games: React.FC = () => {
 
     return (
         <Container>    
-            <h2>Coleção de Jogos - Últimas Limpezas</h2>
+            <h2>BG Limpo</h2>
             <small>{subtitle}</small>
             <div>
                 <Button
