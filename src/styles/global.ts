@@ -128,6 +128,21 @@ export default createGlobalStyle`
       margin: 1rem 0;
     }
 
+    p {
+      margin: 0px;
+      padding: 0px;
+      border: 0px;
+      font: inherit;
+      vertical-align: baseline;
+      display: block;
+      margin-block-start: 0em;
+      margin-block-end: 0em;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      unicode-bidi: isolate;
+      line-height: 1.5;
+    }
+
     // Alert
     .react-confirm-alert-overlay {
       background: rgba(0, 0, 0, 0.2);

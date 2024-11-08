@@ -103,9 +103,14 @@ export const Container = styled.div`
                 &:first-of-type {
                     align-self: center;
                     width: 100px;
+                    background: radial-gradient(transparent, #00000038);
 
                     > img {
-                        width: inherit;
+                        width: 100px;
+                        max-width: inherit;
+                        max-height: 100px;
+                        object-fit: contain;
+                        object-position: center;
                     }
                 }
             }
@@ -143,6 +148,7 @@ export const Toolbar = styled.div`
 export const Loading = styled.div`
     display: flex;
     flex-direction: column;
+    padding: 1rem 0;
 
     > span {
         display: flex;

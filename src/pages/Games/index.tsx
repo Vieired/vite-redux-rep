@@ -177,7 +177,7 @@ const Games: React.FC = () => {
                 <Loading>
                     <Skeleton
                         count={6}
-                        height={100}
+                        height={132}
                         baseColor="#00000017"
                         highlightColor="#00000047"
                     />
