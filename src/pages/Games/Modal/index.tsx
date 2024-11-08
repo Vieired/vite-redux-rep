@@ -164,7 +164,7 @@ const Modal: React.FC<Props> = ({
           <ModalFooter>
             <Buttons>
               <Button onClick={toggleModal} btnTheme="secondary">
-                Cancel
+                Cancelar
               </Button>
               <Button
                 type="submit"
