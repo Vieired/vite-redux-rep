@@ -77,8 +77,8 @@ const Games: React.FC = () => {
     }
 
     const checkLimit = (startDate: string, endDate: string): boolean => {
-        const diff = getDiffDays(startDate, endDate);
-        return Math.floor(diff / 30) >= monthLimit;
+        const diff = getDiffMonths(startDate, endDate);
+        return diff > monthLimit;
     }
 
     const handleCleaningClick = (id: string) => {
