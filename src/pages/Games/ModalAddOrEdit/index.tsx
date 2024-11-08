@@ -29,7 +29,7 @@ interface Props {
     clearGameEditing: () => void;
 }
 
-const Modal: React.FC<Props> = ({
+const ModalAddOrEdit: React.FC<Props> = ({
   gameEditing,
   // refreshList,
   modalOpen,
@@ -203,4 +203,4 @@ const Modal: React.FC<Props> = ({
   );
 };
 
-export default Modal;
+export default ModalAddOrEdit;

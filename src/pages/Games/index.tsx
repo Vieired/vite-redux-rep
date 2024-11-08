@@ -9,7 +9,7 @@ import {
     selectGames,
 } from "../../store/gamesSlice.js";
 import { Game } from "../../shared/models/Games.ts";
-import Modal from "./Modal/index";
+import ModalAddOrEdit from "./ModalAddOrEdit/index";
 import ModalCleaning from "./ModalCleaning/index.tsx";
 import Button from "../../components/Inputs/Button/index";
 import { Container, Loading, Toolbar } from "./styles";
@@ -186,7 +186,7 @@ const Games: React.FC = () => {
                 </Loading>
             )}
 
-            <Modal
+            <ModalAddOrEdit
                 gameEditing={gameEditing}
                 modalOpen={modalOpen}
                 toggleModal={toggleModal}
