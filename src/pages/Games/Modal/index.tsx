@@ -2,11 +2,10 @@ import ReactModal from "react-modal";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 // import { useEffect } from "react";
-// import { useFormik } from "formik";
 // import ReactModal from "react-modal";
 // import { SingleValue } from "react-select";
 import { RiCloseFill } from "react-icons/ri";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { Game } from "../../../shared/models/Games";
 import { createGame, updateGame } from "../../../store/gamesSlice";
 import Button from "../../../components/Inputs/Button";
@@ -80,9 +79,9 @@ const Modal: React.FC<Props> = ({
 
   const getErrorMessage = (fieldName: string) => {
     if (formik.isSubmitting && !formik.isValid) {
-    //   toast.error("Check required fields.", {
-    //     toastId: "invalid-form-field",
-    //   });
+      toast.error("Check required fields.", {
+        toastId: "invalid-form-field",
+      });
     }
 
     return formik?.getFieldMeta(fieldName)?.touched &&

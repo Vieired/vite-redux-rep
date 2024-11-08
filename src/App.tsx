@@ -1,4 +1,5 @@
 // import reactLogo from './assets/react.svg'
+import { ToastContainer } from 'react-toastify';
 import './App.css'
 // import { useDispatch, useSelector } from 'react-redux';
 // import { RootState } from './store/stock';
@@ -17,6 +18,18 @@ function App() {
 
   return (
     <>
+      <ToastContainer
+        theme="colored"
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />    
       <GlobalStyle />
       <section>
         <Games />

@@ -9,6 +9,7 @@ import {
     addDoc,
 } from 'firebase/firestore';
 import { Game } from '../shared/models/Games';
+import { toast } from 'react-toastify';
 
 interface InitialStateGames {
     games: Game[],
@@ -67,18 +68,27 @@ const gamesSlice = createSlice({
             state.status = 'failed'
             // state.error = action.error.message ?? 'Unknown Error'
             console.log(action.error.message ?? 'Unknown Error');
+            toast.error("Falha ao tentar carregar os jogos.", {
+                toastId: "invalid-form-field",
+            });
         })
         // #endregion - READ fetchGames
 
         // #region - UPDATE updateCleaningDate
         .addCase(updateCleaningDate.fulfilled, (state, action) => {
             state.status = 'succeeded';
-            state.games = action.payload;
+            state.games = action.payload;          
             // console.log("extraReducers updateCleaningDate: ", action.payload);
+            toast.success("Jogo limpo com sucesso.", {
+                toastId: "notification-message",
+            });
         })
         .addCase(updateCleaningDate.rejected, (state, action) => {
             state.status = 'failed';
             console.log(action.error.message ?? 'Unknown Error');
+            toast.error("Erro desconhecido.", {
+                toastId: "invalid-form-field",
+            });
         })
         // #endregion - UPDATE updateCleaningDate
 
@@ -91,10 +101,16 @@ const gamesSlice = createSlice({
             state.status = 'succeeded';
             state.games = action.payload;
             // console.log("extraReducers updateGame: ", action.payload);
+            toast.success("Jogo atualizado com sucesso.", {
+                toastId: "notification-message",
+            });
         })
         .addCase(updateGame.rejected, (state, action) => {
             state.status = 'failed';
             console.log(action.error.message ?? 'Unknown Error');
+            toast.error("Erro desconhecido.", {
+                toastId: "invalid-form-field",
+            });
         })
         // #endregion - UPDATE updateGame
 
@@ -108,10 +124,16 @@ const gamesSlice = createSlice({
             state.games = action.payload;
             // state.games.push(action.payload[0]);
             // console.log("extraReducers createGame: ", action.payload);
+            toast.success("Jogo criado com sucesso.", {
+                toastId: "notification-message",
+            });
         })
         .addCase(createGame.rejected, (state, action) => {
             state.status = 'failed';
             console.log(action.error.message ?? 'Unknown Error');
+            toast.error("Erro desconhecido.", {
+                toastId: "invalid-form-field",
+            });
         })
         // #endregion - CREATE createGame
       },

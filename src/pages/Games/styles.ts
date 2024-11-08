@@ -91,6 +91,7 @@ export const Container = styled.div`
                     justify-self: flex-start;
                     align-content: end;
                     color: #ffffff63;
+                    text-align: start;
                 }
     
                 > p:nth-child(3) {
