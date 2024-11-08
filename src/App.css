@@ -2,10 +2,11 @@
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  /* max-width: 1280px; */
+  max-width: 1280px;
   margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
+  background: #fffae8;
 }
 
 section {

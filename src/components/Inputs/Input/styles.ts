@@ -73,6 +73,7 @@ export const Container = styled.div`
         width: inherit;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;        
+        text-overflow: ellipsis;
+        font-size: 0.6rem;
     }
 `;

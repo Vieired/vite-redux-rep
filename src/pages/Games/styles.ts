@@ -5,7 +5,6 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 2rem;
     padding: 1rem;
-    background: #fffae8;
     color: #D9753B;
 
     > ul {
