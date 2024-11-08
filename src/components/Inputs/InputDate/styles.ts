@@ -44,7 +44,7 @@ export const Container = styled.div`
             margin-top: -16px;
             margin-bottom: -16px;
             background: url(${icon}) center no-repeat, var(--gray0);
-            border-radius: 0 5px 5px 0;
+            border-radius: 0 2px 2px 0;
             cursor: pointer;
         }
     }
