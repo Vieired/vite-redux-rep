@@ -2,6 +2,7 @@ import ReactModal from "react-modal";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { RiCloseFill } from "react-icons/ri";
+import { MdCleaningServices } from "react-icons/md";
 import { toast } from "react-toastify";
 import { Game } from "../../../shared/models/Games";
 import { updateCleaningDate } from "../../../store/gamesSlice";
@@ -146,7 +147,7 @@ const ModalCleaning: React.FC<Props> = ({
                 form="hookform"
                 // disabled={getLoadingState()}
               >
-                Salvar
+                <span>Limpar</span><MdCleaningServices />
               </Button>
             </Buttons>
           </ModalFooter>

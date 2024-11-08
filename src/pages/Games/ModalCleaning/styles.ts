@@ -92,7 +92,10 @@ export const ModalFooter = styled.div`
     gap: 32px;
 
     button {
-      width: 100px;
+      /* width: 100px; */
+      gap: 8px;
+      display: flex;
+      align-items: center;
     }
   }
 `;
