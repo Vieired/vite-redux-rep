@@ -74,6 +74,6 @@ export const Container = styled.div`
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 0.6rem;
+        font-size: 0.8rem;
     }
 `;

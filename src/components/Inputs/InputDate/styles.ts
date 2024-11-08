@@ -56,6 +56,6 @@ export const Container = styled.div`
         color: red;
         min-height: 15px;
         width: inherit;
-        font-size: 0.6rem;
+        font-size: 0.8rem;
     }
 `;

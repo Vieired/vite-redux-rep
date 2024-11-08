@@ -6,7 +6,7 @@ export const Reset = css`
    License: none (public domain)
 */
 
-  /* html,
+  html,
   body,
   div,
   span,
@@ -18,9 +18,9 @@ export const Reset = css`
   h3,
   h4,
   h5,
-  h6, */
+  h6,
   p,
-  /* blockquote,
+  blockquote,
   pre,
   a,
   abbr,
@@ -85,7 +85,7 @@ export const Reset = css`
   summary,
   time,
   mark,
-  audio, */
+  audio,
   video {
     margin: 0;
     padding: 0;
@@ -96,7 +96,7 @@ export const Reset = css`
   }
     
   /* HTML5 display-role reset for older browsers */
-  /* article,
+  article,
   aside,
   details,
   figcaption,
@@ -111,12 +111,12 @@ export const Reset = css`
   }
   body {
     line-height: 1;
-  } */
+  }
   ol,
   ul {
     list-style: none;
   }
-  /* blockquote,
+  blockquote,
   q {
     quotes: none;
   }
@@ -130,7 +130,7 @@ export const Reset = css`
   table {
     border-collapse: collapse;
     border-spacing: 0;
-  }*/
+  }
   button {
     border: 0;
     outline: 0;
@@ -143,7 +143,7 @@ export const Reset = css`
       cursor: unset;
     }
   }
-  /*a {
+  a {
     text-decoration: none;
-  } */
+  }
 `;

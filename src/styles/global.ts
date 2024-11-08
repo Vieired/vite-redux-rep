@@ -89,6 +89,34 @@ export default createGlobalStyle`
     font-style: normal;
     font-weight: 400; */
 
+    h2, h3 {
+      line-height: normal;
+    }
+
+    h2 {
+      display: block;
+      font-size: 1.5em;
+      margin-block-start: 0.83em;
+      margin-block-end: 0.83em;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      font-weight: bold;
+      unicode-bidi: isolate;      
+    }
+
+    h3 {
+      font-size: 1.17em;
+      font-weight: 600;
+    }
+
+    small {
+      font-size: 0.8rem;
+    }
+
+    ul {
+      margin: 1rem 0;
+    }
+
     // Alert
     .react-confirm-alert-overlay {
       background: rgba(0, 0, 0, 0.2);
