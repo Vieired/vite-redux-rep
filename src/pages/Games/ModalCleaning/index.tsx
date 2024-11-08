@@ -40,7 +40,7 @@ const ModalCleaning: React.FC<Props> = ({
   const handleSubmit = (data: Game) => {
     dispatch(updateCleaningDate({
       id: data.id,
-      cleaning_method: data.cleaning_method,
+      cleaning_method: Number(data.cleaning_method),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }) as any).then(() => {
       toggleModal()

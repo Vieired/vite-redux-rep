@@ -50,14 +50,20 @@ const Modal: React.FC<Props> = ({
   const handleSubmit = (data: Game) => {
     // gameEditing ? edit(data, done) : save(data, done);
     if(gameEditing?.id) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      dispatch(updateGame(data) as any).then(() => {
+      dispatch(updateGame({
+        ...data,
+        cleaning_method: Number(data.cleaning_method),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      }) as any).then(() => {
         toggleModal()
       })
     }
     else {
+      dispatch(createGame({
+        ...data,
+        cleaning_method: Number(data.cleaning_method),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      dispatch(createGame(data) as any).then(() => {
+      }) as any).then(() => {
         toggleModal()
       })
     }
