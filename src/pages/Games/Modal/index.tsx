@@ -137,7 +137,7 @@ const Modal: React.FC<Props> = ({
                 {/* {`Editando: ${gameEditing?.name || "N/A"}`} */}
                 <Input
                     name="name"
-                    label="Name *"
+                    label="Nome *"
                     placeholder="Nome do jogo"
                     value={formik?.values?.name}
                     onChange={formik?.handleChange}
@@ -172,7 +172,7 @@ const Modal: React.FC<Props> = ({
                 form="hookform"
                 // disabled={getLoadingState()}
               >
-                Save
+                Salvar
               </Button>
             </Buttons>
           </ModalFooter>
