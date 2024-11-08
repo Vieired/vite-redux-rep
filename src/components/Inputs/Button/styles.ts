@@ -19,25 +19,26 @@ export const Container = styled.button<Props>`
     ${prop => {
         if (prop?.btnTheme === 'primary') {
             return css<Props>`
-                /* margin: 8px 0; */
                 background-color: var(--gray1);
-                /* background: #39ad00; */
                 background: #ABC106;
                 border: 2px solid #434E02;
                 color: #1E2400;
                 transition: opacity .3s;
 
-                &:not(:disabled):hover {
+                &:hover {
                     background-color: var(--gray2);
                     background-color: #C4DD07;
                     border-color: #434E02;
                 }
 
                 &:disabled {
-                    /* background-color: var(--gray5);
-                    color: var(--gray4); */
-                    background-color: var(--gray3B);
-                    color: #FFF;                    
+                    background-color: #C4DD07;
+                    color: #1E2400;
+                    border-color: #434E02;
+                    opacity: 0.4;
+                    /* background: #abc10661;
+                    color: #1e240080;
+                    border-color: #434e021c; */
                 }
 
                 &:focus-visible {
