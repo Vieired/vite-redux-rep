@@ -161,13 +161,15 @@ const Games: React.FC = () => {
                                     }
                                 </p>
                             </span>
-                            <button
-                                type="button"
-                                onClick={() => handleCleaningClick(game.id)}
-                                title="Atualizar Limpeza"
-                            >
-                                <MdCleaningServices />
-                            </button>
+                            {checkLimit(game.cleaning_date, today) && (
+                                <button
+                                    type="button"
+                                    onClick={() => handleCleaningClick(game.id)}
+                                    title="Atualizar Limpeza"
+                                >
+                                    <MdCleaningServices />
+                                </button>
+                            )}
                         </li>
                     ))}
                 </ul>
