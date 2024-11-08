@@ -76,8 +76,8 @@ const Games: React.FC = () => {
         return `${descriptionOfYears} ${descriptionOfMonths} ${descriptionOfDays}`
     }
 
-    const checkLimit = (startDate: string, endDate: string): boolean => {
-        const diff = getDiffMonths(startDate, endDate);
+    const checkLimit = (startDate: string): boolean => {
+        const diff = getDiffMonths(startDate, today);
         return diff > monthLimit;
     }
 
@@ -134,7 +134,7 @@ const Games: React.FC = () => {
                     {(games as Game[])?.map((game: Game) => (
                         <li
                             key={game.id}
-                            className={checkLimit(game.cleaning_date, today) ? "pending-maintenance" : ""}
+                            className={checkLimit(game.cleaning_date) ? "pending-maintenance" : ""}
                         >
                             <span>
                                 <img
@@ -161,7 +161,7 @@ const Games: React.FC = () => {
                                     }
                                 </p>
                             </span>
-                            {checkLimit(game.cleaning_date, today) && (
+                            {checkLimit(game.cleaning_date) && (
                                 <button
                                     type="button"
                                     onClick={() => handleCleaningClick(game.id)}
