@@ -174,12 +174,13 @@ export const fetchGames = createAsyncThunk('jogos/fetchGames', async () => {
 
 export const updateCleaningDate = createAsyncThunk(
     'jogos/updateCleaningDate',
-    async (payload: {id:string}) => { // TODO: refatorar para usar a tipagem Game
+    async (payload: {id:string, cleaning_method?: number}) => { // TODO: refatorar para usar a tipagem Game
         const gamesRef = doc(db, 'jogos', payload.id);
         console.log("updateCleaningDate payload: ", payload);
         
         await updateDoc(gamesRef, {
-            cleaning_date: new Date().toISOString()
+            cleaning_date: new Date().toISOString(),
+            cleaning_method: payload.cleaning_method,
         });
 
         // #region - código fetchGames replicado
@@ -214,7 +215,7 @@ export const updateGame = createAsyncThunk(
         await updateDoc(gamesRef, {
             ...payload,
             cleaning_date: payload.cleaning_date,
-            cleaning_method: 1,
+            cleaning_method: payload.cleaning_method,
             isActive: true,
             name: payload.name,
             photoUrl: payload.photoUrl,

@@ -7,10 +7,10 @@ import Skeleton from "react-loading-skeleton";
 import {
     fetchGames,
     selectGames,
-    updateCleaningDate,
 } from "../../store/gamesSlice.js";
 import { Game } from "../../shared/models/Games.ts";
 import Modal from "./Modal/index";
+import ModalCleaning from "./ModalCleaning/index.tsx";
 import Button from "../../components/Inputs/Button/index";
 import { Container, Loading, Toolbar } from "./styles";
 
@@ -21,14 +21,19 @@ const Games: React.FC = () => {
 
     const monthLimit: number = 6;
     const subtitle = `Frequência de limpezas: ${monthLimit} meses`;
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date().toISOString().split("T")[0]; // TODO: mover para o store Redux
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [modalCleaningOpen, setModalCleaningOpen] = useState<boolean>(false);
     const [gameEditing, setGameEditing] = useState<Game|null>(null);
 
     const toggleModal = useCallback(() => {
         setModalOpen(prevState => !prevState);
         // setModalOpen(!modalOpen);
+    }, []);
+
+    const toggleModalCleaning = useCallback(() => {
+        setModalCleaningOpen(prevState => !prevState);
     }, []);
 
     const getDiffDays = (startDate: string, endDate: string): number => {
@@ -81,19 +86,16 @@ const Games: React.FC = () => {
         return diff > monthLimit;
     }
 
-    const handleCleaningClick = (id: string) => {
-        console.log(id);
-        dispatch(updateCleaningDate({id}) as unknown as UnknownAction);
-        // dispatch(updateCleaningDate({id}) as unknown as UnknownAction).then(() => {
-        //     dispatch(fetchGames() as unknown as UnknownAction);
-        // });
-    }
-
     const randomImage = useMemo(() => {
         // const seed = new Date().getMilliseconds();
         return `https://picsum.photos/100`;
         // return `https://picsum.photos/seed/{${seed}}/picsum/100`;
     }, []);
+
+    const handleCleaningClick = (game: Game) => {
+        setGameEditing(game);
+        toggleModalCleaning();
+    }
 
     const handleEditClick = (game: Game) => {
         setGameEditing(game);
@@ -164,7 +166,7 @@ const Games: React.FC = () => {
                             {checkLimit(game.cleaning_date) && (
                                 <button
                                     type="button"
-                                    onClick={() => handleCleaningClick(game.id)}
+                                    onClick={() => handleCleaningClick(game)}
                                     title="Atualizar Limpeza"
                                 >
                                     <MdCleaningServices />
@@ -188,6 +190,13 @@ const Games: React.FC = () => {
                 gameEditing={gameEditing}
                 modalOpen={modalOpen}
                 toggleModal={toggleModal}
+                clearGameEditing={clearGameEditing}
+            />
+
+            <ModalCleaning
+                gameEditing={gameEditing}
+                modalOpen={modalCleaningOpen}
+                toggleModal={toggleModalCleaning}
                 clearGameEditing={clearGameEditing}
             />
         </Container>
