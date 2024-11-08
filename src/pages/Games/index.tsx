@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { MdCleaningServices } from "react-icons/md";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaPen } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { UnknownAction } from "@reduxjs/toolkit";
 import Skeleton from "react-loading-skeleton";
@@ -26,6 +26,7 @@ const Games: React.FC = () => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [modalCleaningOpen, setModalCleaningOpen] = useState<boolean>(false);
     const [gameEditing, setGameEditing] = useState<Game|null>(null);
+    const [activeEdition, setActiveEdition] = useState<boolean>(false);
 
     const toggleModal = useCallback(() => {
         setModalOpen(prevState => !prevState);
@@ -35,6 +36,10 @@ const Games: React.FC = () => {
     const toggleModalCleaning = useCallback(() => {
         setModalCleaningOpen(prevState => !prevState);
     }, []);
+
+    const toggleActiveEdition = () => {
+        setActiveEdition(prevState => !prevState);
+    };
 
     const getDiffDays = (startDate: string, endDate: string): number => {
         const a = new Date(startDate);
@@ -106,6 +111,10 @@ const Games: React.FC = () => {
         toggleModal();
     }
 
+    const handleEnableEditingClick = () => {
+        toggleActiveEdition();
+    }
+
     const clearGameEditing = () => {
         setGameEditing(null);
     }
@@ -130,6 +139,15 @@ const Games: React.FC = () => {
                 >
                     <FaPlus />
                 </Button>
+                <Button
+                    btnTheme="primary"
+                    className={activeEdition ? "active" : ""}
+                    onClick={handleEnableEditingClick}
+                    title="Editar um jogo"
+                    disabled={gamesStatus === "pending"}
+                >
+                    <FaPen />
+                </Button>
             </Toolbar>
             {gamesStatus !== "pending" ? (
                 <ul>
@@ -146,9 +164,7 @@ const Games: React.FC = () => {
                             </span>
                             <span>
                                 <h3>
-                                    <button type="button" onClick={() => handleEditClick(game)}>
-                                        {game?.name || "N/A"}
-                                    </button>
+                                    {game?.name || "N/A"}
                                 </h3>
                                 <p>
                                     { getTimeSinceLastCleaning(game.cleaning_date, today) }
@@ -163,15 +179,26 @@ const Games: React.FC = () => {
                                     }
                                 </p>
                             </span>
-                            {checkLimit(game.cleaning_date) && (
-                                <button
-                                    type="button"
-                                    onClick={() => handleCleaningClick(game)}
-                                    title="Atualizar Limpeza"
-                                >
-                                    <MdCleaningServices />
-                                </button>
-                            )}
+                            <span>
+                                {checkLimit(game.cleaning_date) && (
+                                    <button
+                                        type="button"
+                                        onClick={() => handleCleaningClick(game)}
+                                        title="Atualizar Limpeza"
+                                    >
+                                        <MdCleaningServices />
+                                    </button>
+                                )}
+                                {activeEdition && (
+                                    <button
+                                        type="button"
+                                        onClick={() => handleEditClick(game)}
+                                        title="Atualizar Limpeza"
+                                    >
+                                        <FaPen />
+                                    </button>
+                                )}
+                            </span>
                         </li>
                     ))}
                 </ul>

@@ -27,23 +27,10 @@ export const Container = styled.div`
                 background: #C30414;
             }
 
-            > button {
-                background-color: #ffffff4a;
-                padding: 0.6em 0.3em;
-                font-size: 2rem;
-
-                &:focus {
-                    outline: none;
-                    outline-offset: none;
-                }
-                &:focus-visible {
-                    outline: 4px auto #fff;
-                }
-            }
-
             > span {
                 display: grid;
                 justify-content: space-between;
+                gap: 1rem;
 
                 @media (min-width: 768px) {
                     grid-template-columns: 5fr 3fr 1fr;
@@ -58,7 +45,7 @@ export const Container = styled.div`
                     margin: 0;
                     text-align: left;
 
-                    > button {
+                    /* > button {
                         padding: 0;
                         margin: 0;
                         text-align: left;
@@ -80,7 +67,7 @@ export const Container = styled.div`
                         &:hover, &:active, &:focus, &:target {
                             border: none;
                         }
-                    }
+                    } */
                 }
 
                 > p:first-of-type, p:nth-child(3) {
@@ -114,6 +101,28 @@ export const Container = styled.div`
                     }
                 }
             }
+
+            > span:last-of-type {
+                grid-template-columns: 1fr;
+                
+                @media (min-width: 768px) {
+                    display: flex;
+                }
+                
+                > button {
+                    background-color: #ffffff4a;
+                    padding: 0.6em 0.3em;
+                    font-size: 2rem;
+
+                    &:focus {
+                        outline: none;
+                        outline-offset: none;
+                    }
+                    &:focus-visible {
+                        outline: 4px auto #fff;
+                    }
+                }
+            }
         }
     }
     
@@ -125,6 +134,7 @@ export const Container = styled.div`
 
 export const Toolbar = styled.div`
     display: flex;
+    gap: 1rem;
 
     @media (max-width: 768px) {
         position: fixed;
@@ -132,15 +142,24 @@ export const Toolbar = styled.div`
         background: #0000006b;
         /* box-shadow: 0 0 13px 4px #000000d4; */
         padding: 8px;
-        border-radius: 50%;
+        border-radius: 1rem;
 
         > button {
             border-radius: 50%;
             height: 48px;
             width: 48px;
-            background: #39ad00;
             background: #ABC106;
             padding: 0;
+
+            &.active {
+                background-color: var(--Catan-2-hex-dark5);
+                color: #FFF;
+            }
+
+            &:focus-visible {
+                outline: 6px auto #fff;
+                outline-offset: 4px;
+            }
         }
     }
 `;
