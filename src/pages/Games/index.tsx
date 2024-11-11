@@ -17,7 +17,7 @@ import { Container, Loading, Toolbar } from "./styles";
 const Games: React.FC = () => {
 
     const dispatch = useDispatch();
-    const games = useSelector(selectGames).games;
+    const games: Game[] | null = useSelector(selectGames).games as Game[];
 
     const monthLimit: number = 6;
     const subtitle = `Frequência de limpezas: ${monthLimit} meses`;
@@ -135,7 +135,7 @@ const Games: React.FC = () => {
                     btnTheme="primary"
                     onClick={handleAddClick}
                     title="Adicionar jogo"
-                    disabled={gamesStatus === "pending"}
+                    disabled={gamesStatus === "pending" || games?.length === 0}
                 >
                     <FaPlus />
                 </Button>
@@ -144,7 +144,7 @@ const Games: React.FC = () => {
                     className={activeEdition ? "active" : ""}
                     onClick={handleEnableEditingClick}
                     title="Editar um jogo"
-                    disabled={gamesStatus === "pending"}
+                    disabled={gamesStatus === "pending" || games?.length === 0}
                 >
                     <FaPen />
                 </Button>
