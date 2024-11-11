@@ -7,6 +7,7 @@ import {
     getDocs,
     updateDoc,
     addDoc,
+    orderBy,
 } from 'firebase/firestore';
 import { Game } from '../shared/models/Games';
 import { toast } from 'react-toastify';
@@ -147,9 +148,14 @@ export const selectGames = (state:any) => state.games;
 
 export default gamesSlice.reducer;
 
-
 export const fetchGames = createAsyncThunk('jogos/fetchGames', async () => {
-    const q = query(collection(db, "jogos")/*, where("id", "==", auth.currentUser.uid)*/);
+    const q = query(
+        collection(db, "jogos"),
+        // orderBy("name", "asc"),
+        orderBy("cleaning_date"),
+        orderBy("__name__"),
+        // where("id", "==", auth.currentUser.uid)
+    );
     const querySnapshot = await getDocs(q);
     const gameList: Game[] = [];
     querySnapshot.forEach((doc) => {
@@ -161,15 +167,15 @@ export const fetchGames = createAsyncThunk('jogos/fetchGames', async () => {
         });
     });
 
-    const sortedGameList = gameList.sort(function (a,b) {
-        return new Date(a.cleaning_date) < new Date(b.cleaning_date)
-            ? -1
-            : new Date(a.cleaning_date) > new Date(b.cleaning_date)
-                ? 1
-                : 0;
-    });
+    // const sortedGameList = gameList.sort(function (a,b) {
+    //     return new Date(a.cleaning_date) < new Date(b.cleaning_date)
+    //         ? -1
+    //         : new Date(a.cleaning_date) > new Date(b.cleaning_date)
+    //             ? 1
+    //             : 0;
+    // });
 
-    return sortedGameList
+    return gameList
 });
 
 export const updateCleaningDate = createAsyncThunk(
