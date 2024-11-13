@@ -77,14 +77,14 @@ export const Container = styled.div`
                 > p:nth-child(2) {
                     justify-self: flex-start;
                     align-content: end;
-                    color: #ffffff63;
+                    color: #ffffff75;
                     text-align: start;
                 }
     
                 > p:nth-child(3) {
                     align-content: end;
                     font-size: .8rem;
-                    color: #ffffff63;
+                    color: #ffffff75;
                 }
 
                 &:first-of-type {
