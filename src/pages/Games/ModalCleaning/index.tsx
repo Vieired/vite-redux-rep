@@ -5,7 +5,7 @@ import { RiCloseFill } from "react-icons/ri";
 import { MdCleaningServices } from "react-icons/md";
 import { toast } from "react-toastify";
 import { Game } from "../../../shared/models/Games";
-import { updateCleaningDate } from "../../../store/gamesSlice";
+import { fetchGames, updateCleaningDate } from "../../../store/gamesSlice";
 import Button from "../../../components/Inputs/Button";
 import InputDate from "../../../components/Inputs/InputDate";
 import Input from "../../../components/Inputs/Input";
@@ -44,6 +44,8 @@ const ModalCleaning: React.FC<Props> = ({
       cleaning_method: Number(data.cleaning_method),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }) as any).then(() => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      dispatch(fetchGames() as any);
       toggleModal()
     });
   };

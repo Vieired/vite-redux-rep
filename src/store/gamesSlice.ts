@@ -41,7 +41,7 @@ const gamesSlice = createSlice({
     },
     extraReducers: builder => {
         builder
-        // #region - READ fetchGames
+        // #region - READ fetchGames ------------------------------------------
         //   .addCase(fetchGames, state => {
         //     // Clear out the list of posts whenever the user logs out
         //     return initialState
@@ -70,12 +70,12 @@ const gamesSlice = createSlice({
                 toastId: "invalid-form-field",
             });
         })
-        // #endregion - READ fetchGames
+        // #endregion - READ fetchGames ----------------------------------------
 
-        // #region - UPDATE updateCleaningDate
-        .addCase(updateCleaningDate.fulfilled, (state, action) => {
+        // #region - UPDATE updateCleaningDate --------------------------------
+        .addCase(updateCleaningDate.fulfilled, (state/*, action*/) => {
             state.status = 'succeeded';
-            state.games = action.payload;          
+            // state.games = action.payload;
             // console.log("extraReducers updateCleaningDate: ", action.payload);
             toast.success("Jogo limpo com sucesso.", {
                 toastId: "notification-message",
@@ -88,20 +88,21 @@ const gamesSlice = createSlice({
                 toastId: "invalid-form-field",
             });
         })
-        // #endregion - UPDATE updateCleaningDate
+        // #endregion - UPDATE updateCleaningDate -----------------------------
 
-        // #region - UPDATE updateGame
+        // #region - UPDATE updateGame ----------------------------------------
         .addCase(updateGame.pending, (state/*, action*/) => {
             console.log('loading');
             state.status = 'pending';
         })
-        .addCase(updateGame.fulfilled, (state, action) => {
+        .addCase(updateGame.fulfilled, (state/*, action*/) => {
             state.status = 'succeeded';
-            state.games = action.payload;
+            // state.games = action.payload;
             // console.log("extraReducers updateGame: ", action.payload);
             toast.success("Jogo atualizado com sucesso.", {
                 toastId: "notification-message",
             });
+            fetchGames();
         })
         .addCase(updateGame.rejected, (state, action) => {
             state.status = 'failed';
@@ -110,16 +111,16 @@ const gamesSlice = createSlice({
                 toastId: "invalid-form-field",
             });
         })
-        // #endregion - UPDATE updateGame
+        // #endregion - UPDATE updateGame -------------------------------------
 
-        // #region - CREATE createGame
+        // #region - CREATE createGame ----------------------------------------
         .addCase(createGame.pending, (state/*, action*/) => {
             console.log('loading');
             state.status = 'pending';
         })
-        .addCase(createGame.fulfilled, (state, action) => {
+        .addCase(createGame.fulfilled, (state/*, action*/) => {
             state.status = 'succeeded';
-            state.games = action.payload;
+            // state.games = action.payload;
             // state.games.push(action.payload[0]);
             // console.log("extraReducers createGame: ", action.payload);
             toast.success("Jogo criado com sucesso.", {
@@ -133,7 +134,7 @@ const gamesSlice = createSlice({
                 toastId: "invalid-form-field",
             });
         })
-        // #endregion - CREATE createGame
+        // #endregion - CREATE createGame -------------------------------------
     },
 });
 
@@ -186,27 +187,6 @@ export const updateCleaningDate = createAsyncThunk(
             cleaning_date: new Date().toISOString(),
             cleaning_method: payload.cleaning_method,
         });
-
-        // #region - código fetchGames replicado
-        const q = query(collection(db, "jogos"));
-        const querySnapshot = await getDocs(q);
-        const gameList: Game[] = [];
-        querySnapshot.forEach((doc) => {
-            gameList.push({
-                ...doc.data() as Game
-            });
-        });
-    
-        const sortedGameList = gameList.sort(function (a,b) {
-            return new Date(a.cleaning_date) < new Date(b.cleaning_date)
-                ? -1
-                : new Date(a.cleaning_date) > new Date(b.cleaning_date)
-                    ? 1
-                    : 0;
-        });
-    
-        return sortedGameList;
-        // #endregion - código fetchGames replicado
     }
 );
 
@@ -223,28 +203,7 @@ export const updateGame = createAsyncThunk(
             isActive: true,
             name: payload.name,
             photoUrl: payload.photoUrl,
-        });
-
-        // #region - código fetchGames replicado
-        const q = query(collection(db, "jogos"));
-        const querySnapshot = await getDocs(q);
-        const gameList: Game[] = [];
-        querySnapshot.forEach((doc) => {
-            gameList.push({
-                ...doc.data() as Game
-            });
-        });
-    
-        const sortedGameList = gameList.sort(function (a,b) {
-            return new Date(a.cleaning_date) < new Date(b.cleaning_date)
-                ? -1
-                : new Date(a.cleaning_date) > new Date(b.cleaning_date)
-                    ? 1
-                    : 0;
-        });
-    
-        return sortedGameList;
-        // #endregion - código fetchGames replicado
+        })
     }
 );
 
@@ -271,24 +230,5 @@ export const createGame = createAsyncThunk(
             name: payload.name,
             photoUrl: payload?.photoUrl || "",
         });
-
-        // #region - código fetchGames replicado
-        const q = query(collection(db, "jogos"));
-        const querySnapshot = await getDocs(q);
-        const gameList: Game[] = [];
-        querySnapshot.forEach((doc) => {
-            gameList.push({
-                ...doc.data() as Game
-            });
-        });
-        const sortedGameList = gameList.sort(function (a,b) {
-            return new Date(a.cleaning_date) < new Date(b.cleaning_date)
-                ? -1
-                : new Date(a.cleaning_date) > new Date(b.cleaning_date)
-                    ? 1
-                    : 0;
-        });
-        return sortedGameList;
-        // #endregion - código fetchGames replicado
     }
 );

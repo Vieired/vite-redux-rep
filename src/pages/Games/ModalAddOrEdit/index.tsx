@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { RiCloseFill } from "react-icons/ri";
 import { toast } from "react-toastify";
 import { Game } from "../../../shared/models/Games";
-import { createGame, updateGame } from "../../../store/gamesSlice";
+import { createGame, updateGame, fetchGames } from "../../../store/gamesSlice";
 import Button from "../../../components/Inputs/Button";
 import Input from "../../../components/Inputs/Input";
 import InputDate from "../../../components/Inputs/InputDate";
@@ -55,6 +55,8 @@ const ModalAddOrEdit: React.FC<Props> = ({
         cleaning_method: Number(data.cleaning_method),
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       }) as any).then(() => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        dispatch(fetchGames() as any);
         toggleModal()
       })
     }
@@ -64,6 +66,8 @@ const ModalAddOrEdit: React.FC<Props> = ({
         cleaning_method: Number(data.cleaning_method),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       }) as any).then(() => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        dispatch(fetchGames() as any);
         toggleModal()
       })
     }
