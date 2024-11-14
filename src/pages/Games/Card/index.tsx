@@ -1,13 +1,14 @@
 import { useMemo } from "react";
-import { Game } from "../../../shared/models/Games";
-import { Container } from "./styles";
 import { MdCleaningServices } from "react-icons/md";
 import { FaPen } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { selectGames } from "../../../store/gamesSlice";
+import { Game } from "../../../shared/models/Games";
+import { Container } from "./styles";
 
 interface Props {
     game: Game;
     activeEdition: boolean;
-    monthLimit: number;
     setGameEditing: (game: Game) => void;
     toggleModalCleaning: () => void;
     toggleModal: () => void;
@@ -16,13 +17,13 @@ interface Props {
 const Card: React.FC<Props> = ({
     game,
     activeEdition,
-    monthLimit,
     setGameEditing,
     toggleModalCleaning,
     toggleModal,
 }) => {
 
     const today = new Date().toISOString().split("T")[0]; // TODO: mover para o store Redux
+    const monthLimit: number = useSelector(selectGames).monthLimit;
 
     const getDiffDays = (startDate: string, endDate: string): number => {
         const a = new Date(startDate);

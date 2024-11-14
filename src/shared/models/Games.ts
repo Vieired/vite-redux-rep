@@ -6,3 +6,9 @@ export interface Game { // TODO: refatorar para deixar todas as props nullable, 
     isActive: boolean;
     photoUrl?: string;
 }
+
+export interface InitialStateGames {
+    games: Game[],
+    status: string,
+    monthLimit: number,
+}

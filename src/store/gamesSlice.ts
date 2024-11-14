@@ -9,19 +9,15 @@ import {
     addDoc,
     orderBy,
 } from 'firebase/firestore';
-import { Game } from '../shared/models/Games';
+import { Game, InitialStateGames } from '../shared/models/Games';
 import { toast } from 'react-toastify';
-
-interface InitialStateGames {
-    games: Game[],
-    status: string,
-}
 
 const gamesSlice = createSlice({
     name: 'games',
     initialState: {
         games: [],
-        status: 'idle'
+        status: 'idle',
+        monthLimit: 6,
     } as InitialStateGames,
     reducers: {
         // updateCleaningDate: (jogos, action) => {
@@ -137,13 +133,13 @@ const gamesSlice = createSlice({
             });
         })
         // #endregion - CREATE createGame
-      },
+    },
 });
 
 // export const { addGame, eraseGame } = gamesSlice.actions;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const selectGames = (state:any) => state.games;
+export const selectGames = (state: any) => state.games;
 // export const selectGames = (state: Slice<Game>) => state?.getInitialState;
 
 export default gamesSlice.reducer;

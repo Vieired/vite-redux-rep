@@ -18,8 +18,7 @@ const Games: React.FC = () => {
     const dispatch = useDispatch();
     const games: Game[] | null = useSelector(selectGames).games as Game[];
 
-    const monthLimit: number = 6;
-    const subtitle = `Frequência de limpezas: ${monthLimit} meses`;
+    const subtitle = `Frequência de limpezas: ${useSelector(selectGames).monthLimit} meses`;
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [modalCleaningOpen, setModalCleaningOpen] = useState<boolean>(false);
@@ -90,7 +89,6 @@ const Games: React.FC = () => {
                             key={game.id}
                             game={game}
                             activeEdition={activeEdition}
-                            monthLimit={monthLimit}
                             setGameEditing={setGameEditing}
                             toggleModalCleaning={toggleModalCleaning}
                             toggleModal={toggleModal}
