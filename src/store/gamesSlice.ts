@@ -139,7 +139,9 @@ const gamesSlice = createSlice({
 
 // export const { addGame, eraseGame } = gamesSlice.actions;
 
-export const selectGames = (state: InitialStateGames) => state;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const selectGames = (state: any) => state.games;
+// export const selectGames = (state: InitialStateGames) => state;
 // export const selectGames = (state: Slice<Game>) => state?.getInitialState;
 
 export default gamesSlice.reducer;
