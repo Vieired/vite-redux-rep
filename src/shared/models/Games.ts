@@ -11,4 +11,5 @@ export interface InitialStateGames {
     games: Game[],
     status: string,
     monthLimit: number,
+    today: string;
 }

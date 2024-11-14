@@ -18,6 +18,7 @@ const gamesSlice = createSlice({
         games: [],
         status: 'idle',
         monthLimit: 6,
+        today: new Date().toISOString().split("T")[0],
     } as InitialStateGames,
     reducers: {
         // updateCleaningDate: (jogos, action) => {
@@ -138,8 +139,7 @@ const gamesSlice = createSlice({
 
 // export const { addGame, eraseGame } = gamesSlice.actions;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const selectGames = (state: any) => state.games;
+export const selectGames = (state: InitialStateGames) => state;
 // export const selectGames = (state: Slice<Game>) => state?.getInitialState;
 
 export default gamesSlice.reducer;

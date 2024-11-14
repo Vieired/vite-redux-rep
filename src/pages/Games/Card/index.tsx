@@ -21,9 +21,8 @@ const Card: React.FC<Props> = ({
     toggleModalCleaning,
     toggleModal,
 }) => {
-
-    const today = new Date().toISOString().split("T")[0]; // TODO: mover para o store Redux
-    const monthLimit: number = useSelector(selectGames).monthLimit;
+    
+    const { monthLimit, today } = useSelector(selectGames);
 
     const getDiffDays = (startDate: string, endDate: string): number => {
         const a = new Date(startDate);

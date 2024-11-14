@@ -16,9 +16,9 @@ import { Container, Loading, Toolbar } from "./styles";
 const Games: React.FC = () => {
 
     const dispatch = useDispatch();
-    const games: Game[] | null = useSelector(selectGames).games as Game[];
+    const { games, monthLimit } = useSelector(selectGames);
 
-    const subtitle = `Frequência de limpezas: ${useSelector(selectGames).monthLimit} meses`;
+    const subtitle = `Frequência de limpezas: ${monthLimit} meses`;
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [modalCleaningOpen, setModalCleaningOpen] = useState<boolean>(false);
