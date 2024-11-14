@@ -102,7 +102,6 @@ const gamesSlice = createSlice({
             toast.success("Jogo atualizado com sucesso.", {
                 toastId: "notification-message",
             });
-            fetchGames();
         })
         .addCase(updateGame.rejected, (state, action) => {
             state.status = 'failed';
