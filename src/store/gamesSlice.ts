@@ -56,11 +56,6 @@ const gamesSlice = createSlice({
             state.games = action.payload;
             // state.games = (action.payload) as never[];
             // console.log('success');
-            // state.games.map(game => {
-            //     if (game.id === action.payload) {
-            //         dispatch(fetchGames() as unknown as UnknownAction);
-            //     }
-            // });
         })
         .addCase(fetchGames.rejected, (state, action) => {
             state.status = 'failed'
@@ -97,6 +92,20 @@ const gamesSlice = createSlice({
         })
         .addCase(updateGame.fulfilled, (state/*, action*/) => {
             state.status = 'succeeded';
+
+            // state.games.map((game: Game) => {
+            //     if (game.id == action.meta.arg.id) {
+            //         game = action.meta.arg
+            //     }
+            // });            
+
+            // // Quando quiser alterar uma única propriedade do objeto, passar esta prop na chamada (foi feito assim no curso)
+            // state.games.map((game:Game) => {
+            //     if (game.id == action.payload.id) {
+            //         // game.isActive = !game.isActive
+            //     }
+            // });
+
             // state.games = action.payload;
             // console.log("extraReducers updateGame: ", action.payload);
             toast.success("Jogo atualizado com sucesso.", {
