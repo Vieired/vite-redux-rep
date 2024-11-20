@@ -37,16 +37,22 @@ const Card: React.FC<Props> = ({
     const getDiffMonths = (startDate: string, endDate: string): number => {
         const a = new Date(startDate);
         const b = new Date(endDate);
-        let diff =(a.getTime() - b.getTime()) / 1000;
-        diff /= (60 * 60 * 24 * 7 * 4);
-        return Math.abs(Math.round(diff));
+        const anoInicial = a.getFullYear();
+        const mesInicial = a.getMonth();
+        const anoFinal = b.getFullYear();
+        const mesFinal = b.getMonth();
+    
+        const diferencaAnos = anoFinal - anoInicial;
+        const diferencaMeses = mesFinal - mesInicial;
+    
+        return diferencaAnos * 12 + diferencaMeses;
     }
 
     const getTimeSinceLastCleaning = (startDate: string, endDate: string) => {
         const diffDays = getDiffDays(startDate, endDate);
-        const diffMonths = getDiffMonths(startDate, endDate) -1;
+        const diffMonths = getDiffMonths(startDate, endDate);
 
-        const days = diffDays % 31;
+        const days = Math.floor(diffDays % 30.6); // adicionei o decimal 0,6 e o arredondamento para baixo, para amenizar o erro de cálculo produzido pelo fato de existir variância de dias entre os meses
         const months = diffMonths % 12;
         const years = Math.floor(diffDays / 365);
 
