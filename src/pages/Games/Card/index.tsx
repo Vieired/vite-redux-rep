@@ -56,11 +56,13 @@ const Card: React.FC<Props> = ({
         }
 
         if(diffDays < 365) {
-            const descriptionOfDays = days > 0 ? `${days} dia${days > 1 ? "s" : ""}` : "";
             const descriptionOfMonths = months > 0 ? `${months} mes${months > 1 ? "es" : ""}` : "";
-            return months > 0
+            const descriptionOfDays = days > 0 ? `${days} dia${days > 1 ? "s" : ""}` : "";
+            return descriptionOfMonths !== "" && descriptionOfDays !== ""
                 ? `${descriptionOfMonths} e ${descriptionOfDays}`
-                : descriptionOfDays
+                : descriptionOfMonths === "" && descriptionOfDays !== ""
+                    ? `${descriptionOfDays}`
+                    : `${descriptionOfMonths}`;
         }
 
         const descriptionOfYears = years > 0 ? `${years} ano${years > 1 ? "s" :""}` : "";
