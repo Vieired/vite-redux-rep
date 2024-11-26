@@ -1,13 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import Select, { GroupBase, OptionsOrGroups, components } from 'react-select';
+import Select, {
+  ActionMeta,
+  GroupBase,
+  MultiValue,
+  OptionsOrGroups,
+  components
+} from 'react-select';
 import { FaCaretDown } from 'react-icons/fa';
 // import {
 //   SelectMultiStyles,
 //   SelectMultiStylesWithoutGreen,
 // } from '@assets/styles/ReactSelectStyles';
-import { SelectStyles } from "../../../styles/SelectStyles";
 import { Dropdown } from '../../../shared/models/domain/Select';
+import { SelectStyles } from "../../../styles/SelectStyles";
 import { Container } from './styles';
 
 
@@ -26,7 +32,8 @@ interface InputSelectMultiProps {
   disableSuccesBorderColor?: boolean;
   errorText?: string;
   fit?: boolean;
-  onChange?: (selecteds: Dropdown[]) => void;
+  // onChange?: (selecteds: Dropdown[]) => void;
+  onChange?: ((newValue: MultiValue<Dropdown>, actionMeta: ActionMeta<Dropdown>) => void) | undefined
   onBlur?: () => void;
   onFocus?: () => void;
   loadOptions?: (
@@ -89,7 +96,7 @@ const InputSelectMulti: React.FC<InputSelectMultiProps> = ({
               width: '100%',
           })
         }}
-        onChange={() => onChange}
+        onChange={onChange}
         onBlur={onBlur}
         onFocus={onFocus}
         isDisabled={disabled}
