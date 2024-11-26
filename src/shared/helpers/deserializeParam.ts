@@ -1,27 +1,30 @@
-const stringifyKeys = (obj, parentKey = "") => {
-  let result = {};
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const stringifyKeys = (obj: any, parentKey = "") => {
+  let result: any = {};
   for (const key in obj) {
-    const newKey = parentKey ? `${parentKey}.${key}` : key;
+    const newKey: any = parentKey ? `${parentKey}.${key}` : key;
     if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
       result = { ...result, ...stringifyKeys(obj[key], newKey) };
     } else if (Array.isArray(obj[key])) {
-      const objValue = obj[key];
+      const objValue: any = obj[key];
       if (objValue && objValue != "") {
         const mappedArray = obj[key].map((value) => value);
-        for (let i = 0; i < mappedArray.length; i++) {
+        for (let i: number = 0; i < mappedArray.length; i++) {
           result[`${key}[${i}]`] = mappedArray[i];
         }
       }
     } else {
-      const objValue = obj[key];
-      if (objValue && !Array.isArray(obj[key])) result[newKey] = objValue;
+      const objValue: any = obj[key];
+      if (objValue && !Array.isArray(obj[key]))
+        result[newKey] = objValue;
     }
   }
   return result;
 };
 
-const stringifyPrimitiveKeys = (obj, parentKey = "") => {
-  let result = {};
+const stringifyPrimitiveKeys = (obj: any, parentKey = "") => {
+  let result: any = {};
   for (const key in obj) {
     const newKey = parentKey ? `${parentKey}.${key}` : key;
     if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
@@ -39,7 +42,7 @@ const stringifyPrimitiveKeys = (obj, parentKey = "") => {
 };
 
 // Only works for non primitives ex: Interfaces with complex objects
-export const deserializeParam = (obj, parentKey = "") => {
+export const deserializeParam = (obj: any) => {
   // Flatten the JSON object
   const flattenedObject = stringifyKeys(obj);
 
@@ -50,7 +53,7 @@ export const deserializeParam = (obj, parentKey = "") => {
 };
 
 // Only works for primitives ex: string[]
-export const deserializePrimitiveParam = (obj, parentKey = "") => {
+export const deserializePrimitiveParam = (obj: any) => {
   // Flatten the JSON object
   const flattenedObject = stringifyPrimitiveKeys(obj);
 

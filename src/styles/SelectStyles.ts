@@ -7,7 +7,7 @@ export const SelectStyles = {
         maxWidth: 'min-content',
         minWidth: '100%',
     }),
-    control: (provided: any, state: any) => ({
+    control: (provided: any) => ({
       ...provided,
       width: '100%',
       border: '1px solid var(--gray3B)',

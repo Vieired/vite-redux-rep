@@ -2,7 +2,8 @@ export const isEmptyObject = (obj: unknown) =>
   obj && Object.keys(obj).length === 0 && obj.constructor === Object;
 
 export function clearObject<T>(obj: T): T {
-  const toClear = obj;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const toClear: any = obj;
 
   Object.keys(toClear).forEach(
     key =>
