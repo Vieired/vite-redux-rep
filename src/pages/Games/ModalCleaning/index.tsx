@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import ReactModal from "react-modal";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
@@ -8,8 +9,11 @@ import { Game } from "../../../shared/models/Games";
 import { fetchGames, updateCleaningDate } from "../../../store/gamesSlice";
 import Button from "../../../components/Inputs/Button";
 import InputDate from "../../../components/Inputs/InputDate";
-import Input from "../../../components/Inputs/Input";
 import schema from "./schema";
+import InputSelectMulti from "../../../components/Inputs/InputSelectMulti";
+import { MultiValue } from "react-select";
+import { Dropdown } from "../../../shared/models/domain/Select";
+import { getTypeList } from "../../../shared/enums/CleaningMethodEnum";
 import {
   Container,
   ModalContent,
@@ -33,21 +37,35 @@ const ModalCleaning: React.FC<Props> = ({
   clearGameEditing,
 }) => {
 
-  const element = document.createElement("div");
+  // const element = document.createElement("div");
+  ReactModal.setAppElement('#root');
   const dispatch = useDispatch();
 
   const today = new Date().toISOString().split("T")[0];
 
+  const methodOptions = useMemo(() => {
+    return getTypeList().map((x) => {
+      return {
+        id: String(x.id),
+        name: x.name,
+      } as Dropdown
+    }) as Dropdown[]
+  }, []);
+
   const handleSubmit = (data: Game) => {
-    dispatch(updateCleaningDate({
-      id: data.id,
-      cleaning_method: Number(data.cleaning_method),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    }) as any).then(() => {
+    console.log("data: ", data);
+    if (data?.id) {
+      dispatch(updateCleaningDate({
+        id: data.id,
+        cleaning_method: Number(data.cleaning_method),
+        methods: data.methods,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      dispatch(fetchGames() as any);
-      toggleModal()
-    });
+      }) as any).then(() => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        dispatch(fetchGames() as any);
+        toggleModal()
+      });
+    }
   };
 
   const formik = useFormik({
@@ -57,6 +75,7 @@ const ModalCleaning: React.FC<Props> = ({
     initialValues: {
       ...gameEditing,
       cleaning_date: today,
+      // methods: null,
     } as Game,
   });
 
@@ -83,7 +102,7 @@ const ModalCleaning: React.FC<Props> = ({
       <ReactModal
         isOpen={modalOpen}
         contentLabel="Limpar Jogo"
-        appElement={element}
+        // appElement={element}
         onRequestClose={toggleModal}
         onAfterClose={handleAfterClose}
         style={{
@@ -112,15 +131,7 @@ const ModalCleaning: React.FC<Props> = ({
               onSubmit={formik.handleSubmit}
               // className={getLoadingState() ? "loading" : ""}
             >
-              {/* <input
-                type="number"
-                name="cleaning_method"
-                placeholder="1.Sílica, 2.Sanol, 3.Banho de sol"
-                value={formik?.values?.cleaning_method}
-                onChange={formik?.handleChange}
-                autoFocus
-              /> */}
-              <Input
+              {/* <Input
                 name="cleaning_method"
                 label="Método de Limpeza *"
                 placeholder="1.Sílica, 2.Sanol, 3.Banho de sol"
@@ -128,6 +139,25 @@ const ModalCleaning: React.FC<Props> = ({
                 onChange={formik?.handleChange}
                 errorText={getErrorMessage("cleaning_method")}
                 autoFocus
+              /> */}
+              <InputSelectMulti
+                name="methods"
+                id="methods"
+                label="Método de Limpeza *"
+                placeholder="Ex. Aplicação de Sílica, Sanol, Banho de Sol"
+                onChange={(e: MultiValue<Dropdown>) => {
+                  formik.setFieldValue('methods', e.map(x => Number(x.id)));
+                }}
+                selecteds={null
+                  // formik?.values?.methods?.map(x => {
+                  //   return {
+                  //     id: String(x),
+                  //     name: getTypeDescription(x),
+                  //   } as Dropdown
+                  // }) as Dropdown[]
+                }
+                options={methodOptions}
+                errorText={getErrorMessage("methods")}
               />
               <InputDate
                 name="cleaning_date"

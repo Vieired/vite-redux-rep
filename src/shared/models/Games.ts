@@ -5,7 +5,7 @@ export interface Game { // TODO: refatorar para deixar todas as props nullable, 
     name?: string;
     cleaning_date: string;
     cleaning_method?: number;
-    methods: CleaningMethodEnum[] | null;
+    methods?: CleaningMethodEnum[];
     isActive: boolean;
     photoUrl?: string;
 }

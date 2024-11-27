@@ -82,9 +82,10 @@ const ModalAddOrEdit: React.FC<Props> = ({
     initialValues: gameEditing?.id
       ? (gameEditing as Game)
       : {
+        id: 'idle',
         cleaning_date: today,
         cleaning_method: 1,
-        methods: null,
+        methods: [],
         isActive: true,
         name: ""
       } as Game,
@@ -159,57 +160,57 @@ const ModalAddOrEdit: React.FC<Props> = ({
               onSubmit={formik.handleSubmit}
             //   className={getLoadingState() ? "loading" : ""}
             >
-                {/* {`Editando: ${gameEditing?.name || "N/A"}`} */}
-                <Input
-                    name="name"
-                    label="Nome *"
-                    placeholder="Nome do jogo"
-                    value={formik?.values?.name}
-                    onChange={formik?.handleChange}
-                    errorText={getErrorMessage("name")}
-                    autoFocus
-                />
-                <InputDate
-                    name="cleaning_date"
-                    label="Data da Limpeza *"
-                    value={formik?.values?.cleaning_date}
-                    onChange={formik?.handleChange}
-                    errorText={getErrorMessage("cleaning_date")}
-                />
-                {/* <Input
-                    name="cleaning_method"
-                    label="Método de Limpeza *"
-                    placeholder="1.Sílica, 2.Sanol, 3.Banho de sol"
-                    value={formik?.values?.cleaning_method}
-                    onChange={formik?.handleChange}
-                    errorText={getErrorMessage("cleaning_method")}
-                /> */}
-                <InputSelectMulti
-                  name="methods"
+              {/* {`Editando: ${gameEditing?.name || "N/A"}`} */}
+              <Input
+                name="name"
+                label="Nome *"
+                placeholder="Nome do jogo"
+                value={formik?.values?.name}
+                onChange={formik.handleChange}
+                errorText={getErrorMessage("name")}
+                autoFocus
+              />
+              <InputDate
+                name="cleaning_date"
+                label="Data da Limpeza *"
+                value={formik?.values?.cleaning_date}
+                onChange={formik?.handleChange}
+                errorText={getErrorMessage("cleaning_date")}
+              />
+              {/* <Input
+                  name="cleaning_method"
                   label="Método de Limpeza *"
-                  placeholder="Ex. Aplicação de Sílica, Sanol, Banho de Sol"
-                  onChange={(e: MultiValue<Dropdown>) => {
-                    formik.setFieldValue('methods', e.map(x => Number(x.id)));
-                  }}
-                  selecteds={
-                    formik?.values?.methods?.map(x => {
-                      return {
-                        id: String(x),
-                        name: getTypeDescription(x),
-                      } as Dropdown
-                    }) as Dropdown[]
-                  }
-                  options={methodOptions}
-                  errorText={getErrorMessage("methods")}
-                />
-                <Input
-                    name="photoUrl"
-                    label="URL da foto"
-                    placeholder="Ex. https://google/storage/imagem.jpg"
-                    value={formik?.values?.photoUrl}
-                    onChange={formik?.handleChange}
-                    errorText={getErrorMessage("photoUrl")}
-                />
+                  placeholder="1.Sílica, 2.Sanol, 3.Banho de sol"
+                  value={formik?.values?.cleaning_method}
+                  onChange={formik?.handleChange}
+                  errorText={getErrorMessage("cleaning_method")}
+              /> */}
+              <InputSelectMulti
+                name="methods"
+                label="Método de Limpeza *"
+                placeholder="Ex. Aplicação de Sílica, Sanol, Banho de Sol"
+                onChange={(e: MultiValue<Dropdown>) => {
+                  formik.setFieldValue('methods', e.map(x => Number(x.id)));
+                }}
+                selecteds={
+                  formik?.values?.methods?.map(x => {
+                    return {
+                      id: String(x),
+                      name: getTypeDescription(x),
+                    } as Dropdown
+                  }) as Dropdown[]
+                }
+                options={methodOptions}
+                errorText={getErrorMessage("methods")}
+              />
+              <Input
+                name="photoUrl"
+                label="URL da foto"
+                placeholder="Ex. https://google/storage/imagem.jpg"
+                value={formik?.values?.photoUrl}
+                onChange={formik.handleChange}
+                errorText={getErrorMessage("photoUrl")}
+              />
             </form>
           </ModalBody>
           <ModalFooter>

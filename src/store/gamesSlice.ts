@@ -189,7 +189,7 @@ export const fetchGames = createAsyncThunk('jogos/fetchGames', async () => {
 export const updateCleaningDate = createAsyncThunk(
     'jogos/updateCleaningDate',
     async (payload: {
-        id:string,
+        id: string,
         cleaning_method?: number,
         methods?: CleaningMethodEnum[],
     }) => { // TODO: refatorar para usar a tipagem Game

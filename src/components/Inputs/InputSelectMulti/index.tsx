@@ -18,7 +18,7 @@ import { Container } from './styles';
 
 
 interface InputSelectMultiProps {
-  selecteds: Dropdown[];
+  selecteds: Dropdown[] | null;
   options: Dropdown[];
   invalid?: boolean;
   success?: boolean;
@@ -43,7 +43,7 @@ interface InputSelectMultiProps {
 }
 
 const InputSelectMulti: React.FC<InputSelectMultiProps> = ({
-  selecteds,
+  selecteds = null,
   options,
   disabled,
   searchable,
