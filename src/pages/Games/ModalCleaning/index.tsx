@@ -131,6 +131,13 @@ const ModalCleaning: React.FC<Props> = ({
               onSubmit={formik.handleSubmit}
               // className={getLoadingState() ? "loading" : ""}
             >
+              <Input
+                name="name"
+                label="Nome"
+                placeholder="Nome do jogo"
+                value={formik?.values?.name}
+                disabled
+              />
               {/* <Input
                 name="cleaning_method"
                 label="Método de Limpeza *"
