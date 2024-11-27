@@ -74,23 +74,23 @@ const Input: React.FC<Props> = ({
 
             {type === "textarea" && (
                 <textarea
-                value={value}
-                id={id || name}
-                name={name}
-                placeholder={placeholder}
-                autoComplete={autoComplete ? 'on' : 'off'}
-                autoFocus={autoFocus}
-                readOnly={readOnly}
-                onChange={onChange}
-                onBlur={onBlur}
-                disabled={disabled}
-                hidden={hidden}
-                maxLength={maxLength}
-                className={errorText ? 'has-error' : ''}
-                aria-label={label || placeholder || `Field of type ${type}`}
-                aria-errormessage={errorText}
-                aria-invalid={errorText && errorText!=='' ? true : false}
-            />
+                    value={value}
+                    id={id || name}
+                    name={name}
+                    placeholder={placeholder}
+                    autoComplete={autoComplete ? 'on' : 'off'}
+                    autoFocus={autoFocus}
+                    readOnly={readOnly}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    disabled={disabled}
+                    hidden={hidden}
+                    maxLength={maxLength}
+                    className={errorText ? 'has-error' : ''}
+                    aria-label={label || placeholder || `Field of type ${type}`}
+                    aria-errormessage={errorText}
+                    aria-invalid={errorText && errorText!=='' ? true : false}
+                />
             )}
             {!fit && (
                 <small role="alert">
