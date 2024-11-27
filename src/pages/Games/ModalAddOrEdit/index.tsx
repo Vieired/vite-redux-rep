@@ -39,7 +39,8 @@ const ModalAddOrEdit: React.FC<Props> = ({
   clearGameEditing,
 }) => {
 
-  const element = document.createElement("div");
+  // const element = document.createElement("div");
+  ReactModal.setAppElement('#root');
   const dispatch = useDispatch();
 
   const today = new Date().toISOString().split("T")[0];
@@ -131,7 +132,7 @@ const ModalAddOrEdit: React.FC<Props> = ({
       <ReactModal
         isOpen={modalOpen}
         contentLabel={gameEditing ? "Editar Jogo" : "Criar Jogo"}
-        appElement={element}
+        // appElement={element}
         onRequestClose={toggleModal}
         onAfterClose={handleAfterClose}
         style={{
