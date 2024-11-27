@@ -187,6 +187,7 @@ const ModalAddOrEdit: React.FC<Props> = ({
                 <InputSelectMulti
                   name="methods"
                   label="Método de Limpeza *"
+                  placeholder="Ex. Aplicação de Sílica, Sanol, Banho de Sol"
                   onChange={(e: MultiValue<Dropdown>) => {
                     formik.setFieldValue('methods', e.map(x => Number(x.id)));
                   }}

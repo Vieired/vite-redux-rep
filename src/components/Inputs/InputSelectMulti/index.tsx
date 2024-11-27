@@ -91,8 +91,8 @@ const InputSelectMulti: React.FC<InputSelectMultiProps> = ({
           ...SelectStyles,
           control: (styles) => ({
               ...styles,
-              borderColor: errorText ? 'red !important' : '#949494',
-              minHeight: '32px',
+              borderColor: errorText ? 'red !important' : '#000',
+              minHeight: '46px',
               width: '100%',
           })
         }}

@@ -4,7 +4,8 @@ export enum CleaningMethodEnum {
     BlueSilicaApplication = 3,
     Sanol = 4,
     Talc = 5,
-    AiryInTheShade = 6
+    AiryInTheShade = 6,
+    Sunbathing = 7,
 }
 
 export const getTypeList = (): {id: CleaningMethodEnum, name: string}[] => {
@@ -26,7 +27,8 @@ export const getTypeDescription = (value: CleaningMethodEnum): string => {
         3: 'Aplicação de Sílica Azul',
         4: 'Sanol',
         5: 'Talco',
-        6: 'Arejado Na Sombra',
+        6: 'Arejado na Sombra',
+        7: 'Banho de Sol'
     };
 
     return data[value];
@@ -39,7 +41,8 @@ export const getTypeDescription = (value: CleaningMethodEnum): string => {
 //       "Aplicação de Sílica Azul": CleaningMethodEnum.BlueSilicaApplication,
 //       "Sanol": CleaningMethodEnum.Sanol,
 //       "Talco": CleaningMethodEnum.Talc,
-//       "Arejado Na Sombra": CleaningMethodEnum.AiryInTheShade,
+//       "Arejado na Sombra": CleaningMethodEnum.AiryInTheShade,
+//       "Banho de Sol": CleaningMethodEnum.Sunbathing,
 //     };  
   
 //     return data[value];

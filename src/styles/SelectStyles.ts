@@ -1,25 +1,25 @@
+import { StylesConfig } from "react-select";
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const SelectStyles = {
+export const SelectStyles: StylesConfig<any, true> = {
     container: (provided: any) => ({
-        ...provided,
-        width: '100%',
-        maxWidth: 'min-content',
-        minWidth: '100%',
+      ...provided,
+      width: '100%',
+      maxWidth: 'min-content',
+      minWidth: '100%',
     }),
     control: (provided: any) => ({
       ...provided,
       width: '100%',
-      border: '1px solid var(--gray3B)',
-    //   fontFamily: 'Oswald, sans-serif',
+      // border: '1px solid #000',
       borderRadius: '4px',
       padding: '0',
-    //   fontSize: '0.9rem',
-    //   boxShadow: state.selectProps.invalid
-    //     ? 'inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 55, 55, 0.6)'
-    //     : state.isFocused
-    //     ? 'inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 175, 233, 0.6)'
-    //     : 'unset',
+      // fontSize: '0.9rem',
+      // boxShadow: state.selectProps.invalid
+      //   ? 'inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 55, 55, 0.6)'
+      //   : state.isFocused
+      //   ? 'inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 175, 233, 0.6)'
+      //   : 'unset',
       boxShadow: 'none',
       minHeight: '32px',
       '&:hover': {
@@ -58,7 +58,7 @@ export const SelectStyles = {
     }),
     valueContainer: (provided: any) => ({
       ...provided,
-      padding: '0 16px',
+      padding: '6px 8px',
       textAlign: 'left',
     }),
     singleValue: (provided: any) => ({
