@@ -150,7 +150,7 @@ const ModalCleaning: React.FC<Props> = ({
               <InputSelectMulti
                 name="methods"
                 id="methods"
-                label="Método de Limpeza *"
+                label="Métodos de Limpeza *"
                 placeholder="Ex. Aplicação de Sílica, Sanol, Banho de Sol"
                 onChange={(e: MultiValue<Dropdown>) => {
                   console.log(e.map(x => Number(x.id)));
