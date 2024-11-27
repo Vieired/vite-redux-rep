@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  label {
+  > label {
     align-self: start;
     padding: 0 4px 4px 0;
     display: flex;
@@ -15,7 +15,7 @@ export const Container = styled.div`
     }
   }
 
-  small {
+  > small {
     margin-top: 2px;
     align-self: start;
     text-align: left;
