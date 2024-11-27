@@ -9,8 +9,9 @@ import {
     addDoc,
     orderBy,
 } from 'firebase/firestore';
-import { Game, InitialStateGames } from '../shared/models/Games';
 import { toast } from 'react-toastify';
+import { Game, InitialStateGames } from '../shared/models/Games';
+import { CleaningMethodEnum } from '../shared/enums/CleaningMethodEnum';
 
 const gamesSlice = createSlice({
     name: 'games',
@@ -187,13 +188,18 @@ export const fetchGames = createAsyncThunk('jogos/fetchGames', async () => {
 
 export const updateCleaningDate = createAsyncThunk(
     'jogos/updateCleaningDate',
-    async (payload: {id:string, cleaning_method?: number}) => { // TODO: refatorar para usar a tipagem Game
+    async (payload: {
+        id:string,
+        cleaning_method?: number,
+        methods?: CleaningMethodEnum[],
+    }) => { // TODO: refatorar para usar a tipagem Game
         const gamesRef = doc(db, 'jogos', payload.id);
         console.log("updateCleaningDate payload: ", payload);
         
         await updateDoc(gamesRef, {
             cleaning_date: new Date().toISOString(),
             cleaning_method: payload.cleaning_method,
+            methods: payload.methods,
         });
     }
 );
@@ -208,6 +214,7 @@ export const updateGame = createAsyncThunk(
             ...payload,
             cleaning_date: payload.cleaning_date,
             cleaning_method: payload.cleaning_method,
+            methods: payload.methods,
             isActive: true,
             name: payload.name,
             photoUrl: payload.photoUrl,
@@ -222,6 +229,7 @@ export const createGame = createAsyncThunk(
             ...payload,
             // cleaning_date: payload.cleaning_date,
             cleaning_method: 1,
+            methods: null,
             isActive: true,
             // name: payload.name,
             // photoUrl: payload?.photoUrl,
@@ -234,6 +242,7 @@ export const createGame = createAsyncThunk(
             id: docRef.id,
             cleaning_date: payload.cleaning_date,
             cleaning_method: 1,
+            methods: payload.methods,
             isActive: true,
             name: payload.name,
             photoUrl: payload?.photoUrl || "",

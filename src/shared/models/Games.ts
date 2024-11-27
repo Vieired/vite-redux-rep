@@ -1,8 +1,11 @@
+import { CleaningMethodEnum } from "../enums/CleaningMethodEnum";
+
 export interface Game { // TODO: refatorar para deixar todas as props nullable, menos id
     id: string;
     name?: string;
     cleaning_date: string;
     cleaning_method?: number;
+    methods: CleaningMethodEnum[] | null;
     isActive: boolean;
     photoUrl?: string;
 }

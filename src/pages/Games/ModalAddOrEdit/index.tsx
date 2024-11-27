@@ -1,16 +1,18 @@
+import { useMemo } from "react";
+import { RiCloseFill } from "react-icons/ri";
 import ReactModal from "react-modal";
+import { MultiValue } from "react-select";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-// import { useEffect } from "react";
-// import ReactModal from "react-modal";
-// import { SingleValue } from "react-select";
-import { RiCloseFill } from "react-icons/ri";
 import { toast } from "react-toastify";
 import { Game } from "../../../shared/models/Games";
 import { createGame, updateGame, fetchGames } from "../../../store/gamesSlice";
 import Button from "../../../components/Inputs/Button";
 import Input from "../../../components/Inputs/Input";
 import InputDate from "../../../components/Inputs/InputDate";
+import InputSelectMulti from "../../../components/Inputs/InputSelectMulti";
+import { getTypeDescription, getTypeList } from "../../../shared/enums/CleaningMethodEnum";
+import { Dropdown } from "../../../shared/models/domain/Select";
 import schema from "./schema";
 import {
   Container,
@@ -82,10 +84,20 @@ const ModalAddOrEdit: React.FC<Props> = ({
       : {
         cleaning_date: today,
         cleaning_method: 1,
+        methods: null,
         isActive: true,
         name: ""
       } as Game,
   });
+
+  const methodOptions = useMemo(() => {
+    return getTypeList().map((x) => {
+      return {
+        id: String(x.id),
+        name: x.name,
+      } as Dropdown
+    }) as Dropdown[]
+  }, []);
 
   const getErrorMessage = (fieldName: string) => {
     if (formik.isSubmitting && !formik.isValid) {
@@ -108,6 +120,10 @@ const ModalAddOrEdit: React.FC<Props> = ({
 //   useEffect(() => {
 //     if (formik?.values?.province) setCityOptions(formik?.values?.province.id);
 //   }, [formik?.values?.province]);
+
+  // useEffect(() => {
+  //   console.log("formik.values: ", formik.values)
+  // }, [formik.values]);
 
   return (
     <Container>
@@ -175,6 +191,23 @@ const ModalAddOrEdit: React.FC<Props> = ({
                     value={formik?.values?.cleaning_method}
                     onChange={formik?.handleChange}
                     errorText={getErrorMessage("cleaning_method")}
+                />
+                <InputSelectMulti
+                  name="methods"
+                  label="Método de Limpeza *"
+                  onChange={(e: MultiValue<Dropdown>) => {
+                    formik.setFieldValue('methods', e.map(x => Number(x.id)));
+                  }}
+                  selecteds={
+                    formik?.values?.methods?.map(x => {
+                      return {
+                        id: String(x),
+                        name: getTypeDescription(x),
+                      } as Dropdown
+                    }) as Dropdown[]
+                  }
+                  options={methodOptions}
+                  errorText={getErrorMessage("methods")}
                 />
                 <Input
                     name="photoUrl"
