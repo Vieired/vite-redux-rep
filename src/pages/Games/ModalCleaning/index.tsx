@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { RiCloseFill } from "react-icons/ri";
 import { MdCleaningServices } from "react-icons/md";
 import { toast } from "react-toastify";
-import { Game } from "../../../shared/models/Games";
+import { Game, GameCleaning } from "../../../shared/models/Games";
 import { fetchGames, updateCleaningDate } from "../../../store/gamesSlice";
 import Button from "../../../components/Inputs/Button";
 import InputDate from "../../../components/Inputs/InputDate";
@@ -13,7 +13,8 @@ import schema from "./schema";
 import InputSelectMulti from "../../../components/Inputs/InputSelectMulti";
 import { MultiValue } from "react-select";
 import { Dropdown } from "../../../shared/models/domain/Select";
-import { getTypeList } from "../../../shared/enums/CleaningMethodEnum";
+import { getTypeDescription, getTypeList } from "../../../shared/enums/CleaningMethodEnum";
+import Input from "../../../components/Inputs/Input";
 import {
   Container,
   ModalContent,
@@ -52,12 +53,11 @@ const ModalCleaning: React.FC<Props> = ({
     }) as Dropdown[]
   }, []);
 
-  const handleSubmit = (data: Game) => {
+  const handleSubmit = (data: GameCleaning) => {
     console.log("data: ", data);
     if (data?.id) {
       dispatch(updateCleaningDate({
         id: data.id,
-        cleaning_method: Number(data.cleaning_method),
         methods: data.methods,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       }) as any).then(() => {
@@ -75,8 +75,8 @@ const ModalCleaning: React.FC<Props> = ({
     initialValues: {
       ...gameEditing,
       cleaning_date: today,
-      // methods: null,
-    } as Game,
+      methods: null,
+    } as GameCleaning,
   });
 
   const getErrorMessage = (fieldName: string) => {
@@ -146,15 +146,16 @@ const ModalCleaning: React.FC<Props> = ({
                 label="Método de Limpeza *"
                 placeholder="Ex. Aplicação de Sílica, Sanol, Banho de Sol"
                 onChange={(e: MultiValue<Dropdown>) => {
+                  console.log(e.map(x => Number(x.id)));
                   formik.setFieldValue('methods', e.map(x => Number(x.id)));
                 }}
-                selecteds={null
-                  // formik?.values?.methods?.map(x => {
-                  //   return {
-                  //     id: String(x),
-                  //     name: getTypeDescription(x),
-                  //   } as Dropdown
-                  // }) as Dropdown[]
+                selecteds={
+                  formik?.values?.methods?.map(x => {
+                    return {
+                      id: String(x),
+                      name: getTypeDescription(x),
+                    } as Dropdown
+                  }) as Dropdown[]
                 }
                 options={methodOptions}
                 errorText={getErrorMessage("methods")}

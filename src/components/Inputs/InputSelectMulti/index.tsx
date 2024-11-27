@@ -18,7 +18,7 @@ import { Container } from './styles';
 
 
 interface InputSelectMultiProps {
-  selecteds: Dropdown[] | null;
+  selecteds?: Dropdown[];
   options: Dropdown[];
   invalid?: boolean;
   success?: boolean;

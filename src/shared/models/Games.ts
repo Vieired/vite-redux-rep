@@ -16,3 +16,10 @@ export interface InitialStateGames {
     monthLimit: number,
     today: string;
 }
+
+export interface GameCleaning {
+    id: string;
+    name?: string;
+    cleaning_date: string;
+    methods: CleaningMethodEnum[] | null;
+}

@@ -190,15 +190,13 @@ export const updateCleaningDate = createAsyncThunk(
     'jogos/updateCleaningDate',
     async (payload: {
         id: string,
-        cleaning_method?: number,
-        methods?: CleaningMethodEnum[],
+        methods: CleaningMethodEnum[] | null,
     }) => { // TODO: refatorar para usar a tipagem Game
         const gamesRef = doc(db, 'jogos', payload.id);
         console.log("updateCleaningDate payload: ", payload);
         
         await updateDoc(gamesRef, {
             cleaning_date: new Date().toISOString(),
-            cleaning_method: payload.cleaning_method,
             methods: payload.methods,
         });
     }
