@@ -176,22 +176,14 @@ const ModalAddOrEdit: React.FC<Props> = ({
                     onChange={formik?.handleChange}
                     errorText={getErrorMessage("cleaning_date")}
                 />
-                {/* <input
-                    type="number"
-                    name="cleaning_method"
-                    placeholder="1.Sílica, 2.Sanol, 3.Banho de sol"
-                    value={formik?.values?.cleaning_method}
-                    onChange={formik?.handleChange}
-                    autoFocus
-                /> */}
-                <Input
+                {/* <Input
                     name="cleaning_method"
                     label="Método de Limpeza *"
                     placeholder="1.Sílica, 2.Sanol, 3.Banho de sol"
                     value={formik?.values?.cleaning_method}
                     onChange={formik?.handleChange}
                     errorText={getErrorMessage("cleaning_method")}
-                />
+                /> */}
                 <InputSelectMulti
                   name="methods"
                   label="Método de Limpeza *"
