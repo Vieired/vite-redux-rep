@@ -1,6 +1,6 @@
-import { StylesConfig } from "react-select";
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { StylesConfig } from "react-select";
 export const SelectStyles: StylesConfig<any, true> = {
     container: (provided: any) => ({
       ...provided,
@@ -30,7 +30,7 @@ export const SelectStyles: StylesConfig<any, true> = {
         ...provided['&:focused'],
         borderColor: 'var(--color-lightGrey)',
       },
-    //   alignContent: 'flex-start',
+      // alignContent: 'flex-start',
     }),
     // indicatorSeparator: () => ({
     //   display: 'none',
