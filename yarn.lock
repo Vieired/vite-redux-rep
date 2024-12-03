@@ -2456,6 +2456,13 @@ react-select@^5.8.3:
     react-transition-group "^4.3.0"
     use-isomorphic-layout-effect "^1.1.2"
 
+react-switch@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/react-switch/-/react-switch-7.0.0.tgz#400990bb9822864938e343ed24f13276a617bdc0"
+  integrity sha512-KkDeW+cozZXI6knDPyUt3KBN1rmhoVYgAdCJqAh7st7tk8YE6N0iR89zjCWO8T8dUTeJGTR0KU+5CHCRMRffiA==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-toastify@^10.0.6:
   version "10.0.6"
   resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-10.0.6.tgz#19c364b1150f495522c738d592d1dcc93879ade1"
