@@ -72,73 +72,16 @@ export const ModalBody = styled.div`
     flex-direction: column;
     gap: 16px;
 
-    /* > div {
-      
-      &:first-child {
+    > div:first-child {
+      display: flex;
+      align-self: end;
+
+      > label {
         display: inherit;
-        gap: 32px;
-
-        > span:last-child {
-          display: inherit;
-          flex-direction: column;
-          width: 100%;
-          gap: 16px;
-
-          .jobtitle-and-isadmin {
-            display: inherit;
-            width: 100%;
-            
-            > div {
-              &:first-child {
-                flex: 2;
-              }
-              &:last-child {
-                flex: 1;
-                align-self: flex-end;
-                place-items: end;
-              }            
-            }
-          }
-        }
-
-        > span:nth-child(2) {
-          > div:first-of-type {
-            align-items: end;
-          }
-        }
+        align-items: center;
+        gap: 1rem;
       }
-
-      &:last-child {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-
-        > div {
-          grid-column: 1 / 4;
-
-          &:nth-child(3) {
-            grid-column: 1
-          }
-
-          &:nth-child(4) {
-            grid-column: 2
-          }
-          
-          &:nth-child(5),
-          &:nth-child(7),
-          &:nth-child(10),
-          &:nth-child(12) {
-            grid-column: 3
-          }
-
-          &:nth-child(6),
-          &:nth-child(9),
-          &:nth-child(11) {
-            grid-column: 1 / 3
-          }
-        }
-      }
-    } */
+    }
 
     &.loading::after {
       content: "";

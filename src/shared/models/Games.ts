@@ -11,10 +11,11 @@ export interface Game { // TODO: refatorar para deixar todas as props nullable, 
 }
 
 export interface InitialStateGames {
-    games: Game[],
-    status: string,
-    monthLimit: number,
+    games: Game[];
+    status: string;
+    monthLimit: number;
     today: string;
+    isActiveFilter: boolean;
 }
 
 export interface GameCleaning {

@@ -23,6 +23,18 @@ export const Toolbar = styled.div`
     display: flex;
     gap: 1rem;
 
+    > span {
+        display: flex;    
+        flex: auto;
+        place-content: end;
+        
+        > label {
+            display: inherit;
+            align-items: center;
+            gap: 1rem;
+        }
+    }
+
     @media (max-width: 768px) {
         position: fixed;
         bottom: 16px;
@@ -48,6 +60,10 @@ export const Toolbar = styled.div`
                 outline-offset: 4px;
             }
         }
+
+        > span > label > span {
+            display: none;
+        }        
     }
 `;
 

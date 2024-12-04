@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { RiCloseFill } from "react-icons/ri";
 import ReactModal from "react-modal";
+import Switch from "react-switch";
 import { MultiValue } from "react-select";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
@@ -162,6 +163,16 @@ const ModalAddOrEdit: React.FC<Props> = ({
             //   className={getLoadingState() ? "loading" : ""}
             >
               {/* {`Editando: ${gameEditing?.name || "N/A"}`} */}
+              <div>
+                  <label htmlFor="isActive">
+                      <span>Ativado?</span>
+                    <Switch
+                        id="isActive"
+                        onChange={(e) => formik?.setFieldValue("isActive", e)}
+                        checked={formik?.values?.isActive}
+                    />
+                  </label>
+              </div>
               <Input
                 name="name"
                 label="Nome *"

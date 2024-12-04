@@ -2,11 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 import { FaPlus, FaPen } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
+import Switch from "react-switch";
 import {
     fetchGames,
     selectGames,
 } from "../../store/gamesSlice.js";
-import { Game } from "../../shared/models/Games.ts";
+import { Game, InitialStateGames } from "../../shared/models/Games.ts";
 import Button from "../../components/Inputs/Button/index";
 import ModalAddOrEdit from "./ModalAddOrEdit/index";
 import ModalCleaning from "./ModalCleaning/index.tsx";
@@ -16,7 +17,8 @@ import { Container, Loading, Toolbar } from "./styles";
 const Games: React.FC = () => {
 
     const dispatch = useDispatch();
-    const { games, monthLimit } = useSelector(selectGames);
+    const gamesStatus = useSelector(selectGames).status;
+    const { games, monthLimit } = useSelector(selectGames) as InitialStateGames;
 
     const subtitle = `Frequência de limpezas: ${monthLimit} meses`;
 
@@ -24,6 +26,7 @@ const Games: React.FC = () => {
     const [modalCleaningOpen, setModalCleaningOpen] = useState<boolean>(false);
     const [gameEditing, setGameEditing] = useState<Game|null>(null);
     const [activeEdition, setActiveEdition] = useState<boolean>(false);
+    const [showActiveOnly, setShowActiveOnly] = useState<boolean>(true);
 
     const toggleModal = useCallback(() => {
         setModalOpen(prevState => !prevState);
@@ -50,14 +53,12 @@ const Games: React.FC = () => {
         setGameEditing(null);
     }
 
-    const gamesStatus = useSelector(selectGames).status;
-    useEffect(() => {
-        if(gamesStatus === 'idle') {
+    const refreshGames = useCallback(() => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            dispatch(fetchGames() as any);
-            // dispatch(fetchGames() as unknown as UnknownAction);
-        }
-    }, [dispatch, gamesStatus]);
+            dispatch(fetchGames(showActiveOnly) as any);
+    }, [dispatch, showActiveOnly]);
+
+    useEffect(() => refreshGames(), [refreshGames]);
 
     return (
         <Container>    
@@ -81,6 +82,19 @@ const Games: React.FC = () => {
                 >
                     <FaPen />
                 </Button>
+
+                <span>
+                    <label htmlFor="OnlyActives">
+                        <span>Exibir Somente Ativos</span>
+                        <Switch
+                            id="OnlyActives"
+                            onChange={() => {
+                                setShowActiveOnly(prevState => !prevState);
+                            }}
+                            checked={showActiveOnly}
+                        />
+                    </label>
+                </span>
             </Toolbar>
             {gamesStatus !== "pending" ? (
                 <ul>

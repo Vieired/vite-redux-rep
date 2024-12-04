@@ -8,6 +8,7 @@ import {
     updateDoc,
     addDoc,
     orderBy,
+    where,
 } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { Game, InitialStateGames } from '../shared/models/Games';
@@ -20,6 +21,7 @@ const gamesSlice = createSlice({
         status: 'idle',
         monthLimit: 6,
         today: new Date().toISOString().split("T")[0],
+        isActiveFilter: true,
     } as InitialStateGames,
     reducers: {
         // updateCleaningDate: (jogos, action) => {
@@ -48,7 +50,6 @@ const gamesSlice = createSlice({
         //     return initialState
         //   })
         .addCase(fetchGames.pending, (state/*, action*/) => {
-            console.log('loading');
             state.status = 'pending';
         })
         .addCase(fetchGames.fulfilled, (state, action) => {
@@ -56,7 +57,6 @@ const gamesSlice = createSlice({
             // Add any fetched posts to the array
             state.games = action.payload;
             // state.games = (action.payload) as never[];
-            // console.log('success');
         })
         .addCase(fetchGames.rejected, (state, action) => {
             state.status = 'failed'
@@ -88,7 +88,6 @@ const gamesSlice = createSlice({
 
         // #region - UPDATE updateGame ----------------------------------------
         .addCase(updateGame.pending, (state/*, action*/) => {
-            console.log('loading');
             state.status = 'pending';
         })
         .addCase(updateGame.fulfilled, (state/*, action*/) => {
@@ -156,14 +155,26 @@ export const selectGames = (state: any) => state.games;
 
 export default gamesSlice.reducer;
 
-export const fetchGames = createAsyncThunk('jogos/fetchGames', async () => {
-    const q = query(
-        collection(db, "jogos"),
-        // orderBy("name", "asc"),
-        orderBy("cleaning_date"),
-        orderBy("__name__"),
-        // where("id", "==", auth.currentUser.uid)
-    );
+export const fetchGames = createAsyncThunk('jogos/fetchGames', async (
+    isActiveFilter?: boolean
+) => {
+    const gamesRef = collection(db, "jogos");
+        const q = isActiveFilter
+            ? query(
+                gamesRef,
+                where("isActive", "==", true),
+                // where("isActive", "==", gamesSlice.getInitialState().isActiveFilter),
+                // orderBy("name", "asc"),
+                orderBy("cleaning_date"),
+                orderBy("__name__"),
+                // where("id", "==", auth.currentUser.uid)
+            )
+            : query(
+                gamesRef,
+                orderBy("cleaning_date"),
+                orderBy("__name__"),
+            );
+
     const querySnapshot = await getDocs(q);
     const gameList: Game[] = [];
     querySnapshot.forEach((doc) => {
@@ -212,8 +223,8 @@ export const updateGame = createAsyncThunk(
             ...payload,
             cleaning_date: payload.cleaning_date,
             cleaning_method: payload.cleaning_method,
-            methods: payload.methods,
-            isActive: true,
+            methods: payload?.methods || null,
+            isActive: payload.isActive,
             name: payload.name,
             photoUrl: payload.photoUrl,
         })
@@ -223,25 +234,25 @@ export const updateGame = createAsyncThunk(
 export const createGame = createAsyncThunk(
     'jogos/createGame',
     async (payload: Game) => {
-        const docRef = await addDoc(collection(db, 'jogos'), {
+        const docRef = await addDoc(collection(db, 'jogos'), { // cria um registro na base e obtem o novo ID
             ...payload,
             // cleaning_date: payload.cleaning_date,
             cleaning_method: 1,
             methods: null,
-            isActive: true,
+            isActive: payload.isActive,
             // name: payload.name,
             // photoUrl: payload?.photoUrl,
         });
         // console.log("createGame docRef: ", docRef);
         // console.log("createGame payload: ", payload);
         
-        const gamesRef = doc(db, 'jogos', docRef.id);
+        const gamesRef = doc(db, 'jogos', docRef.id); // atualiza o novo registro com o ID obtido
         await updateDoc(gamesRef, {
             id: docRef.id,
             cleaning_date: payload.cleaning_date,
             cleaning_method: 1,
             methods: payload.methods,
-            isActive: true,
+            isActive: payload.isActive,
             name: payload.name,
             photoUrl: payload?.photoUrl || "",
         });
