@@ -21,9 +21,13 @@ const gamesSlice = createSlice({
         status: 'idle',
         monthLimit: 6,
         today: new Date().toISOString().split("T")[0],
-        isActiveFilter: true,
+        showOnlyActiveGamesFilter: true,
     } as InitialStateGames,
     reducers: {
+        toggleShowOnlyActiveGamesFilter: (state, action) => {
+            // state.showOnlyActiveGamesFilter = !state.showOnlyActiveGamesFilter
+            state.showOnlyActiveGamesFilter = action.payload
+        },
         // updateCleaningDate: (jogos, action) => {
         //     jogos.games.map(game => {
         //         if (game.id === action.payload) {
@@ -146,7 +150,11 @@ const gamesSlice = createSlice({
     },
 });
 
-// export const { addGame, eraseGame } = gamesSlice.actions;
+export const {
+    toggleShowOnlyActiveGamesFilter,
+    // addGame,
+    // eraseGame,
+} = gamesSlice.actions;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const selectGames = (state: any) => state.games;
@@ -156,10 +164,10 @@ export const selectGames = (state: any) => state.games;
 export default gamesSlice.reducer;
 
 export const fetchGames = createAsyncThunk('jogos/fetchGames', async (
-    isActiveFilter?: boolean
+    showOnlyActiveGamesFilter?: boolean
 ) => {
     const gamesRef = collection(db, "jogos");
-        const q = isActiveFilter
+        const q = showOnlyActiveGamesFilter
             ? query(
                 gamesRef,
                 where("isActive", "==", true),

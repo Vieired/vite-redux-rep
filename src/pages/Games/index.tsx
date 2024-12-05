@@ -6,6 +6,7 @@ import Switch from "react-switch";
 import {
     fetchGames,
     selectGames,
+    toggleShowOnlyActiveGamesFilter,
 } from "../../store/gamesSlice.js";
 import { Game, InitialStateGames } from "../../shared/models/Games.ts";
 import Button from "../../components/Inputs/Button/index";
@@ -18,7 +19,7 @@ const Games: React.FC = () => {
 
     const dispatch = useDispatch();
     const gamesStatus = useSelector(selectGames).status;
-    const { games, monthLimit } = useSelector(selectGames) as InitialStateGames;
+    const { games, monthLimit, showOnlyActiveGamesFilter } = useSelector(selectGames) as InitialStateGames;
 
     const subtitle = `Frequência de limpezas: ${monthLimit} meses`;
 
@@ -26,7 +27,6 @@ const Games: React.FC = () => {
     const [modalCleaningOpen, setModalCleaningOpen] = useState<boolean>(false);
     const [gameEditing, setGameEditing] = useState<Game|null>(null);
     const [activeEdition, setActiveEdition] = useState<boolean>(false);
-    const [showActiveOnly, setShowActiveOnly] = useState<boolean>(true);
 
     const toggleModal = useCallback(() => {
         setModalOpen(prevState => !prevState);
@@ -54,9 +54,9 @@ const Games: React.FC = () => {
     }
 
     const refreshGames = useCallback(() => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            dispatch(fetchGames(showActiveOnly) as any);
-    }, [dispatch, showActiveOnly]);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        dispatch(fetchGames(showOnlyActiveGamesFilter) as any);
+    }, [dispatch, showOnlyActiveGamesFilter]);
 
     useEffect(() => refreshGames(), [refreshGames]);
 
@@ -82,16 +82,13 @@ const Games: React.FC = () => {
                 >
                     <FaPen />
                 </Button>
-
                 <span>
-                    <label htmlFor="OnlyActives">
+                    <label htmlFor="onlyActives">
                         <span>Exibir Somente Ativos</span>
                         <Switch
-                            id="OnlyActives"
-                            onChange={() => {
-                                setShowActiveOnly(prevState => !prevState);
-                            }}
-                            checked={showActiveOnly}
+                            id="onlyActives"
+                            onChange={(e) => dispatch(toggleShowOnlyActiveGamesFilter(e))}
+                            checked={showOnlyActiveGamesFilter}
                         />
                     </label>
                 </span>

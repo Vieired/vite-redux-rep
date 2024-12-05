@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 import ReactModal from "react-modal";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RiCloseFill } from "react-icons/ri";
 import { MdCleaningServices } from "react-icons/md";
 import { toast } from "react-toastify";
 import { Game, GameCleaning } from "../../../shared/models/Games";
-import { fetchGames, updateCleaningDate } from "../../../store/gamesSlice";
+import { fetchGames, selectGames, updateCleaningDate } from "../../../store/gamesSlice";
 import Button from "../../../components/Inputs/Button";
 import InputDate from "../../../components/Inputs/InputDate";
 import schema from "./schema";
@@ -43,6 +43,7 @@ const ModalCleaning: React.FC<Props> = ({
   const dispatch = useDispatch();
 
   const today = new Date().toISOString().split("T")[0];
+  const { showOnlyActiveGamesFilter } = useSelector(selectGames);
 
   const methodOptions = useMemo(() => {
     return getTypeList().map((x) => {
@@ -60,9 +61,10 @@ const ModalCleaning: React.FC<Props> = ({
         id: data.id,
         methods: data.methods,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      }) as any).then(() => {
+      }) as any)
+      .then(() => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        dispatch(fetchGames() as any);
+        dispatch(fetchGames(showOnlyActiveGamesFilter) as any);
         toggleModal()
       });
     }

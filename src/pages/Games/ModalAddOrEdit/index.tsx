@@ -4,10 +4,15 @@ import ReactModal from "react-modal";
 import Switch from "react-switch";
 import { MultiValue } from "react-select";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Game } from "../../../shared/models/Games";
-import { createGame, updateGame, fetchGames } from "../../../store/gamesSlice";
+import {
+  createGame,
+  updateGame,
+  fetchGames,
+  selectGames,
+} from "../../../store/gamesSlice";
 import Button from "../../../components/Inputs/Button";
 import Input from "../../../components/Inputs/Input";
 import InputDate from "../../../components/Inputs/InputDate";
@@ -46,10 +51,17 @@ const ModalAddOrEdit: React.FC<Props> = ({
 
   const today = new Date().toISOString().split("T")[0];
 
-//   const done = () => {
-//     toggleModal();
-//     refreshList();
-//   };
+  /*
+  *  Poderia usar o callback refreshGames passado via prop do componente pai, 
+  *  mas preferi fazer a chamada via Redux mesmo para demonstração
+  */
+  const { showOnlyActiveGamesFilter } = useSelector(selectGames);
+
+  const done = () => {
+    toggleModal()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dispatch(fetchGames(showOnlyActiveGamesFilter) as any);
+  };
 
   const handleSubmit = (data: Game) => {
     // gameEditing ? edit(data, done) : save(data, done);
@@ -58,22 +70,16 @@ const ModalAddOrEdit: React.FC<Props> = ({
         ...data,
         cleaning_method: Number(data.cleaning_method),
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      }) as any).then(() => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        dispatch(fetchGames() as any);
-        toggleModal()
-      })
+      }) as any)
+      .then(() => done())
     }
     else {
       dispatch(createGame({
         ...data,
         cleaning_method: Number(data.cleaning_method),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      }) as any).then(() => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        dispatch(fetchGames() as any);
-        toggleModal()
-      })
+      }) as any)
+      .then(() => done())
     }
   };
 

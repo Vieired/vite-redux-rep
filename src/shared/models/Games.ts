@@ -15,7 +15,7 @@ export interface InitialStateGames {
     status: string;
     monthLimit: number;
     today: string;
-    isActiveFilter: boolean;
+    showOnlyActiveGamesFilter: boolean;
 }
 
 export interface GameCleaning {
