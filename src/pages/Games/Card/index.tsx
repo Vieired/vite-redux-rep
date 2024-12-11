@@ -89,7 +89,7 @@ const Card: React.FC<Props> = ({
 
     const checkLimit = (startDate: string): boolean => {
         const diff = getDiffMonths(startDate, today);
-        return diff > monthLimit;
+        return diff >= monthLimit;
     }
 
     const randomImage = useMemo(() => {
