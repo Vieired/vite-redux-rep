@@ -39,29 +39,37 @@ const Card: React.FC<Props> = ({
         const b = new Date(endDate);
         const anoInicial = a.getFullYear();
         const mesInicial = a.getMonth();
+        const diaInicial = a.getDate();
         const anoFinal = b.getFullYear();
         const mesFinal = b.getMonth();
+        const diaFinal = b.getDate();
     
-        const diferencaAnos = anoFinal - anoInicial;
-        const diferencaMeses = mesFinal - mesInicial;
-    
-        return diferencaAnos * 12 + diferencaMeses;
+        // Calcula a diferença total em meses
+        let diferencaMeses = (anoFinal - anoInicial) * 12 + (mesFinal - mesInicial);
+
+        // Ajusta para meses completos
+        if (diaFinal < diaInicial) {
+            diferencaMeses--;
+        }
+
+        return diferencaMeses;
     }
 
     const getTimeSinceLastCleaning = (startDate: string, endDate: string) => {
         const diffDays = getDiffDays(startDate, endDate);
         const diffMonths = getDiffMonths(startDate, endDate);
 
-        const days = Math.floor(diffDays % 30.6); // adicionei o decimal 0,6 e o arredondamento para baixo, para amenizar o erro de cálculo produzido pelo fato de existir variância de dias entre os meses
+        // const days = Math.floor(diffDays % 30.6); // adicionei o decimal 0,6 e o arredondamento para baixo, para amenizar o erro de cálculo produzido pelo fato de existir variância de dias entre os meses
+        const days = diffDays > 365 ? diffDays % 365 : Math.floor(diffDays % 30.6);
         const months = diffMonths % 12;
         const years = Math.floor(diffDays / 365);
+        // const years = Math.floor(diffMonths / 12);
 
-        if(diffDays < 30) {
-            const descriptionOfDays = days > 0 ? `${Math.floor(diffDays)} dia${days > 1 ? "s" : ""}` : "";
-            return descriptionOfDays
+        if(diffDays < 30) { // dias
+            return days > 0 ? `${Math.floor(diffDays)} dia${days > 1 ? "s" : ""}` : "";
         }
 
-        if(diffDays < 365) {
+        if(diffMonths < 12) { // meses
             const descriptionOfMonths = months > 0 ? `${months} mes${months > 1 ? "es" : ""}` : "";
             const descriptionOfDays = days > 0 ? `${days} dia${days > 1 ? "s" : ""}` : "";
             return descriptionOfMonths !== "" && descriptionOfDays !== ""
@@ -71,6 +79,8 @@ const Card: React.FC<Props> = ({
                     : `${descriptionOfMonths}`;
         }
 
+        // mais de um ano
+        // const restDays = diffDays > 365 ? diffDays % 365 : days;
         const descriptionOfYears = years > 0 ? `${years} ano${years > 1 ? "s" :""}` : "";
         const descriptionOfMonths = months > 0 ? `${months} mes${months > 1 ? "es" : ""}` : "";
         const descriptionOfDays = days > 0 ? ` e ${days} dia${days > 1 ? "s" : ""}` : "";
