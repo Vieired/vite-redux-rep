@@ -14,6 +14,11 @@ export const Container = styled.div`
         gap: 1rem;
     }
 
+    > nav {
+        display: flex;
+        align-self: end;
+    }
+
     /* @media (max-width: 768px) {
         
     } */

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { FaPlus, FaPen } from "react-icons/fa";
+import { FaPlus, FaPen, FaPowerOff } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import Switch from "react-switch";
@@ -13,6 +13,9 @@ import Button from "../../components/Inputs/Button/index";
 import ModalAddOrEdit from "./ModalAddOrEdit/index";
 import ModalCleaning from "./ModalCleaning/index.tsx";
 import Card from "./Card/index.tsx";
+import { auth } from "../../firebase/config.ts"
+import { signOut } from "firebase/auth";
+import { setUser } from "../../store/usersSlice.ts";
 import { Container, Loading, Toolbar } from "./styles";
 
 const Games: React.FC = () => {
@@ -41,6 +44,17 @@ const Games: React.FC = () => {
         setActiveEdition(prevState => !prevState);
     };
 
+    const handleSignOut = () => {
+        signOut(auth).then(() => {
+                // Sign-out successful.
+                dispatch(setUser(null));
+                localStorage.clear();
+            }).catch((error) => {
+                // An error happened.
+                console.log(error);
+            });
+    }
+
     const handleAddClick = () => {
         toggleModal();
     }
@@ -61,7 +75,16 @@ const Games: React.FC = () => {
     useEffect(() => refreshGames(), [refreshGames]);
 
     return (
-        <Container>    
+        <Container>
+            <nav>
+                <Button
+                    btnTheme="quaternary"
+                    onClick={handleSignOut}
+                    title="Sair"
+                >
+                    <FaPowerOff/>
+                </Button>
+            </nav>
             <h2>BG Limpo</h2>
             <small>{subtitle}</small>
             <Toolbar>

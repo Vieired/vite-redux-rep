@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
-import stockReducer from './stockSlice'
+import usersReducer from './usersSlice'
 import gamesReducer from './gamesSlice'
+import stockReducer from './stockSlice'
 
 
 export default configureStore({
     reducer: {
-        stock: stockReducer,
+        users: usersReducer,
         games: gamesReducer,
+        stock: stockReducer,
     }
 })
 

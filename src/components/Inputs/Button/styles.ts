@@ -115,7 +115,7 @@ export const Container = styled.button<Props>`
         if (prop?.btnTheme === 'quaternary') {
             return css<Props>`
                 padding: 4px 16px;
-                color: var(--gray0);
+                color: inherit;
                 background-color: transparent;
                 border: 1px solid transparent;
                 transition: opacity .3s;
@@ -125,9 +125,8 @@ export const Container = styled.button<Props>`
                 }
 
                 &:not(:disabled):hover {
-                    opacity: .8;
+                    opacity: .6;
                     background-color: var(--gray3B);
-                    color: #FFF;
                     border-color: transparent;
                 }
 

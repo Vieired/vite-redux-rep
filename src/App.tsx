@@ -1,3 +1,4 @@
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 // import reactLogo from './assets/react.svg'
 import { ToastContainer } from 'react-toastify';
 import './App.css'
@@ -6,8 +7,10 @@ import './App.css'
 // import { decrement, increment, selectStock } from './store/stockSlice';
 // import Learn from './pages/Learn'
 import Games from './pages/Games';
+import Login from './pages/Login';
+import { useSelector } from 'react-redux';
+import { selectUsers } from './store/usersSlice';
 // import videoRep from './store';
-// import { useDispatch, useSelector } from 'react-redux';
 import GlobalStyle from "./styles/global";
 
 
@@ -15,6 +18,8 @@ function App() {
   // const dispatch = useDispatch();
   // const stock = useSelector(selectStock);
   // const [count, setCount] = useState(0)
+
+  const user = useSelector(selectUsers);
 
   return (
     <>
@@ -31,9 +36,19 @@ function App() {
         pauseOnHover
       />    
       <GlobalStyle />
-      <section>
-        <Games />
-      </section>
+
+      {user?.currentUser ? (
+        <BrowserRouter>
+          <Routes>
+              <Route index element={<Games/>} />
+          </Routes>
+        </BrowserRouter>
+      ) : (
+        <Login/>
+      )}
+
+      {/* <Route path="*" element={<NotFound />} /> */}
+
       {/* <section>
         <div>
           <a href="https://react.dev" target="_blank">
