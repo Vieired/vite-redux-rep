@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { FaPlus, FaPen, FaPowerOff } from "react-icons/fa";
+import { FaPlus, FaPen, FaPowerOff, FaCog } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import Switch from "react-switch";
@@ -17,14 +17,20 @@ import { auth } from "../../firebase/config.ts"
 import { signOut } from "firebase/auth";
 import { setUser } from "../../store/usersSlice.ts";
 import { Container, Loading, Toolbar } from "./styles";
+import { useNavigate } from "react-router-dom";
 
 const Games: React.FC = () => {
 
     const dispatch = useDispatch();
     const gamesStatus = useSelector(selectGames).status;
-    const { games, monthLimit, showOnlyActiveGamesFilter } = useSelector(selectGames) as InitialStateGames;
+    const {
+        games,
+        limitInMonths,
+        showOnlyActiveGamesFilter
+    } = useSelector(selectGames) as InitialStateGames;
+    const navigate = useNavigate();
 
-    const subtitle = `Frequência de limpezas: ${monthLimit} meses`;
+    const subtitle = `Frequência de limpezas: ${limitInMonths} meses`;
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [modalCleaningOpen, setModalCleaningOpen] = useState<boolean>(false);
@@ -77,6 +83,13 @@ const Games: React.FC = () => {
     return (
         <Container>
             <nav>
+                <Button
+                    btnTheme="quaternary"
+                    onClick={() => navigate('/settings')}
+                    title="Configurações"
+                >
+                    <FaCog/>
+                </Button>
                 <Button
                     btnTheme="quaternary"
                     onClick={handleSignOut}

@@ -17,6 +17,8 @@ export const Container = styled.div`
     > nav {
         display: flex;
         align-self: end;
+        justify-content: space-between;
+        width: 100%;
     }
 
     /* @media (max-width: 768px) {

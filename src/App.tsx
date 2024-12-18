@@ -8,6 +8,7 @@ import './App.css'
 // import Learn from './pages/Learn'
 import Games from './pages/Games';
 import Login from './pages/Login';
+import Settings from './pages/Settings';
 import { useSelector } from 'react-redux';
 import { selectUsers } from './store/usersSlice';
 // import videoRep from './store';
@@ -41,6 +42,7 @@ function App() {
         <BrowserRouter>
           <Routes>
               <Route index element={<Games/>} />
+              <Route path="/settings" element={<Settings/>} />
           </Routes>
         </BrowserRouter>
       ) : (

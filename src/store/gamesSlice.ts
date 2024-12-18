@@ -19,7 +19,7 @@ const gamesSlice = createSlice({
     initialState: {
         games: [],
         status: 'idle',
-        monthLimit: 6,
+        limitInMonths: 6,
         today: new Date().toISOString().split("T")[0],
         showOnlyActiveGamesFilter: true,
     } as InitialStateGames,
@@ -27,6 +27,10 @@ const gamesSlice = createSlice({
         toggleShowOnlyActiveGamesFilter: (state, action) => {
             // state.showOnlyActiveGamesFilter = !state.showOnlyActiveGamesFilter
             state.showOnlyActiveGamesFilter = action.payload
+        },
+        setLimitInMonths: (state, action) => {
+            // TODO: futuramente, transformar em extraReducers para guardar este valor na base de dados
+            state.limitInMonths = action.payload
         },
         // updateCleaningDate: (jogos, action) => {
         //     jogos.games.map(game => {
@@ -152,6 +156,7 @@ const gamesSlice = createSlice({
 
 export const {
     toggleShowOnlyActiveGamesFilter,
+    setLimitInMonths,
     // addGame,
     // eraseGame,
 } = gamesSlice.actions;

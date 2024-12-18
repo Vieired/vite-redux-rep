@@ -22,7 +22,7 @@ const Card: React.FC<Props> = ({
     toggleModal,
 }) => {
     
-    const { monthLimit, today } = useSelector(selectGames);
+    const { limitInMonths, today } = useSelector(selectGames);
 
     const getDiffDays = (startDate: string, endDate: string): number => {
         const a = new Date(startDate);
@@ -89,7 +89,7 @@ const Card: React.FC<Props> = ({
 
     const checkLimit = (startDate: string): boolean => {
         const diff = getDiffMonths(startDate, today);
-        return diff >= monthLimit;
+        return diff >= limitInMonths;
     }
 
     const randomImage = useMemo(() => {
