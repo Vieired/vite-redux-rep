@@ -48,3 +48,6 @@ export default tseslint.config({
   },
 })
 ```
+
+## Run Application
+yarn run dev
