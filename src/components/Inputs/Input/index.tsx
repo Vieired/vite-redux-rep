@@ -3,7 +3,7 @@ import { Container } from "./styles";
 interface Props {
     value?: string | number;
     label?: string;
-    type?: "text" | "password" | "search" | "textarea";
+    type?: "text" | "password" | "search";
     id?: string;
     name?: string;
     className?: string;
@@ -42,7 +42,7 @@ const Input: React.FC<Props> = ({
 
     return (
         <Container className={className}>
-            { label && (
+            {label && (
                 <label
                     htmlFor={id || name}
                     className={errorText ? 'invalid' : ''}
@@ -50,7 +50,6 @@ const Input: React.FC<Props> = ({
                     {label}
                 </label>
             )}
-            {type !== "textarea" && (
             <input
                 value={(type === "text" && value == null) ? "" : value}
                 id={id || name}
@@ -70,28 +69,6 @@ const Input: React.FC<Props> = ({
                 aria-errormessage={errorText}
                 aria-invalid={errorText && errorText!=='' ? true : false}
             />
-            )}
-
-            {type === "textarea" && (
-                <textarea
-                    value={value}
-                    id={id || name}
-                    name={name}
-                    placeholder={placeholder}
-                    autoComplete={autoComplete ? 'on' : 'off'}
-                    autoFocus={autoFocus}
-                    readOnly={readOnly}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    disabled={disabled}
-                    hidden={hidden}
-                    maxLength={maxLength}
-                    className={errorText ? 'has-error' : ''}
-                    aria-label={label || placeholder || `Field of type ${type}`}
-                    aria-errormessage={errorText}
-                    aria-invalid={errorText && errorText!=='' ? true : false}
-                />
-            )}
             {!fit && (
                 <small role="alert">
                     {`${errorText != null ? errorText : ""}`}
