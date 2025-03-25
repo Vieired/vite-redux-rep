@@ -53,30 +53,37 @@ const Login: React.FC = () => {
     // }, []);
 
     return (
-        <Container>    
-            <h2>Login</h2>
-            <form onSubmit={formik.handleSubmit}>
-                <Input
-                    name="email"
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
-                    placeholder="E-mail"
-                />
-                <Input
-                    name="password"
-                    type="password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                    placeholder="Password"
-                />
-                <Button
-                    type="submit"
-                    btnTheme="primary"
-                    // disabled={checkDisabledSubmit()}
-                >
-                    Entrar
-                </Button>
-            </form>
+        <Container>
+            <div>
+                <h1>
+                    BG Limpo
+                </h1>
+            </div>
+            <div>
+                <h2>Login</h2>
+                <form onSubmit={formik.handleSubmit}>
+                    <Input
+                        name="email"
+                        onChange={formik.handleChange}
+                        value={formik.values.email}
+                        placeholder="E-mail"
+                    />
+                    <Input
+                        name="password"
+                        type="password"
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                        placeholder="Password"
+                    />
+                    <Button
+                        type="submit"
+                        btnTheme="primary"
+                        // disabled={checkDisabledSubmit()}
+                    >
+                        Entrar
+                    </Button>
+                </form>
+            </div>
         </Container>
     );
 };
