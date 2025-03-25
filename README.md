@@ -49,5 +49,8 @@ export default tseslint.config({
 })
 ```
 
-## Run Application
+## Command To Run Application
 yarn run dev
+
+## Command To Firebase Deploy
+firebase deploy
