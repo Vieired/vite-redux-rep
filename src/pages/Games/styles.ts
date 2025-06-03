@@ -2,6 +2,17 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
+    background: #fff2ea;
+
+    @media (min-width: 992px) {
+        padding-left: 0;
+        padding-right: 0;
+        justify-content: center;
+    }
+`;
+
+export const Content = styled.div`
+    display: flex;
     flex-direction: column;
     gap: 2rem;
     padding: 1rem;
@@ -24,7 +35,7 @@ export const Container = styled.div`
     @media (min-width: 992px) {
         padding-left: 0;
         padding-right: 0;
-        width: 900px;
+        width: 56rem;
         align-self: center;
     }
 `;

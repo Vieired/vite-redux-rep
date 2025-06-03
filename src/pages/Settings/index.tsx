@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import Button from "../../components/Inputs/Button";
-import { Container } from "./styles";
+import { Container, Content } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { InitialStateGames } from "../../shared/models/Games";
 import { selectGames, setLimitInMonths } from "../../store/gamesSlice";
@@ -29,29 +29,31 @@ const Settings: React.FC = () => {
 
     return (
         <Container>
-            <nav>
-                <Button
-                    btnTheme="secondary"
-                    onClick={() => navigate('/')}
-                    title="Configurações"
-                >
-                    {'<- Voltar'}
-                </Button>
-            </nav>
-            <h2>Configurações</h2>
-            <form onSubmit={formik.handleSubmit}>
-                <InputNumber
-                    name="limitInMonths"
-                    value={formik.values.limitInMonths}
-                    onChange={formik.handleChange}
-                />
-                <Button
-                    btnTheme="primary"
-                    type="submit"
-                >
-                    Salvar
-                </Button>
-            </form>
+            <Content>
+                <nav>
+                    <Button
+                        btnTheme="secondary"
+                        onClick={() => navigate('/')}
+                        title="Configurações"
+                    >
+                        {'<- Voltar'}
+                    </Button>
+                </nav>
+                <h2>Configurações</h2>
+                <form onSubmit={formik.handleSubmit}>
+                    <InputNumber
+                        name="limitInMonths"
+                        value={formik.values.limitInMonths}
+                        onChange={formik.handleChange}
+                    />
+                    <Button
+                        btnTheme="primary"
+                        type="submit"
+                    >
+                        Salvar
+                    </Button>
+                </form>
+            </Content>
         </Container>
     );
 };
