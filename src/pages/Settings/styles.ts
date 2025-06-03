@@ -34,4 +34,15 @@ export const Content = styled.div`
         width: 60rem;
         align-self: center;
     }
+
+    > form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+`;
+
+export const Buttons = styled.div`
+    display: flex;
+    justify-content: end;
 `;

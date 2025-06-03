@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import { FaArrowLeft as LeftIcon, FaCheck } from 'react-icons/fa';
 import { useFormik } from "formik";
 import Button from "../../components/Inputs/Button";
 import { InitialStateGames } from "../../shared/models/Games";
 import { selectGames, setLimitInMonths } from "../../store/gamesSlice";
 import InputNumber from "../../components/Inputs/InputNumber";
-import { Container, Content } from "./styles";
+import { Container, Content, Buttons } from "./styles";
 
 
 const Settings: React.FC = () => {
@@ -43,7 +44,7 @@ const Settings: React.FC = () => {
                         onClick={() => navigate('/')}
                         title="Configurações"
                     >
-                        {'<- Voltar'}
+                        <LeftIcon /> Voltar
                     </Button>
                 </nav>
                 <h2>Configurações</h2>
@@ -55,12 +56,15 @@ const Settings: React.FC = () => {
                         value={formik.values.limitInMonths}
                         onChange={formik.handleChange}
                     />
-                    <Button
-                        btnTheme="primary"
-                        type="submit"
-                    >
-                        Salvar
-                    </Button>
+                    <Buttons>
+                        <Button
+                            btnTheme="primary"
+                            type="submit"
+                            disabled={!formik.dirty}
+                        >
+                            <FaCheck /> Salvar
+                        </Button>
+                    </Buttons>
                 </form>
             </Content>
         </Container>
