@@ -31,7 +31,7 @@ export const Content = styled.div`
     @media (min-width: 992px) {
         padding-left: 0;
         padding-right: 0;
-        width: 56rem;
+        width: 60rem;
         align-self: center;
     }
 `;
