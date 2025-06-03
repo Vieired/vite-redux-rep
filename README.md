@@ -54,3 +54,6 @@ yarn run dev
 
 ## Command To Firebase Deploy
 firebase deploy
+
+## Details
+Private project to organize the cleaning of board games.
