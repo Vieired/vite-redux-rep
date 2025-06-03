@@ -230,7 +230,7 @@ export const updateGame = createAsyncThunk(
     'jogos/updateGame',
     async (payload: Game) => {
         const gamesRef = doc(db, 'jogos', payload.id);
-        console.log("updateGame payload: ", payload);
+        // console.log("updateGame payload: ", payload);
         
         await updateDoc(gamesRef, {
             ...payload,
