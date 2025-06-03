@@ -56,4 +56,4 @@ yarn run dev
 firebase deploy
 
 ## Details
-Private project to organize the cleaning of board games.
+BG Limpo is a private project to organize the cleaning of board games.
