@@ -14,4 +14,11 @@ export const Container = styled.div`
     > nav {
         display: flex;
     }
+
+    @media (min-width: 992px) {
+        padding-left: 0;
+        padding-right: 0;
+        width: 900px;
+        align-self: center;
+    }
 `;

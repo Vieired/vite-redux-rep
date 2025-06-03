@@ -21,9 +21,12 @@ export const Container = styled.div`
         width: 100%;
     }
 
-    /* @media (max-width: 768px) {
-        
-    } */
+    @media (min-width: 992px) {
+        padding-left: 0;
+        padding-right: 0;
+        width: 900px;
+        align-self: center;
+    }
 `;
 
 export const Toolbar = styled.div`
