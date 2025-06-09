@@ -14,6 +14,7 @@ export const Container = styled.div`
 export const Content = styled.div`
     display: flex;
     flex-direction: column;
+    width: 100vh;
     gap: 2rem;
     padding: 1rem;
     color: #D9753B;
