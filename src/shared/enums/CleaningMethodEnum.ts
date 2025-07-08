@@ -6,6 +6,7 @@ export enum CleaningMethodEnum {
     Talc = 5,
     AiryInTheShade = 6,
     Sunbathing = 7,
+    BodoutSilicaApplication = 8,
 }
 
 export const getTypeList = (): {id: CleaningMethodEnum, name: string}[] => {
@@ -28,7 +29,8 @@ export const getTypeDescription = (value: CleaningMethodEnum): string => {
         4: 'Sanol',
         5: 'Talco',
         6: 'Arejado na Sombra',
-        7: 'Banho de Sol'
+        7: 'Banho de Sol',
+        8: 'Sílica Gel Bodout (40g)',
     };
 
     return data[value];
