@@ -55,5 +55,11 @@ yarn run dev
 ## Command To Firebase Deploy
 firebase deploy
 
+## Command To Build
+yarn build
+
+## Command To Run Tests
+yarn test
+
 ## Details
 BG Limpo is a private project to organize the cleaning of board games.
