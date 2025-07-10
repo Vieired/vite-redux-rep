@@ -13,6 +13,7 @@ import {
 import { toast } from 'react-toastify';
 import { Game, InitialStateGames } from '../shared/models/Games';
 import { CleaningMethodEnum } from '../shared/enums/CleaningMethodEnum';
+import { checkIfAuthenticationIsRequired } from '../shared/utils/auth';
 
 const gamesSlice = createSlice({
     name: 'games',
@@ -171,6 +172,9 @@ export default gamesSlice.reducer;
 export const fetchGames = createAsyncThunk('jogos/fetchGames', async (
     showOnlyActiveGamesFilter?: boolean
 ) => {
+
+    checkIfAuthenticationIsRequired();
+
     const gamesRef = collection(db, "jogos");
         const q = showOnlyActiveGamesFilter
             ? query(
@@ -216,6 +220,9 @@ export const updateCleaningDate = createAsyncThunk(
         id: string,
         methods: CleaningMethodEnum[] | null,
     }) => { // TODO: refatorar para usar a tipagem Game
+
+        checkIfAuthenticationIsRequired();
+
         const gamesRef = doc(db, 'jogos', payload.id);
         console.log("updateCleaningDate payload: ", payload);
         
@@ -229,6 +236,9 @@ export const updateCleaningDate = createAsyncThunk(
 export const updateGame = createAsyncThunk(
     'jogos/updateGame',
     async (payload: Game) => {
+        
+        checkIfAuthenticationIsRequired();
+
         const gamesRef = doc(db, 'jogos', payload.id);
         // console.log("updateGame payload: ", payload);
         
@@ -247,6 +257,9 @@ export const updateGame = createAsyncThunk(
 export const createGame = createAsyncThunk(
     'jogos/createGame',
     async (payload: Game) => {
+
+        checkIfAuthenticationIsRequired();
+
         const docRef = await addDoc(collection(db, 'jogos'), { // cria um registro na base e obtem o novo ID
             ...payload,
             // cleaning_date: payload.cleaning_date,

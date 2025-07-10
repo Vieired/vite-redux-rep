@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 // import reactLogo from './assets/react.svg'
 import { ToastContainer } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { signOut } from 'firebase/auth';
+import { auth } from './firebase/config';
 import './App.css'
 // import { useDispatch, useSelector } from 'react-redux';
 // import { RootState } from './store/stock';
@@ -9,8 +13,7 @@ import './App.css'
 import Games from './pages/Games';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
-import { useSelector } from 'react-redux';
-import { selectUsers } from './store/usersSlice';
+import { selectUsers, setUser } from './store/usersSlice';
 // import videoRep from './store';
 import GlobalStyle from "./styles/global";
 
@@ -21,6 +24,25 @@ function App() {
   // const [count, setCount] = useState(0)
 
   const user = useSelector(selectUsers);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+
+    const currentUser = localStorage?.getItem("user") && typeof(localStorage.getItem("user")) === "string"
+        ? JSON.parse(localStorage.getItem("user") as string)
+        : null;
+
+    if (new Date(currentUser?.stsTokenManager?.expirationTime) < new Date()) {
+        signOut(auth).then(() => {
+                // Signs out if the user's token is expired.
+                dispatch(setUser(null));
+                localStorage.clear();
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+  }, [dispatch]);
 
   return (
     <>
