@@ -13,7 +13,7 @@ export interface Game { // TODO: refatorar para deixar todas as props nullable, 
 export interface InitialStateGames {
     games: Game[];
     status: string;
-    limitInMonths: number;
+    limitInMonths: number | null;
     today: string;
     showOnlyActiveGamesFilter: boolean;
 }
@@ -23,4 +23,8 @@ export interface GameCleaning {
     name?: string;
     cleaning_date: string;
     methods: CleaningMethodEnum[] | null;
+}
+
+export interface Settings {
+    cleaningFrequency?: number;
 }

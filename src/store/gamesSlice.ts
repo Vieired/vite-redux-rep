@@ -20,7 +20,7 @@ const gamesSlice = createSlice({
     initialState: {
         games: [],
         status: 'idle',
-        limitInMonths: 6,
+        limitInMonths: null,
         today: new Date().toISOString().split("T")[0],
         showOnlyActiveGamesFilter: true,
     } as InitialStateGames,
@@ -76,6 +76,22 @@ const gamesSlice = createSlice({
             });
         })
         // #endregion - READ fetchGames ----------------------------------------
+
+        // #region - READ fetchSettings ------------------------------------------
+        .addCase(fetchSettings.pending, (state/*, action*/) => {
+            state.status = 'pending';
+        })
+        .addCase(fetchSettings.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            state.limitInMonths = action.payload as any;
+        })
+        .addCase(fetchSettings.rejected, (state, action) => {
+            state.status = 'failed'
+            const message = action.error.message ? "Falha ao tentar carregar as configurações." : 'Unknown Error'
+            toast.error(message, { toastId: "invalid-form-field" });
+        })
+        // #endregion - READ fetchSettings ----------------------------------------
 
         // #region - UPDATE updateCleaningDate --------------------------------
         .addCase(updateCleaningDate.fulfilled, (state/*, action*/) => {
@@ -284,3 +300,16 @@ export const createGame = createAsyncThunk(
         });
     }
 );
+
+export const fetchSettings = createAsyncThunk('configuracoes/fetchSettings', async () => {
+
+    checkIfAuthenticationIsRequired();
+
+    const settingsRef = collection(db, "configuracoes");
+        const q = query(settingsRef);
+
+    const querySnapshot = await getDocs(q);
+    const { cleaningFrequency } = querySnapshot.docs[0].data();
+
+    return cleaningFrequency
+});

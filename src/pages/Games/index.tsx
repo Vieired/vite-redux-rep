@@ -100,7 +100,18 @@ const Games: React.FC = () => {
                     </Button>
                 </nav>
                 <h2>BG Limpo</h2>
-                <small>{subtitle}</small>
+                <small>
+                    {limitInMonths ? (
+                        subtitle
+                    ) : (
+                        <Skeleton
+                            height={8}
+                            width={200}
+                            baseColor="#00000017"
+                            highlightColor="#00000047"
+                        />
+                    )}
+                </small>
                 <Toolbar>
                     <Button
                         btnTheme="primary"

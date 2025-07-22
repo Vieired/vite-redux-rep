@@ -14,6 +14,7 @@ import Games from './pages/Games';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
 import { selectUsers, setUser } from './store/usersSlice';
+import { fetchSettings } from './store/gamesSlice';
 // import videoRep from './store';
 import GlobalStyle from "./styles/global";
 
@@ -42,6 +43,11 @@ function App() {
                 console.log(error);
             });
     }
+  }, [dispatch]);
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dispatch(fetchSettings() as any);
   }, [dispatch]);
 
   return (
