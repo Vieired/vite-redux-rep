@@ -5,7 +5,7 @@ import { FaArrowLeft as LeftIcon, FaCheck } from 'react-icons/fa';
 import { useFormik } from "formik";
 import Button from "../../components/Inputs/Button";
 import { InitialStateGames } from "../../shared/models/Games";
-import { selectGames, setLimitInMonths } from "../../store/gamesSlice";
+import { fetchGames, fetchSettings, selectGames, updateSettings } from "../../store/gamesSlice";
 import InputNumber from "../../components/Inputs/InputNumber";
 import { Container, Content, Buttons } from "./styles";
 
@@ -15,11 +15,21 @@ const Settings: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const { showOnlyActiveGamesFilter } = useSelector(selectGames);
     const gamesStore = useSelector(selectGames) as InitialStateGames;
 
     const handleSubmit = (data: { limitInMonths: number }) => {
-        // TODO: futuramente, guardar este valor na base de dados
-        dispatch(setLimitInMonths(data.limitInMonths));
+
+        // dispatch(setLimitInMonths(data.limitInMonths));
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        dispatch(updateSettings({cleaningFrequency: data.limitInMonths}) as any)
+            .then(() => {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                dispatch(fetchGames(showOnlyActiveGamesFilter) as any);
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                dispatch(fetchSettings() as any);
+            })
 
         toast.success("Frequência de limpezas alterada com sucesso.", {
             toastId: "notification-message",

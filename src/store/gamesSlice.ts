@@ -11,7 +11,7 @@ import {
     where,
 } from 'firebase/firestore';
 import { toast } from 'react-toastify';
-import { Game, InitialStateGames } from '../shared/models/Games';
+import { Game, InitialStateGames, ISettings } from '../shared/models/Games';
 import { CleaningMethodEnum } from '../shared/enums/CleaningMethodEnum';
 import { checkIfAuthenticationIsRequired } from '../shared/utils/auth';
 
@@ -29,10 +29,10 @@ const gamesSlice = createSlice({
             // state.showOnlyActiveGamesFilter = !state.showOnlyActiveGamesFilter
             state.showOnlyActiveGamesFilter = action.payload
         },
-        setLimitInMonths: (state, action) => {
-            // TODO: futuramente, transformar em extraReducers para guardar este valor na base de dados
-            state.limitInMonths = action.payload
-        },
+        // setLimitInMonths: (state, action) => {
+        //     // TODO: futuramente, transformar em extraReducers para guardar este valor na base de dados
+        //     state.limitInMonths = action.payload
+        // },
         // updateCleaningDate: (jogos, action) => {
         //     jogos.games.map(game => {
         //         if (game.id === action.payload) {
@@ -173,7 +173,7 @@ const gamesSlice = createSlice({
 
 export const {
     toggleShowOnlyActiveGamesFilter,
-    setLimitInMonths,
+    // setLimitInMonths,
     // addGame,
     // eraseGame,
 } = gamesSlice.actions;
@@ -313,3 +313,18 @@ export const fetchSettings = createAsyncThunk('configuracoes/fetchSettings', asy
 
     return cleaningFrequency
 });
+
+export const updateSettings = createAsyncThunk('configuracoes/updateSettings',
+    async (payload: ISettings) => {
+        
+        checkIfAuthenticationIsRequired();
+
+        const settingsRef = doc(db, 'configuracoes', 'LihKQAjYOE7actonBESK');
+        // console.log("updateSettings payload: ", payload);
+        
+        await updateDoc(settingsRef, {
+            ...payload,
+            cleaningFrequency: payload.cleaningFrequency
+        })
+    }
+);

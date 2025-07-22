@@ -25,6 +25,6 @@ export interface GameCleaning {
     methods: CleaningMethodEnum[] | null;
 }
 
-export interface Settings {
+export interface ISettings {
     cleaningFrequency?: number;
 }
