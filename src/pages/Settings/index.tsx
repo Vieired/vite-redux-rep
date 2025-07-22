@@ -31,7 +31,7 @@ const Settings: React.FC = () => {
     const formik = useFormik({
         onSubmit: handleSubmit,
         initialValues: {
-            limitInMonths: gamesStore.limitInMonths
+            limitInMonths: gamesStore?.limitInMonths || 0
         },
     });
 
