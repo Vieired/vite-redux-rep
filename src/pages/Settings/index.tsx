@@ -50,7 +50,7 @@ const Settings: React.FC = () => {
             <Content>
                 <nav>
                     <Button
-                        btnTheme="secondary"
+                        btntheme="secondary"
                         onClick={() => navigate('/')}
                         title="Configurações"
                     >
@@ -68,7 +68,7 @@ const Settings: React.FC = () => {
                     />
                     <Buttons>
                         <Button
-                            btnTheme="primary"
+                            btntheme="primary"
                             type="submit"
                             disabled={!formik.dirty}
                         >

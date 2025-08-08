@@ -85,14 +85,14 @@ const Games: React.FC = () => {
             <Content>
                 <nav>
                     <Button
-                        btnTheme="quaternary"
+                        btntheme="quaternary"
                         onClick={() => navigate('/settings')}
                         title="Configurações"
                     >
                         <FaCog/>
                     </Button>
                     <Button
-                        btnTheme="quaternary"
+                        btntheme="quaternary"
                         onClick={handleSignOut}
                         title="Sair"
                     >
@@ -114,7 +114,7 @@ const Games: React.FC = () => {
                 </small>
                 <Toolbar>
                     <Button
-                        btnTheme="primary"
+                        btntheme="primary"
                         onClick={handleAddClick}
                         title="Adicionar jogo"
                         disabled={gamesStatus === "pending" || games?.length === 0}
@@ -122,7 +122,7 @@ const Games: React.FC = () => {
                         <FaPlus />
                     </Button>
                     <Button
-                        btnTheme="primary"
+                        btntheme="primary"
                         className={activeEdition ? "active" : ""}
                         onClick={handleEnableEditingClick}
                         title="Editar um jogo"

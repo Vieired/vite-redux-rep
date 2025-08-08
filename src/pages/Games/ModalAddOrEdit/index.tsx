@@ -233,12 +233,12 @@ const ModalAddOrEdit: React.FC<Props> = ({
           </ModalBody>
           <ModalFooter>
             <Buttons>
-              <Button onClick={toggleModal} btnTheme="secondary">
+              <Button onClick={toggleModal} btntheme="secondary">
                 Cancelar
               </Button>
               <Button
                 type="submit"
-                btnTheme="primary"
+                btntheme="primary"
                 form="hookform"
                 // disabled={getLoadingState()}
               >

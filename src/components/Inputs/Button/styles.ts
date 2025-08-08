@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 interface Props {
-    btnTheme: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'link';
+    btntheme: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'link';
     // bigSize?: boolean;
 }
 
@@ -17,7 +17,7 @@ export const Container = styled.button<Props>`
     /* width: 100%; */
 
     ${prop => {
-        if (prop?.btnTheme === 'primary') {
+        if (prop?.btntheme === 'primary') {
             return css<Props>`
                 background-color: var(--gray1);
                 background: #ABC106;
@@ -48,7 +48,7 @@ export const Container = styled.button<Props>`
             `;
         }
         
-        if (prop?.btnTheme === 'secondary') {
+        if (prop?.btntheme === 'secondary') {
             return css<Props>`
                 /* margin: 8px 0; */
                 background-color: #FFF;
@@ -82,7 +82,7 @@ export const Container = styled.button<Props>`
             `;
         }
 
-        if (prop?.btnTheme === 'tertiary') {
+        if (prop?.btntheme === 'tertiary') {
             return css<Props>`
                 background-color: var(--gray6);
                 border: 2px solid var(--gray3B);
@@ -112,7 +112,7 @@ export const Container = styled.button<Props>`
             `;
         }
 
-        if (prop?.btnTheme === 'quaternary') {
+        if (prop?.btntheme === 'quaternary') {
             return css<Props>`
                 padding: 4px 16px;
                 color: inherit;
@@ -154,7 +154,7 @@ export const Container = styled.button<Props>`
     }}
 
     ${props => {
-        if (props?.btnTheme === 'link') {
+        if (props?.btntheme === 'link') {
             return css<Props>`
                 padding: 10px;
                 background-color: transparent;

@@ -77,7 +77,7 @@ const Login: React.FC = () => {
                     />
                     <Button
                         type="submit"
-                        btnTheme="primary"
+                        btntheme="primary"
                         // disabled={checkDisabledSubmit()}
                     >
                         Entrar
