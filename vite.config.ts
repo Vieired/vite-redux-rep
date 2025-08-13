@@ -1,6 +1,9 @@
+/// <reference types="vitest"/>
+
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
 import { defineConfig as defineVitestConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+import path from "path";
 
 const viteConfig = defineViteConfig({
   plugins: [react()],
@@ -11,7 +14,14 @@ const vitestConfig = defineVitestConfig({
     globals: true,
     environment: "jsdom",
     // setupFiles: "./vitest-setup.js",
+    include: ["src/**/*.test.tsx"],
+    coverage: {
+      reporter: ['text', 'html', 'clover', 'json'],
+    }
   },
+  resolve: {
+    alias: [{ find: "@", replacement: path.resolve(__dirname, "./src") }],
+  }
 });
 
 export default mergeConfig(viteConfig, vitestConfig);
