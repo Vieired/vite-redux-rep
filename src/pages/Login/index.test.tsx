@@ -10,7 +10,7 @@ import Login from '.';
 import { Provider } from 'react-redux';
 import store from '../../store/store';
 
-describe("Games", () => {
+describe("Testa a página Login", () => {
 
     it('Deveria renderizar "Login" no componente Login', async () => {
 

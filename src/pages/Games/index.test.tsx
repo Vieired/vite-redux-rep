@@ -1,44 +1,48 @@
 import '@testing-library/jest-dom/vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import {
     describe,
     expect,
-    it,
-    // test,
+    test,
+    vi,
 } from 'vitest' ;
-import Test from '../../components/Test';
 import { Provider } from 'react-redux';
 import store from '../../store/store';
-// import Games from '.';
+import Games from '.';
 
-describe("Games", () => {
 
-    it('Deveria renderizar "Teste!" no componente Test', async () => {
+const navigateMock = vi.fn();
+
+describe("Testa a página Games", () => {
+
+    vi.mock('react-router-dom', () => ({
+        useNavigate() {
+            return navigateMock;
+        }
+    }));
+
+    test('Deveria renderizar o título "BG Limpo"', () => {
 
         render(
             <Provider store={store}>
-                <Test />
+                <Games/>
             </Provider>
         );
 
-        expect(screen.getByText("Teste!")).toBeInTheDocument();
+        expect(screen.getByText("BG Limpo")).toBeInTheDocument();
     })
 
-    // test('Deveria renderizar "BG Limpo" na tela inicial da aplicação', () => {
+    test('Deveria ir para a tela de Configurações ao pressionar o botão Configurações', async () => {
 
-    //     // const mockStore = configureStore([]); // Create a mock store
-    //     // const store = configureStore({
-    //     //     reducer: {
-    //     //         games: gamesReducer,
-    //     //     },
-    //     // });        
+        render(
+            <Provider store={store}>
+                <Games/>
+            </Provider>
+        );
 
-    //     render(
-    //         <Provider store={store}>
-    //             <Games/>
-    //         </Provider>
-    //     );
+        const button = await screen.findByTestId('config');
+        fireEvent.click(button);
 
-    //     expect(screen.getByText("BG Limpo")).toBeInTheDocument();
-    // })
+        expect(navigateMock).toHaveBeenCalledTimes(1);
+    });
 });

@@ -88,6 +88,7 @@ const Games: React.FC = () => {
                         btntheme="quaternary"
                         onClick={() => navigate('/settings')}
                         title="Configurações"
+                        data-testid="config"
                     >
                         <FaCog/>
                     </Button>

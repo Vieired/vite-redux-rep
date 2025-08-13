@@ -39,7 +39,7 @@ const ModalCleaning: React.FC<Props> = ({
 }) => {
 
   // const element = document.createElement("div");
-  ReactModal.setAppElement('#root');
+  // ReactModal.setAppElement('#root');
   const dispatch = useDispatch();
 
   const today = new Date().toISOString().split("T")[0];
