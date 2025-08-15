@@ -1,7 +1,7 @@
 /// <reference types="vitest"/>
 
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
-import { defineConfig as defineVitestConfig } from 'vitest/config';
+import { configDefaults, defineConfig as defineVitestConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import path from "path";
 
@@ -17,6 +17,22 @@ const vitestConfig = defineVitestConfig({
     include: ["src/**/*.test.tsx"],
     coverage: {
       reporter: ['text', 'html', 'clover', 'json'],
+      exclude: configDefaults?.coverage?.exclude
+        ? [
+          ...configDefaults.coverage.exclude,
+          "src/store",
+          "src/styles",
+          "src/components/Test",
+          "src/components/Video",
+          "src/components/SideBar",
+          "src/pages/Learn",
+          "src/shared/helpers",
+          "src/shared/models",
+          "src/shared/models/domain",
+          "src/shared/utils",
+          "src/shared/enums",
+        ]
+        : []
     }
   },
   resolve: {
