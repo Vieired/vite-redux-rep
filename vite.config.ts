@@ -25,6 +25,7 @@ const vitestConfig = defineVitestConfig({
           "src/components/Test",
           "src/components/Video",
           "src/components/SideBar",
+          "src/components/*/*/styles.ts",
           "src/pages/Learn",
           "src/shared/helpers",
           "src/shared/models",
