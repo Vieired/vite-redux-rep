@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaPlus, FaPen, FaPowerOff, FaCog } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
@@ -15,9 +16,8 @@ import ModalCleaning from "./ModalCleaning/index.tsx";
 import Card from "./Card/index.tsx";
 import { auth } from "../../firebase/config.ts"
 import { signOut } from "firebase/auth";
-import { setUser } from "../../store/usersSlice.ts";
+import { selectUsers, setUser } from "../../store/usersSlice.ts";
 import { Container, Content, Loading, Toolbar } from "./styles";
-import { useNavigate } from "react-router-dom";
 
 const Games: React.FC = () => {
 
@@ -26,8 +26,9 @@ const Games: React.FC = () => {
     const {
         games,
         limitInMonths,
-        showOnlyActiveGamesFilter
+        showOnlyActiveGamesFilter,
     } = useSelector(selectGames) as InitialStateGames;
+    const user = useSelector(selectUsers);
     const navigate = useNavigate();
 
     const subtitle = `Frequência de limpezas: ${limitInMonths} meses`;
@@ -78,7 +79,9 @@ const Games: React.FC = () => {
         dispatch(fetchGames(showOnlyActiveGamesFilter) as any);
     }, [dispatch, showOnlyActiveGamesFilter]);
 
-    useEffect(() => refreshGames(), [refreshGames]);
+    useEffect(() => {
+        if (user?.currentUser) refreshGames()
+    }, [refreshGames, user?.currentUser]);
 
     return (
         <Container>
