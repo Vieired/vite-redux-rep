@@ -54,7 +54,9 @@ yarn run dev
 
 ## Command To Run Tests
 yarn test
+
 Or
+
 yarn test --coverage --coverage.enabled=true --ui
 
 ## Command To Firebase Deploy
