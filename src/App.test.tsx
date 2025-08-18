@@ -1,23 +1,23 @@
 import '@testing-library/jest-dom/vitest';
 import { render, screen } from '@testing-library/react';
 import {
-    describe,
+    // describe,
     expect,
-    it,
+    // it,
     test
 } from 'vitest' ;
 import Button from './components/Inputs/Button';
 // import Games from './pages/Games';
 
-describe('something truthy and falsy', () => {
-  it('true to be true', () => {
-    expect(true).toBe(true);
-  });
+// describe('something truthy and falsy', () => {
+//   it('true to be true', () => {
+//     expect(true).toBe(true);
+//   });
 
-  it('false to be false', () => {
-    expect(false).toBe(false);
-  });
-});
+//   it('false to be false', () => {
+//     expect(false).toBe(false);
+//   });
+// });
 
 test('Deveria renderizar um botão com rótulo "Entrar"', () => {
 
