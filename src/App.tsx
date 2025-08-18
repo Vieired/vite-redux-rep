@@ -46,9 +46,11 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dispatch(fetchSettings() as any);
-  }, [dispatch]);
+    if (user?.currentUser) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      dispatch(fetchSettings() as any);
+    }
+  }, [dispatch, user?.currentUser]);
 
   return (
     <>

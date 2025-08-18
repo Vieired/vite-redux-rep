@@ -16,7 +16,7 @@ import ModalCleaning from "./ModalCleaning/index.tsx";
 import Card from "./Card/index.tsx";
 import { auth } from "../../firebase/config.ts"
 import { signOut } from "firebase/auth";
-import { selectUsers, setUser } from "../../store/usersSlice.ts";
+import { setUser } from "../../store/usersSlice.ts";
 import { Container, Content, Loading, Toolbar } from "./styles";
 
 const Games: React.FC = () => {
@@ -28,7 +28,6 @@ const Games: React.FC = () => {
         limitInMonths,
         showOnlyActiveGamesFilter,
     } = useSelector(selectGames) as InitialStateGames;
-    const user = useSelector(selectUsers);
     const navigate = useNavigate();
 
     const subtitle = `Frequência de limpezas: ${limitInMonths} meses`;
@@ -79,9 +78,7 @@ const Games: React.FC = () => {
         dispatch(fetchGames(showOnlyActiveGamesFilter) as any);
     }, [dispatch, showOnlyActiveGamesFilter]);
 
-    useEffect(() => {
-        if (user?.currentUser) refreshGames()
-    }, [refreshGames, user?.currentUser]);
+    useEffect(() => refreshGames(), [refreshGames]);
 
     return (
         <Container>
