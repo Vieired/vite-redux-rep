@@ -52,14 +52,16 @@ export default tseslint.config({
 ## Command To Run Application
 yarn run dev
 
+## Command To Run Tests
+yarn test
+Or
+yarn test --coverage --coverage.enabled=true --ui
+
 ## Command To Firebase Deploy
 firebase deploy
 
 ## Command To Build
 yarn build
-
-## Command To Run Tests
-yarn test
 
 ## Details
 BG Limpo is a private project to organize the cleaning of board games.
