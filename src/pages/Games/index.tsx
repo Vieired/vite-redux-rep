@@ -88,7 +88,7 @@ const Games: React.FC = () => {
                         btntheme="quaternary"
                         onClick={() => navigate('/settings')}
                         title="Configurações"
-                        data-testid="config"
+                        data-testid="tl-configButton"
                     >
                         <FaCog/>
                     </Button>
@@ -119,6 +119,7 @@ const Games: React.FC = () => {
                         onClick={handleAddClick}
                         title="Adicionar jogo"
                         disabled={gamesStatus === "pending" || games?.length === 0}
+                        data-testid="tl-addGameButton"
                     >
                         <FaPlus />
                     </Button>

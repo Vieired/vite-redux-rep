@@ -40,7 +40,7 @@ describe("Testa a página Games", () => {
             </Provider>
         );
 
-        const button = await screen.findByTestId('config');
+        const button = await screen.findByTestId('tl-configButton');
         fireEvent.click(button);
 
         expect(navigateMock).toHaveBeenCalledTimes(1);
