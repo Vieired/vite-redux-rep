@@ -88,10 +88,30 @@ const gamesSlice = createSlice({
         })
         .addCase(fetchSettings.rejected, (state, action) => {
             state.status = 'failed'
-            const message = action.error.message ? "Falha ao tentar carregar as configurações." : 'Unknown Error'
+            const message = action.error.message
+                ? "Falha ao tentar carregar as configurações."
+                : 'Unknown Error';
             toast.error(message, { toastId: "invalid-form-field" });
         })
         // #endregion - READ fetchSettings ----------------------------------------
+
+        // #region - UPDATE updateSettings ------------------------------------------
+        .addCase(updateSettings.pending, (state/*, action*/) => {
+            state.status = 'pending';
+        })
+        .addCase(updateSettings.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.limitInMonths = action?.meta?.arg?.cleaningFrequency || null;
+            // state.limitInMonths = action.payload as any;
+        })
+        .addCase(updateSettings.rejected, (state, action) => {
+            state.status = 'failed'
+            const message = action.error.message
+                ? "Falha ao tentar atualizar as configurações."
+                : 'Unknown Error';
+            toast.error(message, { toastId: "invalid-form-field" });
+        })
+        // #endregion - UPDATE updateSettings ----------------------------------------
 
         // #region - UPDATE updateCleaningDate --------------------------------
         .addCase(updateCleaningDate.fulfilled, (state/*, action*/) => {

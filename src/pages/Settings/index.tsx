@@ -5,7 +5,7 @@ import { FaArrowLeft as LeftIcon, FaCheck } from 'react-icons/fa';
 import { useFormik } from "formik";
 import Button from "../../components/Inputs/Button";
 import { InitialStateGames } from "../../shared/models/Games";
-import { fetchGames, fetchSettings, selectGames, updateSettings } from "../../store/gamesSlice";
+import { fetchGames, selectGames, updateSettings } from "../../store/gamesSlice";
 import InputNumber from "../../components/Inputs/InputNumber";
 import { Container, Content, Buttons } from "./styles";
 
@@ -27,8 +27,7 @@ const Settings: React.FC = () => {
             .then(() => {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 dispatch(fetchGames(showOnlyActiveGamesFilter) as any);
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                dispatch(fetchSettings() as any);
+                // dispatch(fetchSettings() as any);
             })
 
         toast.success("Frequência de limpezas alterada com sucesso.", {
