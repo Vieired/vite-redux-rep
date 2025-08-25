@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { db } from '../firebase/config';
 import {
     collection,
@@ -25,7 +25,7 @@ const gamesSlice = createSlice({
         showOnlyActiveGamesFilter: true,
     } as InitialStateGames,
     reducers: {
-        toggleShowOnlyActiveGamesFilter: (state, action) => {
+        toggleShowOnlyActiveGamesFilter: (state, action: PayloadAction<boolean>) => {
             // state.showOnlyActiveGamesFilter = !state.showOnlyActiveGamesFilter
             state.showOnlyActiveGamesFilter = action.payload
         },
