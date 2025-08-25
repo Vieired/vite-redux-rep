@@ -4,8 +4,7 @@ import { Provider } from "react-redux";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import Settings from ".";
 import { configureStore } from '@reduxjs/toolkit';
-import gamesReducer from "../../store/gamesSlice";
-import { updateSettings } from "../../store/gamesSlice";
+import gamesReducer, { updateSettings } from "../../store/gamesSlice";
 import { ISettings } from '../../shared/models/Games';
 
 
