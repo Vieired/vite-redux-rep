@@ -30,7 +30,8 @@ export const getTypeDescription = (value: CleaningMethodEnum): string => {
         5: 'Talco',
         6: 'Arejado na Sombra',
         7: 'Banho de Sol',
-        8: 'Sílica Gel Bodout (40g)',
+        8: 'Sílica Gel Regenerável Bodout (40g)',
+        9: 'Sílica Gel Seca Pax (1g)',
     };
 
     return data[value];
