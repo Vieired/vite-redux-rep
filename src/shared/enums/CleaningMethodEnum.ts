@@ -7,6 +7,7 @@ export enum CleaningMethodEnum {
     AiryInTheShade = 6,
     Sunbathing = 7,
     BodoutSilicaApplication = 8,
+    SecaPaxSilicaApplication = 9,
 }
 
 export const getTypeList = (): {id: CleaningMethodEnum, name: string}[] => {
