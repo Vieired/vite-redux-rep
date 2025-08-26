@@ -25,7 +25,7 @@ const navigateMock = vi.fn();
 
 describe("Testa página de Configurações", () => {
 
-  let store: ReturnType<typeof configureStore>;
+    let store: ReturnType<typeof configureStore>;
 
     beforeEach(() => {
         store = configureStore({
