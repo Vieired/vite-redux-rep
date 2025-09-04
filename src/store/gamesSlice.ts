@@ -67,10 +67,10 @@ const gamesSlice = createSlice({
             state.games = action.payload;
             // state.games = (action.payload) as never[];
         })
-        .addCase(fetchGames.rejected, (state, action) => {
+        .addCase(fetchGames.rejected, (state/*, action*/) => {
             state.status = 'failed'
             // state.error = action.error.message ?? 'Unknown Error'
-            console.log(action.error.message ?? 'Unknown Error');
+            // console.log(action.error.message ?? 'Unknown Error');
             toast.error("Falha ao tentar carregar os jogos.", {
                 toastId: "invalid-form-field",
             });
