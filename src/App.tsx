@@ -17,12 +17,21 @@ import { selectUsers, setUser } from './store/usersSlice';
 import { fetchSettings } from './store/gamesSlice';
 // import videoRep from './store';
 import GlobalStyle from "./styles/global";
+// import ReactModal from 'react-modal';
 
 
 function App() {
   // const dispatch = useDispatch();
   // const stock = useSelector(selectStock);
   // const [count, setCount] = useState(0)
+  // ReactModal.setAppElement('#root');
+  // ReactModal.setAppElement(document.body);
+  // ReactModal.setAppElement(document.createElement("div"));
+  // ReactModal.setAppElement('.ReactModalPortal');
+  // ReactModal.setAppElement('#body');
+  // Modal.setAppElement('body');
+  // Modal.setAppElement('#root');
+  // ReactModal.setAppElement("#root");
 
   const user = useSelector(selectUsers);
 

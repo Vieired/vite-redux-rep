@@ -47,6 +47,12 @@ const ModalAddOrEdit: React.FC<Props> = ({
 
   // const element = document.createElement("div");
   // ReactModal.setAppElement('#root');
+  // ReactModal.setAppElement(document.createElement("div"));
+  // ReactModal.setAppElement('.ReactModalPortal');
+  // Modal.setAppElement('body');
+  // Modal.setAppElement('.ReactModalPortal');
+  // Modal.setAppElement('#root');
+
   const dispatch = useDispatch();
 
   const today = new Date().toISOString().split("T")[0];
@@ -142,6 +148,9 @@ const ModalAddOrEdit: React.FC<Props> = ({
         // appElement={element}
         onRequestClose={toggleModal}
         onAfterClose={handleAfterClose}
+        // overlayClassName="modal-overlay"
+        // ariaHideApp={false} // se não usar ReactModal.setAppElement("#root")
+        // parentSelector={() => document.body}
         style={{
           content: {
             top: "50%",
