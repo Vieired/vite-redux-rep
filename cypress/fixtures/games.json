@@ -1,0 +1,20 @@
+[
+  {
+    "id": "nQlQ63g8sD96FdSivLF8",
+    "name": "Power Grid Brasil/Espanha & Portugal",
+    "methods": [3],
+    "isActive": true,
+    "cleaning_method": 1,
+    "photoUrl": "https://storage.googleapis.com/ludopedia-capas/2812_t.jpg",
+    "cleaning_date": "2025-03-09T16:53:04.507Z"
+  },
+  {
+    "id": "RVRPZO7sGk9BTU966Voa",
+    "name": "Terraforming Mars",
+    "methods": [3, 4],
+    "isActive": true,
+    "cleaning_method": 1,
+    "photoUrl": "https://storage.googleapis.com/ludopedia-capas/8858_t.jpg",
+    "cleaning_date": "2025-04-12T14:30:26.713Z"
+  }
+]
