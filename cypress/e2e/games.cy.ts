@@ -165,4 +165,18 @@ describe('Testa a página principal de jogos', () => {
   //   cy.wait("@getJogos");
   //   cy.contains("Power Grid").should("exist");
   // });
+
+  it('Deveria adicionar um novo jogo', () => {
+
+    cy.visit("/");
+    cy.get('#email').type("logominus@gmail.com");
+    cy.get('#password').type("logominus@gmail.com");
+    cy.contains("Entrar").click();
+
+    cy.get("button[title='Adicionar jogo']").click();
+    cy.get('#name').type(`Teste E2E ${new Date().toISOString()}`);
+    cy.contains("Salvar").click();
+
+    cy.contains(`Teste E2E ${new Date().toISOString()}`).should("exist");
+  });
 })
