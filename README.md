@@ -53,11 +53,13 @@ export default tseslint.config({
 yarn run dev
 
 ## Command To Run Tests
+### Unitary
 yarn test
-
 Or
-
 yarn test --coverage --coverage.enabled=true --ui
+
+### E2E
+yarn cypress open
 
 ## Command To Firebase Deploy
 firebase deploy
