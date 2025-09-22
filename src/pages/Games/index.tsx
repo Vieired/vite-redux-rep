@@ -14,8 +14,7 @@ import Button from "../../components/Inputs/Button/index";
 import ModalAddOrEdit from "./ModalAddOrEdit/index";
 import ModalCleaning from "./ModalCleaning/index.tsx";
 import Card from "./Card/index.tsx";
-import { auth } from "../../firebase/config.ts"
-import { signOut } from "firebase/auth";
+import { firebaseAuth } from "../../services/authService.ts";
 import { setUser } from "../../store/usersSlice.ts";
 import { Container, Content, Loading, Toolbar } from "./styles";
 
@@ -51,7 +50,7 @@ const Games: React.FC = () => {
     };
 
     const handleSignOut = () => {
-        signOut(auth).then(() => {
+        firebaseAuth.signOut().then(() => {
                 // Sign-out successful.
                 dispatch(setUser(null));
                 localStorage.clear();

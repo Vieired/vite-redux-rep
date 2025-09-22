@@ -3,8 +3,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 // import reactLogo from './assets/react.svg'
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { signOut } from 'firebase/auth';
-import { auth } from './firebase/config';
+import { firebaseAuth } from './services/authService';
 import './App.css'
 // import { useDispatch, useSelector } from 'react-redux';
 // import { RootState } from './store/stock';
@@ -44,7 +43,7 @@ function App() {
         : null;
 
     if (new Date(currentUser?.stsTokenManager?.expirationTime) < new Date()) {
-        signOut(auth).then(() => {
+        firebaseAuth.signOut().then(() => {
                 // Signs out if the user's token is expired.
                 dispatch(setUser(null));
                 localStorage.clear();

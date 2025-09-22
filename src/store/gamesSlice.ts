@@ -1,15 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { db } from '../firebase/config';
-import {
-    collection,
-    query,
-    doc,
-    getDocs,
-    updateDoc,
-    addDoc,
-    orderBy,
-    where,
-} from 'firebase/firestore';
+import { firebaseDb } from '../services/gameService';
 import { toast } from 'react-toastify';
 import { Game, InitialStateGames, ISettings } from '../shared/models/Games';
 import { CleaningMethodEnum } from '../shared/enums/CleaningMethodEnum';
@@ -210,6 +200,14 @@ export const fetchGames = createAsyncThunk('jogos/fetchGames', async (
 ) => {
 
     checkIfAuthenticationIsRequired();
+    
+    return await firebaseDb.fetchGames(showOnlyActiveGamesFilter);
+});
+/*export const fetchGames = createAsyncThunk('jogos/fetchGames', async (
+    showOnlyActiveGamesFilter?: boolean
+) => {
+
+    checkIfAuthenticationIsRequired();
 
     const gamesRef = collection(db, "jogos");
         const q = showOnlyActiveGamesFilter
@@ -228,7 +226,7 @@ export const fetchGames = createAsyncThunk('jogos/fetchGames', async (
                 orderBy("__name__"),
             );
 
-    const querySnapshot = await getDocs(q);
+    const querySnapshot = await fetchDocs(q);
     const gameList: Game[] = [];
     querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
@@ -248,9 +246,21 @@ export const fetchGames = createAsyncThunk('jogos/fetchGames', async (
     // });
 
     return gameList
-});
+});*/
 
 export const updateCleaningDate = createAsyncThunk(
+    'jogos/updateCleaningDate',
+    async (payload: {
+        id: string,
+        methods: CleaningMethodEnum[] | null,
+    }) => { // TODO: refatorar para usar a tipagem Game
+
+        checkIfAuthenticationIsRequired();
+
+        return await firebaseDb.updateCleaningDate(payload);
+    }
+);
+/*export const updateCleaningDate = createAsyncThunk(
     'jogos/updateCleaningDate',
     async (payload: {
         id: string,
@@ -267,9 +277,18 @@ export const updateCleaningDate = createAsyncThunk(
             methods: payload.methods,
         });
     }
-);
+);*/
 
 export const updateGame = createAsyncThunk(
+    'jogos/updateGame',
+    async (payload: Game) => {
+        
+        checkIfAuthenticationIsRequired();
+
+        return await firebaseDb.updateGame(payload)
+    }
+);
+/*export const updateGame = createAsyncThunk(
     'jogos/updateGame',
     async (payload: Game) => {
         
@@ -288,9 +307,18 @@ export const updateGame = createAsyncThunk(
             photoUrl: payload.photoUrl,
         })
     }
-);
+);*/
 
 export const createGame = createAsyncThunk(
+    'jogos/createGame',
+    async (payload: Game) => {
+
+        checkIfAuthenticationIsRequired();
+
+        return await firebaseDb.createGame(payload);
+    }
+);
+/*export const createGame = createAsyncThunk(
     'jogos/createGame',
     async (payload: Game) => {
 
@@ -319,23 +347,35 @@ export const createGame = createAsyncThunk(
             photoUrl: payload?.photoUrl || "",
         });
     }
-);
+);*/
 
 export const fetchSettings = createAsyncThunk('configuracoes/fetchSettings', async () => {
 
     checkIfAuthenticationIsRequired();
 
-    const settingsRef = collection(db, "configuracoes");
-        const q = query(settingsRef);
+    return await firebaseDb.fetchSettings();
+});
+/*export const fetchSettings = createAsyncThunk('configuracoes/fetchSettings', async () => {
 
-    const querySnapshot = await getDocs(q);
+    checkIfAuthenticationIsRequired();
+
+    const settingsRef = collection(db, "configuracoes");
+    const q = query(settingsRef);
+
+    const querySnapshot = await fetchDocs(q);
     const { cleaningFrequency } = querySnapshot.docs[0].data();
 
     return cleaningFrequency
-});
+});*/
 
-export const updateSettings = createAsyncThunk('configuracoes/updateSettings',
-    async (payload: ISettings) => {
+export const updateSettings = createAsyncThunk('configuracoes/updateSettings', async (payload: ISettings) => {
+        
+        checkIfAuthenticationIsRequired();
+
+        return await firebaseDb.updateSettings(payload);
+    }
+);
+/*export const updateSettings = createAsyncThunk('configuracoes/updateSettings', async (payload: ISettings) => {
         
         checkIfAuthenticationIsRequired();
 
@@ -347,4 +387,4 @@ export const updateSettings = createAsyncThunk('configuracoes/updateSettings',
             cleaningFrequency: payload.cleaningFrequency
         })
     }
-);
+);*/

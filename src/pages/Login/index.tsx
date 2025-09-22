@@ -1,10 +1,9 @@
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/usersSlice";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { firebaseAuth } from "../../services/authService";
 import { Auth } from "../../shared/models/domain/Auth";
 import { toast } from "react-toastify";
-import { auth } from "../../firebase/config";
 import Input from "../../components/Inputs/Input";
 import Button from "../../components/Inputs/Button";
 import { Container } from "./styles";
@@ -16,7 +15,7 @@ const Login: React.FC = () => {
     
     const handleSubmit = (data: Auth) => {
 
-        signInWithEmailAndPassword(auth, data.email, data.password)
+        firebaseAuth.signIn(data.email, data.password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
